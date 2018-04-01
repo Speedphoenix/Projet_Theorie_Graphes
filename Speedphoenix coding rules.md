@@ -63,7 +63,8 @@ Exemple de bon code:
 	      a = quelque chose +
 	          autre chose;
 	  }
-  >'long' est subjectif. Généralement les développeurs disent 80 caractères. Un bon signe d'une ligne trop longue est lorsqu'il faut quelques instants pour retrouver la bonne ligne quand on déplace les yeux de là ou on est en train d'écrire aux caractères à gauche de la ligne  
+  >'long' est subjectif. Généralement les développeurs disent 80 caractères.  
+  >Un bon signe d'une ligne trop longue est lorsqu'il faut quelques instants pour retrouver la bonne ligne quand on déplace les yeux de là ou on est en train d'écrire aux caractères à gauche de la ligne  
 
 - Lorsque possible, ne pas faire de trop longues fonctions.
   > - Généralement, au dessus de 50 lignes faut considérer la diviser, ou mettre des bouts en méthode / sous programme.
@@ -78,9 +79,7 @@ Les commentaires de documentions permettent après, dans la complétion de code 
 > sont aussi acceptables les autres styles (que `///`) de doc pour Doxygen  
 
 #### Plus généralement, utiliser [la documentation de Doxygen](https://sourceforge.net/projects/doxygen/)  
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODQxMjg0NDNdfQ==
--->
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbMTU0NDk1MzYwNV19
+eyJoaXN0b3J5IjpbODk1MTUxMzQ3XX0=
 -->
