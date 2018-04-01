@@ -47,7 +47,10 @@ trello - backlog
 
 
 ## Commandes Git à retenir
+### En local
+
+### Entre local et server
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTE3ODY0MzYyMF19
+eyJoaXN0b3J5IjpbLTU2MDI3Mzc0MV19
 -->
