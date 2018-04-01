@@ -69,8 +69,9 @@ Par exemple avant le déjeuner, ou le soir
 |commande|descriptions|exemples|
 |---|---|---|
 |`git fetch`|||
+||||
 |`git pull`|||
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjAxNTU3Mjg2Ml19
+eyJoaXN0b3J5IjpbLTY2NjU3OTYwNF19
 -->
