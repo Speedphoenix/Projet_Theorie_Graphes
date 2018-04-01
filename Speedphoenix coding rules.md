@@ -43,11 +43,10 @@ Les commentaires de documentions permettent après, dans la complétion de code 
 ## Dans le développement d'un projet
 stand up
 trello - backlog
-doxygen
 
 
 ## Commandes Git à retenir
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3MzE4MzU3NDRdfQ==
+eyJoaXN0b3J5IjpbLTIxMTQ4ODg1MjJdfQ==
 -->
