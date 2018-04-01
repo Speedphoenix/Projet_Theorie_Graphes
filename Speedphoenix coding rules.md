@@ -46,6 +46,7 @@ Les commentaires de documentions permettent après, dans la complétion de code 
 ### Todo list
 trello - backlog
 
+### Versioning
 
 ## Commandes Git à retenir
 ### En local
@@ -53,5 +54,5 @@ trello - backlog
 ### Entre local et server
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTI1MzMxNDM2Ml19
+eyJoaXN0b3J5IjpbMTQ5MzYyNDMwN119
 -->
