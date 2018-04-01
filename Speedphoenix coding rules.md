@@ -37,6 +37,9 @@ Faire un commentaire de documentation (avec `/// au lieu de //`) expliquant son 
 
 Les commentaires de documentions permettent après, dans la complétion de code d'avoir la description avec.  
 > sont aussi acceptables les autres styles (que `///`) de doc pour Doxygen  
+
+#### Plus généralement   
+
 ## Dans le développement d'un projet
 stand up
 trello - backlog
@@ -46,5 +49,5 @@ doxygen
 ## Commandes Git à retenir
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTg1MDk2NTY4Ml19
+eyJoaXN0b3J5IjpbNzY1MTQ3MjI3XX0=
 -->
