@@ -17,22 +17,22 @@ Par exemple avant le déjeuner, ou le soir
 ### En local
 Pour les conflits, et les merge de différentes "grosses" branches, je conseille de le faire graphiquement depuis github.com
 
-|commande|descriptions|exemples|
-|---|---|---|
-|`git add`|Ajoute tous les changements des fichiers en paramètre au prochain commit|`git add ./* pour tout ajouter`|
-|`git commit -m "title" -m "message"`|Fait un commit des changements||
-|`git status`|Liste les fichiers modifiés etc||
-|`git checkout -b [une branche]`|pour créer et se mettre dans une branche||
-|`git checkout [une branche]`|Pour se mettre dans une branche||
-|`git branch`|Liste les branches||
-|`git merge [une branche]`|Fusionne une branche avec la branche active||
-|`git diff`|Voir tous les conflits||
+|commande|descriptions|
+|---|---|
+|`git add`|Ajoute tous les changements des fichiers en paramètre au prochain commit|
+|`git commit -m "title" -m "message"`|Fait un commit des changements|
+|`git status`|Liste les fichiers modifiés etc|
+|`git checkout -b [une branche]`|pour créer et se mettre dans une branche|
+|`git checkout [une branche]`|Pour se mettre dans une branche|
+|`git branch`|Liste les branches|
+|`git merge [une branche]`|Fusionne une branche avec la branche active|
+|`git diff`|Voir tous les conflits|
 
 ### Entre local et server
 
-|commande|descriptions|exemples|
-|---|---|---|
-|`git fetch`|Télécharge tous les changements depuis le server (mais ne les applique pas)||
+|commande|descriptions|
+|---|---|
+|`git fetch`|Télécharge tous les changements depuis le server (mais ne les applique pas)|
 |`git pull`|Télécharge et fusionne tous les changement||
 |`git push origin [une branche]`|Envoie les changements d'une certaine branche à la repo distante||
 |`git push --all origin`|Envoie tous les changements à la répo distante||
@@ -82,5 +82,5 @@ Les commentaires de documentions permettent après, dans la complétion de code 
 eyJoaXN0b3J5IjpbODQxMjg0NDNdfQ==
 -->
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzA5MjM0MzExXX0=
+eyJoaXN0b3J5IjpbMzI1MTYwMDA5XX0=
 -->
