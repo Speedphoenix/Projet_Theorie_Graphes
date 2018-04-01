@@ -50,7 +50,7 @@ trello - backlog
 Par exemple avant le déjeuner, ou le soir
 - Faire des commits de plus en plus fréquents
 - Commenter de manière abondante, en particulier sur le fils des idées, tous les éléments ajoutés mais pas encore forcément utilisés...
-- Si une fonctionnalité est finie peu avant le moment de coupure, mais qu'il reste un peu de temps, se lancer sur une fonctionnal
+- Si une fonctionnalité est finie peu avant le moment de coupure, mais qu'il reste un peu de temps, se lancer sur une fonctionnalité backlog (et la mettre en pause après la coupure)
 
 ## Commandes Git à retenir
 ### En local
@@ -58,5 +58,5 @@ Par exemple avant le déjeuner, ou le soir
 ### Entre local et server
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExMjYxOTU3NDNdfQ==
+eyJoaXN0b3J5IjpbMTM3MTA1NTE5M119
 -->
