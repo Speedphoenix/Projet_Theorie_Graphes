@@ -54,11 +54,12 @@ Par exemple avant le déjeuner, ou le soir
 - 
 ## Commandes Git à retenir
 ### En local
+
 |||
 |-|-|-|
-|`git add`|gdfgdfg|
+|`git add`|Ajoute tous les fichiers en paramètre au prochain commit|
 ### Entre local et server
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODA1NTg0OTIzXX0=
+eyJoaXN0b3J5IjpbNjg5MDg0Nzc2XX0=
 -->
