@@ -56,12 +56,13 @@ Par exemple avant le déjeuner, ou le soir
 ### En local
 
 |commande|descriptions|exemples|
-|-|-|-|-|
+|--------|-------------|------|------|
 |`git add`|Ajoute tous les changements des fichiers en paramètre au prochain commit|`git add ./* pour tout ajouter`|
 |`git commit -m "title" -m "message"`|Fait un commit des changements|
+|||
 
 ### Entre local et server
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjQ0MTcxODIzXX0=
+eyJoaXN0b3J5IjpbLTY0MDczNTg2Nl19
 -->
