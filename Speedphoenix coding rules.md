@@ -46,8 +46,10 @@ Les commentaires de documentions permettent après, dans la complétion de code 
 ### Todo list
 trello - backlog
 
-### Versioning
-Faire des commits de plus en plus fréquents plus on se rapproche de moments ou on arrête (déjeune
+### Quand on approche des moments de coupure:
+Par exemple avant le déjeuner, ou le soir
+- Faire des commits de plus en plus fréquents  (déjeuner etc)
+
 
 ## Commandes Git à retenir
 ### En local
@@ -55,5 +57,5 @@ Faire des commits de plus en plus fréquents plus on se rapproche de moments ou 
 ### Entre local et server
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTMwNTAzNjg1M119
+eyJoaXN0b3J5IjpbLTE5NTIyMzM1NjhdfQ==
 -->
