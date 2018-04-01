@@ -41,13 +41,13 @@ Les commentaires de documentions permettent après, dans la complétion de code 
 #### Plus généralement, utiliser [la documentation de Doxygen](https://sourceforge.net/projects/doxygen/)  
 
 ## Dans le développement d'un projet
-<!--
+
 stand up
 trello - backlog
--->
+
 
 ## Commandes Git à retenir
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExNzM1MjkyMzNdfQ==
+eyJoaXN0b3J5IjpbMTE3ODY0MzYyMF19
 -->
