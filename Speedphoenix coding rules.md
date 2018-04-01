@@ -54,9 +54,9 @@ Par exemple avant le déjeuner, ou le soir
 
 ## Commandes Git à retenir
 ### En local
-
+`git add` - 
 ### Entre local et server
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTM3MTA1NTE5M119
+eyJoaXN0b3J5IjpbMTg1ODAwODg2M119
 -->
