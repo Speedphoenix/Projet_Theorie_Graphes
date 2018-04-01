@@ -16,6 +16,7 @@ Par exemple avant le déjeuner, ou le soir
 ## Commandes Git à retenir
 ### En local
 Pour les conflits, et les merge de différentes "grosses" branches, je conseille de le faire graphiquement depuis github.com
+
 |commande|descriptions|exemples|
 |---|---|---|
 |`git add`|Ajoute tous les changements des fichiers en paramètre au prochain commit|`git add ./* pour tout ajouter`|
@@ -81,5 +82,5 @@ Les commentaires de documentions permettent après, dans la complétion de code 
 eyJoaXN0b3J5IjpbODQxMjg0NDNdfQ==
 -->
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA4MTQ5NjE4MV19
+eyJoaXN0b3J5IjpbNzA5MjM0MzExXX0=
 -->
