@@ -69,9 +69,10 @@ Par exemple avant le déjeuner, ou le soir
 |commande|descriptions|exemples|
 |---|---|---|
 |`git fetch`|||
-|`git push`|Envoie les changements à la repo distante|`git push origin`|
+|`git push origin [une branche]`|Envoie les changements d'une certaine branche à la repo distante||
+|`git push --all origin`|Envoie tous les changements à la répo dista||
 |`git pull`|||
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjYzMTU5NTc2XX0=
+eyJoaXN0b3J5IjpbLTE1NzI3NzU3NzVdfQ==
 -->
