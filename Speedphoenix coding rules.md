@@ -63,7 +63,7 @@ Par exemple avant le déjeuner, ou le soir
 |`git checkout -b [une branche]`|pour créer et se mettre dans une branche||
 |`git checkout [une branche]`|Pour se mettre dans une branche||
 |`git branch`|Liste les branches||
-
+|`git merge [une branche]`|Fusionne une branche avec la branche active||
 
 ### Entre local et server
 |commande|descriptions|exemples|
@@ -74,5 +74,5 @@ Par exemple avant le déjeuner, ou le soir
 |`git push --all origin`|Envoie tous les changements à la répo distante||
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEzNjkwOTk3MTZdfQ==
+eyJoaXN0b3J5IjpbMTg0MDA2ODY4OF19
 -->
