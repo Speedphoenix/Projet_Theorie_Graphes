@@ -47,6 +47,7 @@ Les commentaires de documentions permettent après, dans la complétion de code 
 trello - backlog
 
 ### Versioning
+Faire des commits de plus en plus fréquents plus on se rapproche de moments ou on arrête (déjeune
 
 ## Commandes Git à retenir
 ### En local
@@ -54,5 +55,5 @@ trello - backlog
 ### Entre local et server
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQ5MzYyNDMwN119
+eyJoaXN0b3J5IjpbMTMwNTAzNjg1M119
 -->
