@@ -54,7 +54,7 @@ Par exemple avant le déjeuner, ou le soir
 - 
 ## Commandes Git à retenir
 ### En local
-Pour les conflits, et les merge de differentes branches 
+Pour les conflits, et les merge de différentes "grosses" branches, je conseille de le faire graphiquement depuis github.com
 |commande|descriptions|exemples|
 |---|---|---|
 |`git add`|Ajoute tous les changements des fichiers en paramètre au prochain commit|`git add ./* pour tout ajouter`|
@@ -75,5 +75,5 @@ Pour les conflits, et les merge de differentes branches
 |`git push --all origin`|Envoie tous les changements à la répo distante||
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE0MDg0NjgxM119
+eyJoaXN0b3J5IjpbMTg2NDY4Mzg4NV19
 -->
