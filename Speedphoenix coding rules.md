@@ -64,7 +64,7 @@ Par exemple avant le déjeuner, ou le soir
 ### Entre local et server
 |commande|descriptions|exemples|
 |--------|------------|------|
-|`git clone [repo]`|Clone la repository (peut être fait avec une clef ssh ou par html)||
+||`gitt clone [repo]`|Clone la repository (peut être fait avec une clef ssh ou par html)||||
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1NDQwOTg1ODldfQ==
+eyJoaXN0b3J5IjpbNzA3NDk3NjU1XX0=
 -->
