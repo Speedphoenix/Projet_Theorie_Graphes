@@ -28,6 +28,7 @@ Pour les conflits, et les merge de différentes "grosses" branches, je conseille
 |`git diff`|Voir tous les conflits||
 
 ### Entre local et server
+
 |commande|descriptions|exemples|
 |---|---|---|
 |`git fetch`|Télécharge tous les changements depuis le server (mais ne les applique pas)||
