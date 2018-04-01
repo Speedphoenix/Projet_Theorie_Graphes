@@ -39,43 +39,6 @@ Les commentaires de documentions permettent après, dans la complétion de code 
 > sont aussi acceptables les autres styles (que `///`) de doc pour Doxygen  
 
 #### Plus généralement, utiliser [la documentation de Doxygen](https://sourceforge.net/projects/doxygen/)  
-
-## Dans le développement d'un projet
-### Stand-up
-Pour essayer de suivre une approche de développement de projet plus efficace (pris des méthodes agiles):  
-Tous les matins, chacun énonce tout ce qu'il a fait la veille, et ce qu'il compte faire durant la journée.
-
-### Todo list
-Un service comme Trello est un bon moyen de suivre la liste des choses, en ayant l'importance des taches, l'état d'avancement de chaque tache, qui s'en occupe etc
-> 
-### Quand on approche des moments de coupure:
-Par exemple avant le déjeuner, ou le soir
-- Faire des commits de plus en plus fréquents
-- Commenter de manière abondante, en particulier sur le fils des idées, tous les éléments ajoutés mais pas encore forcément utilisés...
-- Si une fonctionnalité est finie peu avant le moment de coupure, mais qu'il reste un peu de temps, se lancer sur une fonctionnalité backlog (et la mettre en pause après la coupure)
-
-## Commandes Git à retenir
-### En local
-Pour les conflits, et les merge de différentes "grosses" branches, je conseille de le faire graphiquement depuis github.com
-|commande|descriptions|exemples|
-|---|---|---|
-|`git add`|Ajoute tous les changements des fichiers en paramètre au prochain commit|`git add ./* pour tout ajouter`|
-|`git commit -m "title" -m "message"`|Fait un commit des changements||
-|`git status`|Liste les fichiers modifiés etc||
-|`git checkout -b [une branche]`|pour créer et se mettre dans une branche||
-|`git checkout [une branche]`|Pour se mettre dans une branche||
-|`git branch`|Liste les branches||
-|`git merge [une branche]`|Fusionne une branche avec la branche active||
-|`git diff`|Voir tous les conflits||
-
-### Entre local et server
-|commande|descriptions|exemples|
-|---|---|---|
-|`git fetch`|Télécharge tous les changements depuis le server (mais ne les applique pas)||
-|`git pull`|Télécharge et fusionne tous les changement||
-|`git push origin [une branche]`|Envoie les changements d'une certaine branche à la repo distante||
-|`git push --all origin`|Envoie tous les changements à la répo distante||
-
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTgzODg2NTY1XX0=
+eyJoaXN0b3J5IjpbLTMzODA0NzQ0Ml19
 -->
