@@ -43,7 +43,7 @@ Les commentaires de documentions permettent après, dans la complétion de code 
 ## Dans le développement d'un projet
 ### Stand-up
 Pour essayer de suivre une approche de développement de projet plus efficace (pris des méthodes agiles):  
-Tous les matins, chacun énonce tout ce qu'il a fait la veille, et ce qu'il compte faire 
+Tous les matins, chacun énonce tout ce qu'il a fait la veille, et ce qu'il compte faire durant la journée.
 
 ### Todo list
 trello - backlog
@@ -77,5 +77,5 @@ Pour les conflits, et les merge de différentes "grosses" branches, je conseille
 |`git push --all origin`|Envoie tous les changements à la répo distante||
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTMzMzU5OTk2Ml19
+eyJoaXN0b3J5IjpbLTIxMTk0NDY1MTFdfQ==
 -->
