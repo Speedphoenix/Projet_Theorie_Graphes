@@ -46,9 +46,8 @@ Pour essayer de suivre une approche de développement de projet plus efficace (p
 Tous les matins, chacun énonce tout ce qu'il a fait la veille, et ce qu'il compte faire durant la journée.
 
 ### Todo list
-Liste des choses à faire...
-Un service comme Trello est un bon moyen de suivre la liste des choses, en ayant l'importance, l'état d'avancement de chaque tahce
-
+Un service comme Trello est un bon moyen de suivre la liste des choses, en ayant l'importance des taches, l'état d'avancement de chaque tache, qui s'en occupe etc
+> 
 ### Quand on approche des moments de coupure:
 Par exemple avant le déjeuner, ou le soir
 - Faire des commits de plus en plus fréquents
@@ -78,5 +77,5 @@ Pour les conflits, et les merge de différentes "grosses" branches, je conseille
 |`git push --all origin`|Envoie tous les changements à la répo distante||
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzQwMTQ5MTk1XX0=
+eyJoaXN0b3J5IjpbMTgzODg2NTY1XX0=
 -->
