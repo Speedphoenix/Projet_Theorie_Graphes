@@ -46,6 +46,7 @@ Pour essayer de suivre une approche de développement de projet plus efficace (p
 Tous les matins, chacun énonce tout ce qu'il a fait la veille, et ce qu'il compte faire durant la journée.
 
 ### Todo list
+
 trello - backlog
 
 ### Quand on approche des moments de coupure:
@@ -77,5 +78,5 @@ Pour les conflits, et les merge de différentes "grosses" branches, je conseille
 |`git push --all origin`|Envoie tous les changements à la répo distante||
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIxMTk0NDY1MTFdfQ==
+eyJoaXN0b3J5IjpbLTI2OTczMzk1M119
 -->
