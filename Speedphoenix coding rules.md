@@ -54,7 +54,7 @@ Par exemple avant le déjeuner, ou le soir
 - 
 ## Commandes Git à retenir
 ### En local
-
+Pour les conflits, et les merge de differentes branches 
 |commande|descriptions|exemples|
 |---|---|---|
 |`git add`|Ajoute tous les changements des fichiers en paramètre au prochain commit|`git add ./* pour tout ajouter`|
@@ -64,6 +64,7 @@ Par exemple avant le déjeuner, ou le soir
 |`git checkout [une branche]`|Pour se mettre dans une branche||
 |`git branch`|Liste les branches||
 |`git merge [une branche]`|Fusionne une branche avec la branche active||
+|`git diff`|Voir tous les conflits||
 
 ### Entre local et server
 |commande|descriptions|exemples|
@@ -74,5 +75,5 @@ Par exemple avant le déjeuner, ou le soir
 |`git push --all origin`|Envoie tous les changements à la répo distante||
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTg0MDA2ODY4OF19
+eyJoaXN0b3J5IjpbLTE0MDg0NjgxM119
 -->
