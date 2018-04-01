@@ -80,3 +80,6 @@ Les commentaires de documentions permettent après, dans la complétion de code 
 <!--stackedit_data:
 eyJoaXN0b3J5IjpbODQxMjg0NDNdfQ==
 -->
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbMTA4MTQ5NjE4MV19
+-->
