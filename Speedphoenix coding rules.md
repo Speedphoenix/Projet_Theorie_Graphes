@@ -70,9 +70,10 @@ Par exemple avant le déjeuner, ou le soir
 |---|---|---|
 |`git fetch`|Télécharge tous les changements depuis le server (mais ne les applique pas)||
 |`git merge`|fusione les changements faits au loin et en local (résultat en local)||
-|`git pull`|Télécharge et fus||
+|`git pull`|Télécharge et fusionne tous les changement (à la fois `fetch` et `merge`)||
 |`git push origin [une branche]`|Envoie les changements d'une certaine branche à la repo distante||
 |`git push --all origin`|Envoie tous les changements à la répo distante||
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTcyOTQxNjgyOV19
+eyJoaXN0b3J5IjpbLTEwMTQ5MjgwOTldfQ==
 -->
