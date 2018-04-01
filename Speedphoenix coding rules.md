@@ -47,7 +47,7 @@ Tous les matins, chacun énonce tout ce qu'il a fait la veille, et ce qu'il comp
 
 ### Todo list
 Liste des choses à faire...
-Trello est un bon moyen pour suivre
+Trello est un bon moyen pour suivre 
 
 ### Quand on approche des moments de coupure:
 Par exemple avant le déjeuner, ou le soir
@@ -78,5 +78,5 @@ Pour les conflits, et les merge de différentes "grosses" branches, je conseille
 |`git push --all origin`|Envoie tous les changements à la répo distante||
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTE0ODUyMDkxNF19
+eyJoaXN0b3J5IjpbMTg5NDQxNDMyMF19
 -->
