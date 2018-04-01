@@ -41,8 +41,9 @@ Les commentaires de documentions permettent après, dans la complétion de code 
 #### Plus généralement, utiliser [la documentation de Doxygen](https://sourceforge.net/projects/doxygen/)  
 
 ## Dans le développement d'un projet
+### Stand-up
 
-stand up
+### Todo list
 trello - backlog
 
 
@@ -52,5 +53,5 @@ trello - backlog
 ### Entre local et server
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTU2MDI3Mzc0MV19
+eyJoaXN0b3J5IjpbMTI1MzMxNDM2Ml19
 -->
