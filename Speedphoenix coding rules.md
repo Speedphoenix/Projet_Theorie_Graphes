@@ -1,11 +1,3 @@
-git commands
-
-## Dans le développement d'un projet
-stand up
-trello - backlog
-doxygen
-
-
 ## Dans le code:
 ### En général:
 - Compiler souvent (<kbd>ctrl</kbd>+<kbd>F9</kbd>). (Pas compile and run <kbd>F9</kbd>)
@@ -46,9 +38,16 @@ Les commentaires de documentions permettent après, dans la complétion de code 
 
 ### Les warnings
 
+git commands
 
-## Commande Git à retenir
+## Dans le développement d'un projet
+stand up
+trello - backlog
+doxygen
+
+
+## Commandes Git à retenir
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzc4MzgzMDc1XX0=
+eyJoaXN0b3J5IjpbLTEyOTg0NjA2MDBdfQ==
 -->
