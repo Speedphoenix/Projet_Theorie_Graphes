@@ -60,6 +60,8 @@ Par exemple avant le déjeuner, ou le soir
 |`git add`|Ajoute tous les changements des fichiers en paramètre au prochain commit|`git add ./* pour tout ajouter`|
 |`git commit -m "title" -m "message"`|Fait un commit des changements||
 |`git status`|Liste les fichiers modifiés etc||
+|`git checkout -b [une branche]`|pour ||
+|`git checkout [une branche]`|Pour se mettre dans une branche||
 
 ### Entre local et server
 |commande|descriptions|exemples|
@@ -68,5 +70,5 @@ Par exemple avant le déjeuner, ou le soir
 |`git pull`|||
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTc5MDYwODQyXX0=
+eyJoaXN0b3J5IjpbMzY2ODI2OTk1XX0=
 -->
