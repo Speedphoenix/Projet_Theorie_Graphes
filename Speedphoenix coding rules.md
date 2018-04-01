@@ -36,10 +36,6 @@ Faire un commentaire de documentation (avec `/// au lieu de //`) expliquant son 
 Les commentaires de documentions permettent après, dans la complétion de code d'avoir la description avec.  
 > Pas besoin de le faire en permanence, mais à appliquer lors d'un clean général, ou quand on décide d'ajouter les commentaires.  
 
-### Les warnings
-
-git commands
-
 ## Dans le développement d'un projet
 stand up
 trello - backlog
@@ -49,5 +45,5 @@ doxygen
 ## Commandes Git à retenir
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEyOTg0NjA2MDBdfQ==
+eyJoaXN0b3J5IjpbMzU2NTg1MjAwXX0=
 -->
