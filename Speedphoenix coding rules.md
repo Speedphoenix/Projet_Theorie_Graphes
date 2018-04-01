@@ -69,11 +69,10 @@ Par exemple avant le déjeuner, ou le soir
 |commande|descriptions|exemples|
 |---|---|---|
 |`git fetch`|Télécharge tous les changements depuis le server (mais ne les applique pas)||
-|`git`|||
+|`git merge`|fusione les changements faits au loin et en local (résultat en local)||
+|`git pull`|Télécharge et fus||
 |`git push origin [une branche]`|Envoie les changements d'une certaine branche à la repo distante||
 |`git push --all origin`|Envoie tous les changements à la répo distante||
-|`git pull`|||
-
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwODU3MDczMDddfQ==
+eyJoaXN0b3J5IjpbLTcyOTQxNjgyOV19
 -->
