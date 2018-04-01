@@ -48,8 +48,8 @@ trello - backlog
 
 ### Quand on approche des moments de coupure:
 Par exemple avant le déjeuner, ou le soir
-- Faire des commits de plus en plus fréquents  (déjeuner etc)
-
+- Faire des commits de plus en plus fréquents
+- Commenter de manière abondante, en particulier sur 
 
 ## Commandes Git à retenir
 ### En local
@@ -57,5 +57,5 @@ Par exemple avant le déjeuner, ou le soir
 ### Entre local et server
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5NTIyMzM1NjhdfQ==
+eyJoaXN0b3J5IjpbMTUyODY0NDM3Ml19
 -->
