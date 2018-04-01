@@ -47,7 +47,7 @@ Tous les matins, chacun énonce tout ce qu'il a fait la veille, et ce qu'il comp
 
 ### Todo list
 Liste des choses à faire...
-Un service comme Trello est un bon moyen de suivre la liste des choses, en ayant
+Un service comme Trello est un bon moyen de suivre la liste des choses, en ayant l'importance, l'état d'avancement de chaque tahce
 
 ### Quand on approche des moments de coupure:
 Par exemple avant le déjeuner, ou le soir
@@ -78,5 +78,5 @@ Pour les conflits, et les merge de différentes "grosses" branches, je conseille
 |`git push --all origin`|Envoie tous les changements à la répo distante||
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTMwMTY0MzA5XX0=
+eyJoaXN0b3J5IjpbNzQwMTQ5MTk1XX0=
 -->
