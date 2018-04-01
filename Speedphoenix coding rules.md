@@ -58,11 +58,13 @@ Par exemple avant le déjeuner, ou le soir
 |commande|descriptions|exemples|
 |--------|------------|------|
 |`git add`|Ajoute tous les changements des fichiers en paramètre au prochain commit|`git add ./* pour tout ajouter`|
-|`git commit -m "title" -m "message"`|Fait un commit des changements|
-|`gitt clone [repo]`|Clone la repository (peut être fait avec une clef ssh ou par html)|
+|`git commit -m "title" -m "message"`|Fait un commit des changements||
+
 
 ### Entre local et server
-
+|commande|descriptions|exemples|
+|--------|------------|------|
+|`git clone [repo]`|Clone la repository (peut être fait avec une clef ssh ou par html)||
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3MzQ5NjI2NjddfQ==
+eyJoaXN0b3J5IjpbLTE1NDQwOTg1ODldfQ==
 -->
