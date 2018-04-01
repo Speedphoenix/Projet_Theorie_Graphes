@@ -33,9 +33,9 @@ Pour les conflits, et les merge de différentes "grosses" branches, je conseille
 |commande|descriptions|
 |---|---|
 |`git fetch`|Télécharge tous les changements depuis le server (mais ne les applique pas)|
-|`git pull`|Télécharge et fusionne tous les changement||
-|`git push origin [une branche]`|Envoie les changements d'une certaine branche à la repo distante||
-|`git push --all origin`|Envoie tous les changements à la répo distante||
+|`git pull`|Télécharge et fusionne tous les changement|
+|`git push origin [une branche]`|Envoie les changements d'une certaine branche à la repo distante|
+|`git push --all origin`|Envoie tous les changements à la repo distante|
 
 ## Dans le code:
 ### En général:
@@ -82,5 +82,5 @@ Les commentaires de documentions permettent après, dans la complétion de code 
 eyJoaXN0b3J5IjpbODQxMjg0NDNdfQ==
 -->
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzI1MTYwMDA5XX0=
+eyJoaXN0b3J5IjpbMTU0NDk1MzYwNV19
 -->
