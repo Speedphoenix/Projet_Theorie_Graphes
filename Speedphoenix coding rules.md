@@ -59,10 +59,10 @@ Par exemple avant le déjeuner, ou le soir
 |--------|------------|------|
 |`git add`|Ajoute tous les changements des fichiers en paramètre au prochain commit|`git add ./* pour tout ajouter`|
 |`git commit -m "title" -m "message"`|Fait un commit des changements|
-|||
+|`gitt clone [repo]`|Clone la repository (peut être fait avec une clef ssh ou par html)|
 
 ### Entre local et server
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2MDAwMDUxOTNdfQ==
+eyJoaXN0b3J5IjpbLTE3MzQ5NjI2NjddfQ==
 -->
