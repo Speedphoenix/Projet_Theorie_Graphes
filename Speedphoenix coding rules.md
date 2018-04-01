@@ -33,9 +33,10 @@ Exemple de bon code:
 ### Dans les .h  
  Sur la ligne au dessus de chaque  prototype de fonction et chaque attribut, constante (autre que `#define`), struct, classe etc:
 Faire un commentaire de documentation (avec `/// au lieu de //`) expliquant son utilité/ce que ça fait  
-Les commentaires de documentions permettent après, dans la complétion de code d'avoir la description avec.  
 > Pas besoin de le faire en permanence, mais à appliquer lors d'un clean général, ou quand on décide d'ajouter les commentaires.  
 
+Les commentaires de documentions permettent après, dans la complétion de code d'avoir la description avec.  
+> sont aussi acceptable 
 ## Dans le développement d'un projet
 stand up
 trello - backlog
@@ -45,5 +46,5 @@ doxygen
 ## Commandes Git à retenir
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzU2NTg1MjAwXX0=
+eyJoaXN0b3J5IjpbMTA1NTkyNDA5XX0=
 -->
