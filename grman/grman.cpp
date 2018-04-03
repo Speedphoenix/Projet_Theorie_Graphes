@@ -184,7 +184,7 @@ void init()
     }
     set_display_switch_mode(SWITCH_BACKGROUND);
 
-    show_mouse(screen);
+    //show_mouse(screen);
 
     page=create_bitmap(SCREEN_W,SCREEN_H);
 
@@ -212,9 +212,17 @@ void buf_effacer_page()
     clear_to_color(page, page_color);
 }
 
+void afficher_souris()
+{
+    show_picture(page, MOUSEFILE, mouse_x, mouse_y);
+}
+
 void buf_afficher_page()
 {
     if (!page) return;
+
+    afficher_souris();
+
     acquire_screen();
     blit(page, screen, 0, 0, 0, 0, SCREEN_W, SCREEN_H);
     release_screen();
