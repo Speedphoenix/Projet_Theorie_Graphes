@@ -37,5 +37,5 @@ obj/
 bin/
 *.cscope_file_list
 *.save
-# *.cbp
-# *.depend
+*.cbp
+*.depend
