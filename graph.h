@@ -278,7 +278,6 @@ class GraphInterface
 class Graph
 {
     private :
-
         /// La "liste" des arêtes
         std::map<int, Edge> m_edges;
 

@@ -28,6 +28,21 @@
 #include "grman_couleurs.h"
 #include "coords.h"
 
+#define MOUSEFILE "Mouse.bmp"
+
+///pour eviter les problèmes de souris
+#ifndef _WINDOWS
+
+    #include <xalleg.h>
+
+    #ifdef None
+    #undef None
+    #endif
+
+#endif // _WINDOWS
+
+
+
 namespace grman
 {
 
@@ -119,6 +134,9 @@ void fermer_allegro();
 // avant de redessiner le dessin (et éventuellement
 // autre chose après)
 void buf_effacer_page();
+
+//affiche la souris (pour éviter les bugs sous linux)
+void afficher_souris();
 
 // Affiche la page effectivement à l'écran
 // A appeler une fois dans la boucle d'interaction

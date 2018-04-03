@@ -32,6 +32,7 @@ namespace grman
             WIDGET CHILDREN POSITIONS
 ****************************************************/
 
+
 enum class GravityX {
     None,
     Center,
