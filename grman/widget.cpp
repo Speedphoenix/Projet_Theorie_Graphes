@@ -1,6 +1,7 @@
 #include "widget.h"
 
-///ENUM dans reframe?
+#include "grman.h" //ne pose pas de problème dans un .cpp
+
 
 namespace grman
 {

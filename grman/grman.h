@@ -11,7 +11,7 @@
 
 
 /**
- *  MODIFICATIONS APPORTÉES:
+ *  MODIFICATIONS APPORTÉES (dans grmanglob aussi):
  *
  *  déplacé le commentaire de mouse_click_x/y (mouse_move_x/y)
  *  enlevé la deuxième déclaration de mouse_click
@@ -24,22 +24,14 @@
  *
 */
 
+//toutes les globales sont là dedans
+#include "grmanglob.h"
 
 #include "grman_couleurs.h"
 #include "coords.h"
 
-#define MOUSEFILE "Mouse.bmp"
-
-///pour eviter les problèmes de souris
-#ifndef _WINDOWS
-
-    #include <xalleg.h>
-
-    #ifdef None
-    #undef None
-    #endif
-
-#endif // _WINDOWS
+//widget.h/cpp n'utilise que les globales de grman (pas les fonctions)
+#include "widget.h"
 
 
 
@@ -156,14 +148,6 @@ void rafraichir_clavier_souris();
 void thick_line(BITMAP *bmp, int x1, int y1, int x2, int y2, int thickness, int color);
 
 }
-
-/************************************************
-            A CORRIGER
-*************************************************/
-
-/// Cette inclusion en fin de header parce que widget dépend de grman
-/// Ceci est évitable (et à éviter) en re-factorisant le projet et les dépendance...
-#include "widget.h"
 
 
 #endif // GRMAN_H_INCLUDED

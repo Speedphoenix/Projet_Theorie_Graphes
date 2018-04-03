@@ -1,14 +1,9 @@
 #ifndef WIDGET_H_INCLUDED
 #define WIDGET_H_INCLUDED
 
-#include "grman.h"
+//#include "grman.h"
+#include "grmanglob.h"
 
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-
-#include <allegro.h>
 
 /**
  *  Modifications apportées:
