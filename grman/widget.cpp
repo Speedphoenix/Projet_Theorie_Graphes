@@ -183,6 +183,30 @@ void WidgetText::set_message(std::string message)
 }
 
 
+void WidgetTextSaisie::interract_keyboard()
+{
+    if (key_last=='\0')
+        return ;
+
+    if (key_last>='0' && key_last<='9')
+    {
+        if(!m_virgule)
+        {
+        int val = key_last - '0';
+        m_value=(m_value)*10 + val;
+        }
+        m_message = std::to_string(m_value);
+    }
+    if(key_last == '.' || key_last == ',')
+    {
+        m_virgule=true;
+    }
+    else if(m_virgule)
+    m_message=m_message+ '.';
+    m_message = std::to_string(m_value);
+}
+
+
 
 /***************************************************
                     CHECKBOX
@@ -301,7 +325,6 @@ void WidgetImage::draw()
 }
 
 
-
 /***************************************************
                     BOX
 ****************************************************/
@@ -407,7 +430,5 @@ void WidgetEdge::draw()
     }
 
 }
-
-
 
 }

@@ -244,6 +244,16 @@ class WidgetText : public Widget
 };
 
 
+class WidgetTextSaisie : public WidgetText
+{
+    protected:
+        int m_value = 0;
+        bool m_virgule = false;
+
+    public:
+        WidgetTextSaisie(int value = 0) { m_value = value; }
+        virtual void interract_keyboard();   ///fonction de saisie par l'utilisateur
+};
 
 /***************************************************
                     CHECKBOX
