@@ -50,7 +50,7 @@ extern Frame page_frame;
 class Widget;
 extern Widget *gui_over;
 extern Widget *gui_last_over;
-extern Widget *gui_focus;
+extern Widget *gui_focus; //focus = souris est dessus et clique
 extern Widget *gui_leave;
 
 

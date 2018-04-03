@@ -188,14 +188,15 @@ class Widget
         virtual void draw() {}
         virtual void draw_border();
 
-        virtual void interact_over() {}
-        virtual void interact_focus() {}
-        virtual void interact_leave() {}
+        virtual void interact_over() {} //si la souris est dessus (peu importe si clic)
+        virtual void interact_focus() {} //si la souris clique dessus
+        virtual void interact_leave() {} //si la souris relache le clic dessus
+        virtual void interact_keybd() {}
 
         virtual bool captures_focus() { return false; }
 
-        bool is_gui_over() {return this==gui_over || this==gui_last_over;}
-        bool is_gui_focus() {return this==gui_focus;}
+        bool is_gui_over() {return this==gui_over || this==gui_last_over;} //over = souris est dessus
+        bool is_gui_focus() {return this==gui_focus;} //focus = souris est dessus et clique
         bool is_gui_leave() {return this==gui_leave;}
 
         bool is_mouse_over();

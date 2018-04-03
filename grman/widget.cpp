@@ -40,14 +40,17 @@ void Widget::update_interact()
     if ( is_gui_over() && mouse_click && captures_focus())
         gui_focus = this;
 
-    if ( is_gui_over() )
+    if ( is_gui_over() ) //si la souris est dessus (peu importe si clic)
         interact_over();
 
-    if ( is_gui_focus() )
+    if ( is_gui_focus() ) //si la souris clique dessus
         interact_focus();
 
-    if ( is_gui_leave() )
+    if ( is_gui_leave() ) //si la souris relache le clic dessus
         interact_leave();
+
+    if ( key_last!='\0' )
+        interact_keybd();
 
     destroy_frame_context();
 }
