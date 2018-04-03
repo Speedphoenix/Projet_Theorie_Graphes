@@ -10,6 +10,21 @@
 
 #include <allegro.h>
 
+/**
+ *  Modifications apportées:
+ *  set_dim(int w, int h) -> une seule reframe
+ *
+ *
+ *
+ *  Modifications à apporter:
+ *  m_abs_frame n'est pas syncro... par exemple reframe
+ *
+ *  mettre tous les margin, padding etc dans une classe fille
+
+ *  WidgetText
+*/
+
+
 namespace grman
 {
 
@@ -97,7 +112,7 @@ class Widget
         Coords get_abs_pos() { return m_abs_frame.pos; }
 
         //Coords get_center_abs_pos() { return Coords( m_abs_frame.pos.x+.5*m_abs_frame.dim.x, m_abs_frame.pos.y+.5*m_abs_frame.dim.y );   }
-        Coords get_center_abs_pos() { return m_abs_frame.pos+ m_abs_frame.dim * 0.5 ;   }
+        Coords get_center_abs_pos() { return m_abs_frame.pos + m_abs_frame.dim * 0.5 ; }
 
         void set_frame(Frame frame)
             { m_frame = frame; set_no_gravity(); }
@@ -121,9 +136,9 @@ class Widget
         int get_bp() { return m_border + m_padding; }
         int get_parent_bp() { return m_parent ? m_parent->get_bp() : 0; }
 
-        void set_dimx(int w) { m_frame.dim.x=w+2*get_bp(); reframe(); }
-        void set_dimy(int h) { m_frame.dim.y=h+2*get_bp(); reframe(); }
-        void set_dim(int w,int h) { set_dimx(w); set_dimy(h); }  // Reframe 2x, not efficient...
+        void set_dimx(int w, bool refr = true) { m_frame.dim.x=w+2*get_bp(); if (refr) reframe(); }
+        void set_dimy(int h, bool refr = true) { m_frame.dim.y=h+2*get_bp(); if (refr) reframe(); }
+        void set_dim(int w, int h) { set_dimx(w, false); set_dimy(h, false); reframe(); }
 
         int get_dimx() { return m_frame.dim.x-2*get_bp(); }
         int get_dimy() { return m_frame.dim.y-2*get_bp(); }
@@ -307,7 +322,7 @@ class WidgetVSlider : public Widget
         double typed(double v) { return m_integer ? round(v) : v; }
         double get_value() { return typed(m_value); }
         void limit_to_range() { if (m_value<m_min) m_value=m_min; if (m_value>m_max) m_value=m_max; }
-        void set_value(double value) { m_value = value; m_value =get_value(); limit_to_range(); }
+        void set_value(double value) { m_value = value; m_value = get_value(); limit_to_range(); }
         void set_range(double min, double max, bool integer=false) { m_min = min; m_max = max; m_integer = integer; limit_to_range(); }
 };
 

@@ -1,5 +1,6 @@
 #include "widget.h"
 
+///ENUM dans reframe?
 
 namespace grman
 {
@@ -162,7 +163,7 @@ void Widget::draw_border()
 void WidgetText::draw()
 {
     if (!m_vertical)
-        textprintf_ex(m_view, font, 0, 0, m_color, -1, m_message.c_str());
+        textprintf_ex(m_view, font, 0, 0, m_color, -1, "%s", m_message.c_str()); //pour éviter le warning
     else
         for (int i=0, y=0; i<(int)m_message.length(); ++i, y+=text_height(m_font))
             textprintf_ex(m_view, font, 0, y, m_color, -1, "%c", m_message[i]);

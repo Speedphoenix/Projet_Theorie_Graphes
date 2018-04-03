@@ -3,6 +3,15 @@
 
 #include <cmath>
 
+/**
+ *  Modifications apportées:
+ *
+ *  Ajout de l'operator/ pour un double
+
+ *  À faire:
+ *  une meilleure fonction de rotation
+*/
+
 struct Coords
 {
         double x;
@@ -14,8 +23,10 @@ struct Coords
         Coords(double x_, double y_)
             : x(x_), y(y_) {}
 
+        //utiliser ccette fonction au lieu de norm() pour toutes les comparaisons
         double norm2() { return x*x + y*y; }
 
+        //ne pas utiliser en temps normal, mais utile pour donner des distances...
         double norm() { return sqrt(norm2()); }
 
 
@@ -44,6 +55,11 @@ struct Coords
             return Coords( x*rhs.x, y*rhs.y  );
         }
 
+        Coords operator/ (const double &rhs)
+        {
+            return Coords( x/rhs, y/rhs );
+        }
+
         Coords operator/ (const Coords &rhs)
         {
             return Coords( x/rhs.x, y/rhs.y  );
@@ -55,9 +71,11 @@ struct Coords
             if ( !nrm )
                 return Coords(0,0);
 
+            //pas mieux de faire return Coords(1, 1); ?
             return *this * (1./nrm);
         }
 
+        //pas une rotation...
         Coords rotate_90() { return Coords(y, -x);  }
 
 };
@@ -76,8 +94,8 @@ struct Frame
         Frame(double x_, double y_, double w_, double h_)
             : pos(x_, y_), dim(w_, h_) {}
 
-        // Renvoie les coordonnées (dans le repère de la position de Frame) de l'intersection
-        // entre la demi-droite centre Frame -> vecteur directeur vec et le cadre de la Frame
+        /// Renvoie les coordonnées (dans le repère de la position de Frame) de l'intersection
+        /// entre la demi-droite centre Frame -> vecteur directeur vec et le cadre de la Frame
         Coords intersect(Coords vec);
 
 };

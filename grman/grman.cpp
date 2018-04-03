@@ -13,6 +13,7 @@
 #include <loadpng.h>
 #include <jpgalleg.h>
 
+///ligne 137 remplacer le rest
 
 namespace grman
 {
@@ -38,8 +39,8 @@ BITMAP *page=NULL;
 char key_last;
 int mouse_click;
 int mouse_unclick;
-int key_press[KEY_MAX];
-int key_unpress[KEY_MAX];
+char key_press[KEY_MAX];
+char key_unpress[KEY_MAX];
 
 int mouse_click_x;
 int mouse_click_y;
@@ -110,7 +111,7 @@ BITMAP *get_picture(std::string pic_name)
 
 void show_picture(BITMAP *dest, std::string pic_name, int x, int y, unsigned pic_idx)
 {
-    BITMAP *pic =get_picture(pic_name);
+    BITMAP *pic = get_picture(pic_name);
     if (!pic)
         return;
 
@@ -222,7 +223,7 @@ void buf_afficher_page()
 void rafraichir_clavier_souris()
 {
     static int mouse_prev, mouse_now;
-    static int key_prev[KEY_MAX], key_now[KEY_MAX];
+    static char key_prev[KEY_MAX], key_now[KEY_MAX];
     int k;
 
     mouse_prev = mouse_now;

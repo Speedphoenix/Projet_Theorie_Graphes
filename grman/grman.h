@@ -10,6 +10,21 @@
 #include <string>
 
 
+/**
+ *  MODIFICATIONS APPORTÉES:
+ *
+ *  déplacé le commentaire de mouse_click_x/y (mouse_move_x/y)
+ *  enlevé la deuxième déclaration de mouse_click
+ *  changé le type de key_press/unpress à char pour économie de mémoire (key de allegro est un tableau de volatile char)
+ *                key_prev et key_now dans rafraichir_clavier_souris() aussi
+ *
+ *
+ *
+ *
+ *
+*/
+
+
 #include "grman_couleurs.h"
 #include "coords.h"
 
@@ -64,17 +79,19 @@ extern int mouse_unclick;
 // Même principe que key mais détecte les transitions (pressé<->non pressé)
 // valable pendant un seul tour de boucle (pas de répétition)
 // exemple : if (key_unpress[KEY_RIGHT]) printf("touche droite relachee !\n");
-extern int key_press[KEY_MAX];
-extern int key_unpress[KEY_MAX];
+extern char key_press[KEY_MAX];
+extern char key_unpress[KEY_MAX];
 
-// Déplacement relatif de la souris depuis le dernier tour de boucle
+//position de la souris au moment du clic
 extern int mouse_click_x;
 extern int mouse_click_y;
 
+// Déplacement relatif de la souris depuis le dernier tour de boucle
 extern int mouse_move_x;
 extern int mouse_move_y;
 
-extern int mouse_click;
+//deuxième déclaration...
+//extern int mouse_click;
 
 /// Gestion des ressources image (fichiers images et BITMAP chargées)
 unsigned get_picture_nb(std::string name);

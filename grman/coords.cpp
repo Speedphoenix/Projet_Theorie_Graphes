@@ -4,7 +4,7 @@
 // entre la demi-droite centre Frame -> vecteur directeur vec et le cadre de la Frame
 Coords Frame::intersect(Coords vec)
 {
-    Coords mid = dim *0.5;
+    Coords mid = dim * 0.5;
     Coords rel = vec / mid;
 
     Coords res;
@@ -25,6 +25,7 @@ Coords Frame::intersect(Coords vec)
                 res.x = -1, res.y = -rel.y/rel.x; // Secteur gauche
         }
     }
+
     return pos + mid + (res*mid);
 }
 
