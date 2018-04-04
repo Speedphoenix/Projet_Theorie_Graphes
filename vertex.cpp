@@ -9,7 +9,7 @@
 ****************************************************/
 
 /// Le constructeur met en place les éléments de l'interface
-VertexInterface::VertexInterface(int idx, int x, int y, std::string pic_name, int pic_idx)
+VertexInterface::VertexInterface(std::string name, int idx, int x, int y, std::string pic_name, int pic_idx)
 {
     // La boite englobante
     m_top_box.set_pos(x, y);
@@ -43,6 +43,20 @@ VertexInterface::VertexInterface(int idx, int x, int y, std::string pic_name, in
 
     m_box_label_idx.add_child( m_label_idx );
     m_label_idx.set_message( std::to_string(idx) );
+
+    //Le nom
+    m_name.set_message( name );
+
+    m_top_box.add_child( m_box_name );
+    m_box_name.set_gravity_xy(grman::GravityX::Center, grman::GravityY::Up);
+    m_box_name.set_dim(10 * m_name.get_message().size(), 12);
+    m_box_name.set_bg_color(BLANC);
+
+    m_top_box.add_child( m_name );
+    m_name.set_gravity_xy(grman::GravityX::Center, grman::GravityY::Up);
+
+
+
 }
 
 
@@ -99,6 +113,9 @@ void Vertex::turn(Graph& g)
 
         m_value = n + m_r * n *(1 - n / k);
     }
+
+    if(m_value < 0)
+        m_value = 0;
 }
 
 

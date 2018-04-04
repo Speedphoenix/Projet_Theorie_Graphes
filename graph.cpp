@@ -37,37 +37,41 @@ void Graph::make_example()
 
     /// Les sommets doivent être définis avant les arcs
     // Ajouter le sommet d'indice 0 de valeur 30 en x=200 et y=100 avec l'image clown1.jpg etc...
-//    add_interfaced_vertex(0, 30.0, 200, 100, "clown1.jpg");
-//    add_interfaced_vertex(1, 60.0, 400, 100, "clown2.jpg");
-//    add_interfaced_vertex(2,  50.0, 200, 300, "clown3.jpg");
-//    add_interfaced_vertex(3,  0.0, 400, 300, "clown4.jpg");
-//    add_interfaced_vertex(4,  100.0, 600, 300, "clown5.jpg");
-//    add_interfaced_vertex(5,  0.0, 100, 500, "bad_clowns_xx3xx.jpg", 0);
-//    add_interfaced_vertex(6,  0.0, 300, 500, "bad_clowns_xx3xx.jpg", 1);
-//    add_interfaced_vertex(7,  0.0, 500, 500, "bad_clowns_xx3xx.jpg", 2);
-//
-//    /// Les arcs doivent être définis entre des sommets qui existent !
-//    // AJouter l'arc d'indice 0, allant du sommet 1 au sommet 2 de poids 50 etc...
-//    add_interfaced_edge(0, 1, 2, 50.0);
-//    add_interfaced_edge(1, 0, 1, 50.0);
-//    add_interfaced_edge(2, 1, 3, 75.0);
-//    add_interfaced_edge(3, 4, 1, 25.0);
-//    add_interfaced_edge(4, 6, 3, 25.0);
-//    add_interfaced_edge(5, 7, 3, 25.0);
-//    add_interfaced_edge(6, 3, 4, 0.0);
-//    add_interfaced_edge(7, 2, 0, 100.0);
-//    add_interfaced_edge(8, 5, 2, 20.0);
-//    add_interfaced_edge(9, 3, 7, 80.0);
+//    add_interfaced_vertex(0, 30.0, 0.5, 200, 100, "clown1.jpg");
+//    add_interfaced_vertex(1, 60.0, 0.5, 400, 100, "clown2.jpg");
+//    add_interfaced_vertex(2, 50.0, 0.5, 200, 300, "clown3.jpg");
+//    add_interfaced_vertex(3, 0.0, 0.5, 400, 300, "clown4.jpg");
+//    add_interfaced_vertex(4, 100.0, 0.5, 600, 300, "clown5.jpg");
+//    add_interfaced_vertex(5, 0.0, 0.5, 100, 500, "bad_clowns_xx3xx.jpg", 0);
+//    add_interfaced_vertex(6, 0.0, 0.5, 300, 500, "bad_clowns_xx3xx.jpg", 1);
+//    add_interfaced_vertex(7, 0.0, 0.5, 500, 500, "bad_clowns_xx3xx.jpg", 2);
+
+    /// Les arcs doivent être définis entre des sommets qui existent !
+    // AJouter l'arc d'indice 0, allant du sommet 1 au sommet 2 de poids 50 etc...
+    add_interfaced_edge(0, 1, 2, 5.0);
+    add_interfaced_edge(1, 0, 1, 5.0);
+    add_interfaced_edge(2, 1, 3, 7.0);
+    add_interfaced_edge(3, 4, 1, 2.0);
+    add_interfaced_edge(4, 6, 3, 2.0);
+    add_interfaced_edge(5, 7, 3, 2.0);
+    add_interfaced_edge(6, 3, 4, 0.0);
+    add_interfaced_edge(7, 2, 0, 10.0);
+    add_interfaced_edge(8, 5, 2, 2.0);
+    add_interfaced_edge(9, 3, 7, 8.0);
 }
 
 void Graph::make_test1()
 {
     m_interface = std::make_shared<GraphInterface>(50, 0, 750, 600);
 
-    add_interfaced_vertex(0, 30.0, 0.5, 200, 100, "clown1.jpg");
-    add_interfaced_vertex(1, 60.0, 0.5, 400, 100, "clown2.jpg");
+    add_interfaced_vertex("herbe", 0, 30.0, 0.5, 100, 600, "clown1.jpg");
+    add_interfaced_vertex("lapin", 1, 60.0, 0.5, 100, 400, "clown2.jpg");
+    add_interfaced_vertex("renard", 2, 10.0, 0.5, 100, 200, "clown3.jpg");
 
-    add_interfaced_edge(0, 0, 1, 1);
+    add_interfaced_edge(0, 0, 1, 2);
+    add_interfaced_edge(1, 1, 0, 1);
+    add_interfaced_edge(2, 1, 2, 1);
+    add_interfaced_edge(3, 2, 0, 1);
 }
 
 
@@ -102,7 +106,7 @@ void Graph::turn()
 }
 
 ///Ajout de sommet non interfacé
-void Graph::add_vertex(int idx, double value, double r)
+void Graph::add_vertex(std::string name, int idx, double value, double r)
 {
     if ( m_vertices.find(idx) != m_vertices.end() )
     {
@@ -110,7 +114,7 @@ void Graph::add_vertex(int idx, double value, double r)
         throw "Error adding vertex";
     }
     // On peut ajouter directement des vertices dans la map avec la notation crochet :
-    m_vertices[idx] = Vertex(value, r);
+    m_vertices[idx] = Vertex(name, value, r);
 }
 
 ///Ajout d'arete non interfacé
@@ -134,7 +138,7 @@ void Graph::add_edge(int idx, int id_vert1, int id_vert2, double weight)
 
 
 /// Aide à l'ajout de sommets interfacés
-void Graph::add_interfaced_vertex(int idx, double value, double r, int x, int y, std::string pic_name, int pic_idx )
+void Graph::add_interfaced_vertex(std::string name, int idx, double value, double r, int x, int y, std::string pic_name, int pic_idx )
 {
     if ( m_vertices.find(idx) != m_vertices.end() )
     {
@@ -142,11 +146,11 @@ void Graph::add_interfaced_vertex(int idx, double value, double r, int x, int y,
         throw "Error adding vertex";
     }
     // Création d'une interface de sommet
-    VertexInterface *vi = new VertexInterface(idx, x, y, pic_name, pic_idx);
+    VertexInterface *vi = new VertexInterface(name, idx, x, y, pic_name, pic_idx);
     // Ajout de la top box de l'interface de sommet
     m_interface->m_main_box.add_child(vi->m_top_box);
     // On peut ajouter directement des vertices dans la map avec la notation crochet :
-    m_vertices[idx] = Vertex(value, r, vi);
+    m_vertices[idx] = Vertex(name, value, r, vi);
 }
 
 /// Aide à l'ajout d'arcs interfacés
