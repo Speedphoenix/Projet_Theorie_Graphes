@@ -185,25 +185,47 @@ void WidgetText::set_message(std::string message)
 
 void WidgetTextSaisie::interract_keyboard()
 {
-    if (key_last=='\0')
+    if (key_last == '\0')
         return ;
 
-    if (key_last>='0' && key_last<='9')
+    //Si on entre une valeur entre 0 et 9
+    if (key_last >= '0' && key_last <= '9')
     {
-        if(!m_virgule)
-        {
         int val = key_last - '0';
-        m_value=(m_value)*10 + val;
+
+        if(!m_virgule)      //si la valeur n'a pas de virgule
+        {
+            m_value = (m_value)*10 + val;
+        }
+        else if(m_virgule)      //si c'est un nombre à virgule
+        {
+            m_value += val/(pow(10, m_exposant));
+            if((m_exposant>= 0) && (m_exposant<= m_max_exposant))
+                m_exposant++;
         }
         m_message = std::to_string(m_value);
     }
-    if(key_last == '.' || key_last == ',')
+    else if(key_last == '.' || key_last == ',')
     {
-        m_virgule=true;
+        m_virgule = true;
+        m_message += '.';
     }
-    else if(m_virgule)
-    m_message=m_message+ '.';
-    m_message = std::to_string(m_value);
+
+    if (key_press[KEY_BACKSPACE])           ///SI on choisit de supprimer la dernière valeur saisie
+    {
+        // si il n'y a pas de virgule
+        if ( ((int) m_value) == m_value )
+        {
+            m_value = (int) (m_value/10);
+        }
+        // si il y a une virgule
+        else
+        {
+            m_value = ( (int) (m_value*(pow(10, m_exposant-1))) ) * pow(10, m_exposant-1);
+
+            m_exposant--;
+        }
+    }
 }
 
 

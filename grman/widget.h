@@ -247,7 +247,9 @@ class WidgetText : public Widget
 class WidgetTextSaisie : public WidgetText
 {
     protected:
-        int m_value = 0;
+        const int m_max_exposant = 3;
+        double m_value = 0;
+        int m_exposant = 0;
         bool m_virgule = false;
 
     public:
@@ -463,7 +465,7 @@ class WidgetEdge : public Widget
         void reset_middle_arrow_with_bullets() { m_items = { {ArrowItemType::Arrow, 0.5},
                                                              {ArrowItemType::Bullet, 0.0},
                                                              {ArrowItemType::Bullet, 1.0}  }; }
-
+        ///ajoute un arrowItem
         void add_item( ArrowItem ai )  { m_items.push_back(ai); }
 
         void set_children_position(double rel_pos) { m_children_position = rel_pos; }
