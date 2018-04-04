@@ -21,6 +21,9 @@ int main()
     /// ( contrairement à des frameworks plus avancés )
     while ( !key[KEY_ESC] )
     {
+        if (grman::key_press[KEY_SPACE])
+            g.fortementConnexes();
+
         /// Il faut appeler les méthodes d'update des objets qui comportent des widgets
         g.update();
 

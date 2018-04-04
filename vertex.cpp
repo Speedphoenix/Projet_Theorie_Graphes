@@ -42,6 +42,10 @@ VertexInterface::VertexInterface(int idx, int x, int y, std::string pic_name, in
 
     m_box_label_idx.add_child( m_label_idx );
     m_label_idx.set_message( std::to_string(idx) );
+
+    m_top_box.add_child( m_label_comp);
+    m_label_comp.set_message( std::to_string(-1) );
+    m_label_comp.set_color(ROSECLAIR);
 }
 
 
@@ -59,6 +63,8 @@ void Vertex::pre_update(Graph* g)
 
         /// Copier la valeur locale de la donnée m_value vers le label sous le slider
         m_interface->m_label_value.set_message( std::to_string( (int)m_value) );
+
+        m_interface->m_label_comp.set_message( std::to_string(m_compNum));
     }
 
 //    //Actualisation de m_value

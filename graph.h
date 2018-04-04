@@ -150,10 +150,6 @@ public:
     void add_interfaced_edge(int idx, int vert1, int vert2, double weight=0);
 
     /// Méthode spéciale qui construit un graphe arbitraire (démo)
-    /// Voir implémentation dans le .cpp
-    /// Cette méthode est à enlever et remplacer par un système
-    /// de chargement de fichiers par exemple.
-    void make_example();
     void make_test1();
 
     void reset_flags();
