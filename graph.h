@@ -122,6 +122,9 @@ private :
     /// le POINTEUR sur l'interface associée, nullptr -> pas d'interface
     std::shared_ptr<GraphInterface> m_interface = nullptr;
 
+//    ///trouve une composante fortement connexe
+//    void loopCompos(std::vector<vector<int>>& , int start)
+        void unicompAllVert(int ancien, int nouveau);
 
 public:
 
@@ -148,9 +151,12 @@ public:
     void make_example();
     void make_test1();
 
+    void reset_flags();
 
     /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
     void update();
+
+    void fortementConnexes();
 };
 
 

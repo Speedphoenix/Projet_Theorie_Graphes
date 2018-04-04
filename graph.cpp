@@ -1,5 +1,6 @@
 #include "graph.h"
 
+using namespace std;
 
 /***************************************************
                     GRAPH
@@ -169,11 +170,163 @@ void Graph::add_interfaced_edge(int idx, int id_vertFrom, int id_vertTo, double 
 }
 
 
-//
-//void Graph::fortementConnexes()
-//{
-//
-//}
+void Graph::reset_flags()
+{
+    for (auto &elem : m_vertices)
+        elem.second.m_flag = false;
+}
+
+void Graph::reset_comps()
+{
+    for (auto &elem : m_vertices)
+        elem.second.m_compNum = -1;
+}
+
+
+
+void Graph::fortementConnexes()
+{
+    vector<vector<int>> found;
+
+    bool finished = false;
+
+    reset_flags();
+
+    while (!finished)
+    {
+        vector<int> currCompos;
+        int currSommet = -1;
+
+        for (auto &elem : m_vertices)
+        {
+            if (!elem.second.m_flag)
+            {
+                currSommet = elem.first;
+                break;
+            }
+        }
+
+        if (currSommet==-1)
+        {
+            finished = true;
+        }
+        else
+        {
+            //si le sommet n'a aucun prédécesseur, il est seul dans la composante connexe
+            //pareil s'il n'a aucun suivant
+            if (m_vertices.at(currSommet).m_in.empty() || m_vertices.at(currSommet).m_out.empty())
+            {
+                //pas besoin de passer par de longues boucles...
+                currCompos.push_back(currSommet);
+                m_vertices.at(currSommet).m_flag = true;
+            }
+            else
+            {
+                //à vettre dans une fonction
+
+            }
+
+            //normalement toujours vrai
+            if (!currCompos.empty())
+            {
+                found.push_back(currCompos);
+            }
+            else
+            {
+                throw "vector currcompos in fortementConnexe func is empty";
+            }
+        }
+
+    }
+
+    reset_flags();
+}
+
+
+//la fonction appelée dans fortementConnexes()
+bool Graph::sgadablouch(vector<int> origin, int where)
+{
+
+    origin.push_back(where);
+
+    for (auto& elem : m_vertices.at(where))
+    {
+        //elem est un auto d'aretes
+        int destVert = elem.second.m_to;
+
+        if (!m_vertices.at(destVert).m_flag)
+        {
+
+            vector<int>::iterator it = find(origin.begin(), origin.end(), destVert);
+
+            //si on a fait une boucle (pas forcément avec le départ
+            if (it!=origin.end())
+            {
+                //numéro de la composante fortement connexe
+                int compNum = getNewCompNum; //fonction à coder, donne un numéro pas encore utilisé
+
+                ////on cherche si un des sommets suivant n'en on pas déjà
+                for (vector<int>::iterator passer = it;passer!=origin.end();i++)
+                {
+                    //
+                    if (m_vertices.at(*passer).m_compNum!=-1 && m_vertices.at(*passer).m_compNum!=compNum)
+                    {
+                        //préfere garder le déjà existant
+
+                        unicompAllVert(compNum, m_vertices.at(*passer).m_compNum);
+
+                        compNum = m_vertices.at(*passer).m_compNum;
+                    }
+                    else
+                    {
+                        m_vertices.at(*passer).m_compNum = compNum;
+                    }
+                }
+
+                //on cherche si une des sous-composantes n'en a pas déjà un
+                if (m_vertices.at(destVert).m_compNum==-1)
+                {
+///change le num/col, pop le dernier etc, check la couleur==celle qu'on regarde, recursivité du nouveau, revient à la fin etc...
+                }
+                else
+                {
+
+                }
+            }
+        }
+
+
+    }
+}
+
+
+
+
+//colorie tous les sommets ayant comme numero de comp 'old' et leur donne 'new'
+void Graph::unicompAllVert(int ancien, int nouveau)
+{
+    for (auto & elem : m_vertices)
+    {
+        if (elem.second.m_compNum==ancien)
+        {
+            elem.second.m_compNum = nouveau;
+        }
+    }
+}
+
+        //À FAIRE: TEST SI ÇA EXISTE DANS 'origin', pas juste le premier element, et déduire une nouvelle composante
+
+
+/*for (auto &elt : m_vertices)
+    elt.second.pre_update(this);*/
+
+
+
+
+
+
+
+
 
 
 

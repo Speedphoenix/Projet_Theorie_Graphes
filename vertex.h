@@ -72,6 +72,10 @@ private :
     /// liste des indices des arcs partant du sommet : accès aux successeurs
     std::vector<int> m_out;
 
+    ///un marquages pour les algos de passage
+    bool m_flag;
+    int m_compNum;
+
     /// un exemple de donnée associée au sommet, on peut en ajouter d'autres...
     double m_value; //nombre d'individu (pour des animaux) ou masse totale (pour des ressources)
     double m_r; //rythme de croissance
