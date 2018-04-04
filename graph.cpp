@@ -64,9 +64,9 @@ void Graph::make_test1()
 {
     m_interface = std::make_shared<GraphInterface>(50, 0, 750, 600);
 
-    add_interfaced_vertex("herbe", 0, 30.0, 0.5, 100, 600, "clown1.jpg");
-    add_interfaced_vertex("lapin", 1, 60.0, 0.5, 100, 400, "clown2.jpg");
-    add_interfaced_vertex("renard", 2, 10.0, 0.5, 100, 200, "clown3.jpg");
+    add_interfaced_vertex( 0, 30.0, 0.5, 100, 600, "herbe", "clown1.jpg");
+    add_interfaced_vertex( 1, 60.0, 0.5, 100, 400, "lapin");
+    add_interfaced_vertex( 2, 10.0, 0.5, 100, 200, "australopitheque");
 
     add_interfaced_edge(0, 0, 1, 2);
     add_interfaced_edge(1, 1, 0, 1);
@@ -114,7 +114,7 @@ void Graph::add_vertex(std::string name, int idx, double value, double r)
         throw "Error adding vertex";
     }
     // On peut ajouter directement des vertices dans la map avec la notation crochet :
-    m_vertices[idx] = Vertex(name, value, r);
+    m_vertices[idx] = Vertex(value, r, name);
 }
 
 ///Ajout d'arete non interfacé
@@ -136,9 +136,8 @@ void Graph::add_edge(int idx, int id_vert1, int id_vert2, double weight)
 }
 
 
-
 /// Aide à l'ajout de sommets interfacés
-void Graph::add_interfaced_vertex(std::string name, int idx, double value, double r, int x, int y, std::string pic_name, int pic_idx )
+void Graph::add_interfaced_vertex( int idx, double value, double r, int x, int y,std::string name, std::string pic_name, int pic_idx )
 {
     if ( m_vertices.find(idx) != m_vertices.end() )
     {
@@ -146,11 +145,11 @@ void Graph::add_interfaced_vertex(std::string name, int idx, double value, doubl
         throw "Error adding vertex";
     }
     // Création d'une interface de sommet
-    VertexInterface *vi = new VertexInterface(name, idx, x, y, pic_name, pic_idx);
+    VertexInterface *vi = new VertexInterface(idx, x, y, name, pic_name, pic_idx);
     // Ajout de la top box de l'interface de sommet
     m_interface->m_main_box.add_child(vi->m_top_box);
     // On peut ajouter directement des vertices dans la map avec la notation crochet :
-    m_vertices[idx] = Vertex(name, value, r, vi);
+    m_vertices[idx] = Vertex(value, r, vi, name);
 }
 
 /// Aide à l'ajout d'arcs interfacés

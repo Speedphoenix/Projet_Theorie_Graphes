@@ -9,7 +9,7 @@
 ****************************************************/
 
 /// Le constructeur met en place les éléments de l'interface
-VertexInterface::VertexInterface(std::string name, int idx, int x, int y, std::string pic_name, int pic_idx)
+VertexInterface::VertexInterface(int idx, int x, int y, std::string name, std::string pic_name, int pic_idx)
 {
     // La boite englobante
     m_top_box.set_pos(x, y);
@@ -49,7 +49,7 @@ VertexInterface::VertexInterface(std::string name, int idx, int x, int y, std::s
 
     m_top_box.add_child( m_box_name );
     m_box_name.set_gravity_xy(grman::GravityX::Center, grman::GravityY::Up);
-    m_box_name.set_dim(10 * m_name.get_message().size(), 12);
+    m_box_name.set_dim(10 * m_name.get_message().size(), 9);
     m_box_name.set_bg_color(BLANC);
 
     m_top_box.add_child( m_name );

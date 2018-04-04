@@ -58,7 +58,7 @@ public :
 
     // Le constructeur met en place les éléments de l'interface
     // voir l'implémentation dans le .cpp
-    VertexInterface(std::string name, int idx, int x, int y, std::string pic_name="", int pic_idx=0);
+    VertexInterface(int idx, int x, int y, std::string name="", std::string pic_name="", int pic_idx=0);
 };
 
 
@@ -95,11 +95,12 @@ public:
 
     /// Les constructeurs sont à compléter selon vos besoin...
     /// Ici on ne donne qu'un seul constructeur qui peut utiliser une interface
-    Vertex (double value=0, double r=1, VertexInterface *interface=nullptr) :
-        m_value(value), m_r(r), m_interface(interface)  { }
+    //Problème d'ordre des paramètres (initialisation d'interface sans le nom...)
+    Vertex (double value=0, double r=1, VertexInterface *interface=nullptr, std::string name="") :
+        m_value(value), m_r(r), m_interface(interface), m_name(name) { }
 
-    Vertex (std::string name, double value=0, double r=1, VertexInterface *interface=nullptr) :
-        m_name(name), m_value(value), m_r(r), m_interface(interface)  { }
+    Vertex (double value, double r, std::string name="") :
+        m_value(value), m_r(r), m_interface(nullptr), m_name(name) { }
 
     /// Vertex étant géré par Graph ce sera la méthode update de graph qui appellera
     /// le pre_update et post_update de Vertex (pas directement la boucle de jeu)

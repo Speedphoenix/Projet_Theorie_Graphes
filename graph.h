@@ -138,7 +138,7 @@ public:
     void add_vertex(std::string name, int idx, double value, double r);
     void add_edge(int idx, int vert1, int vert2, double weight=0);
 
-    void add_interfaced_vertex(std::string name, int idx, double value, double r, int x, int y, std::string pic_name="", int pic_idx=0 );
+    void add_interfaced_vertex(int idx, double value, double r, int x, int y, std::string name="", std::string pic_name="", int pic_idx=0 );
     void add_interfaced_edge(int idx, int vert1, int vert2, double weight=0);
 
     /// Méthode spéciale qui construit un graphe arbitraire (démo)
