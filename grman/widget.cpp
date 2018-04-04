@@ -1,6 +1,7 @@
 #include "widget.h"
 
-#include "grman.h" //ne pose pas de problème dans un .cpp
+//ne pose pas de problème dans un .cpp
+#include "grman.h"
 
 
 namespace grman

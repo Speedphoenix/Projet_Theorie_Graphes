@@ -226,7 +226,7 @@ void Graph::add_interfaced_vertex(int idx, double value, int x, int y, std::stri
 }
 
 /// Aide à l'ajout d'arcs interfacés
-void Graph::add_interfaced_edge(int idx, int id_vert1, int id_vert2, double weight)
+void Graph::add_interfaced_edge(int idx, int id_vertFrom, int id_vertTo, double weight)
 {
     if ( m_edges.find(idx)!=m_edges.end() )
     {
@@ -234,14 +234,30 @@ void Graph::add_interfaced_edge(int idx, int id_vert1, int id_vert2, double weig
         throw "Error adding edge";
     }
 
-    if ( m_vertices.find(id_vert1)==m_vertices.end() || m_vertices.find(id_vert2)==m_vertices.end() )
+    if ( m_vertices.find(id_vertFrom)==m_vertices.end() || m_vertices.find(id_vertTo)==m_vertices.end() )
     {
-        std::cerr << "Error adding edge idx=" << idx << " between vertices " << id_vert1 << " and " << id_vert2 << " not in m_vertices" << std::endl;
+        std::cerr << "Error adding edge idx=" << idx << " between vertices " << id_vertFrom << " and " << id_vertTo << " not in m_vertices" << std::endl;
         throw "Error adding edge";
     }
 
-    EdgeInterface *ei = new EdgeInterface(m_vertices[id_vert1], m_vertices[id_vert2]);
+    EdgeInterface *ei = new EdgeInterface(m_vertices[id_vertFrom], m_vertices[id_vertTo]);
     m_interface->m_main_box.add_child(ei->m_top_edge);
     m_edges[idx] = Edge(weight, ei);
+
+    //on ajoute les indices des sommets à l'arc
+    m_edges.at(idx).m_from = id_vertFrom;
+    m_edges.at(idx).m_to = id_vertTo;
+
+    //on donne l'indice de l'arc aux deux sommets
+    m_vertices.at(id_vertFrom).m_out.push_back(idx);
+    m_vertices.at(id_vertTo).m_in.push_back(idx);
 }
+
+
+//
+//void Graph::fortementConnexes()
+//{
+//
+//}
+
 

@@ -138,7 +138,7 @@ class Vertex
         /// liste des indices des arcs partant du sommet : accès aux successeurs
         std::vector<int> m_out;
 
-        /// un exemple de donnée associée à l'arc, on peut en ajouter d'autres...
+        /// un exemple de donnée associée au sommet, on peut en ajouter d'autres...
         double m_value;
 
         /// le POINTEUR sur l'interface associée, nullptr -> pas d'interface
