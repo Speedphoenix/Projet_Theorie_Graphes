@@ -13,7 +13,7 @@ int main()
 
     /// Un exemple de graphe
     Graph g;
-    g.make_example();
+    g.make_test1();
 
 
     /// Vous gardez la main sur la "boucle de jeu"
@@ -32,5 +32,6 @@ int main()
     return 0;
 }
 END_OF_MAIN();
+
 
 
