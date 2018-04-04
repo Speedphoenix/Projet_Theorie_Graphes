@@ -230,6 +230,8 @@ void Graph::fortementConnexes()
                 vector<int> dump; //juste pour verifier / paranoïa. Normalement il devrait rester vide.
                 set<int> receivedComps;
 
+                E(currSommet)
+
                 sgadablouch(dump, currSommet, receivedComps);
 
                 if (receivedComps.empty())
@@ -270,9 +272,9 @@ E("doifnf")
         {E(11)
             //numéro de la composante fortement connexe
             int compNum = m_vertices.at(destVert).m_compNum;
-
+E(compNum)
             //si il fait déjà partie de la même composante que le courrant, y'a pas besoin
-            if (compNum!=-1 && compNum==m_vertices.at(where).m_compNum)
+            if (compNum==-1 || compNum!=m_vertices.at(where).m_compNum)
             {E(12)
                 vector<int>::iterator it = find(origin.begin(), origin.end(), destVert);
 
@@ -280,10 +282,10 @@ E("doifnf")
                 if (it!=origin.end())
                 {E(13)
                     //numéro de la composante fortement connexe
-                    int compNum = getNewCompNum(); //fonction à coder, donne un numéro pas encore utilisé
+                    compNum = getNewCompNum(); //fonction à coder, donne un numéro pas encore utilisé
 
                     //on cherche si un des sommets précedent n'ont pas déjà un num
-                    for (vector<int>::iterator passer = it;passer!=origin.end();it++)
+                    for (vector<int>::iterator passer = it;passer!=origin.end();passer++)
                     {E(14)
                         //si il y avait déjà un num
                         if (m_vertices.at(*passer).m_compNum!=-1 && m_vertices.at(*passer).m_compNum!=compNum)
@@ -333,7 +335,8 @@ void Graph::flagRemaining(set<int>& receivedComps)
     int i = 0;
     for (auto & elem : receivedComps)
     {
-        E(i++)
+        E(i)
+        i++;
         //ça veut dire que ce sommet est seul dans sa composante connexe forte
         if (m_vertices.at(elem).m_compNum == -1)
         {
