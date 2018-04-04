@@ -6,9 +6,12 @@
 #include <map>
 #include <string>
 #include <memory>
+#include <set>
 
 #include "grman/grman.h"
 
+///cette macro sert à débug: affichera x sous la forme d'une string, puis la valeur de x.
+#define E(x) {std::cerr<<std::endl<<#x " : " << x << std::endl;}
 
 class Graph;
 
@@ -48,6 +51,9 @@ private :
     // Une boite pour le label précédent
     grman::WidgetText m_box_label_idx;
 
+    // Un label indiquant le numero de sa composante (fortement) connexe
+    grman::WidgetText m_label_comp;
+
 public :
 
     // Le constructeur met en place les éléments de l'interface
@@ -76,6 +82,10 @@ private :
     double m_value; //nombre d'individu (pour des animaux) ou masse totale (pour des ressources)
     double m_r; //rythme de croissance
 
+    ///un marquages pour les algos de passage
+    bool m_flag;
+    int m_compNum;
+
     /// le POINTEUR sur l'interface associée, nullptr -> pas d'interface
     std::shared_ptr<VertexInterface> m_interface = nullptr;
 
@@ -89,7 +99,7 @@ public:
     /// Les constructeurs sont à compléter selon vos besoin...
     /// Ici on ne donne qu'un seul constructeur qui peut utiliser une interface
     Vertex (double value=0, double r=1, VertexInterface *interface=nullptr) :
-        m_value(value), m_r(r), m_interface(interface)  {  }
+        m_value(value), m_r(r), m_flag(false), m_compNum(-1), m_interface(interface)  {  }
 
     /// Vertex étant géré par Graph ce sera la méthode update de graph qui appellera
     /// le pre_update et post_update de Vertex (pas directement la boucle de jeu)

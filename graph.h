@@ -123,6 +123,21 @@ private :
     std::shared_ptr<GraphInterface> m_interface = nullptr;
 
 
+    /// 'colorie' (change nompNum) tous les sommets ayant comme numero de comp 'old' et leur donne 'new'
+    void unicompAllVert(int ancien, int nouveau);
+
+    ///la fonction récursive appelée dans fortementConnexes()
+    ///permet de trouver les composantes connexes des sommets suivant 'where' de manière récursive
+    ///previously called sgadablouch
+    void reconnexite(std::vector<int>& origin, int where, std::set<int>& passedBy);
+
+    ///renvoie un numero de composante pas encore utilisé
+    int getNewCompNum();
+
+    ///va flag les sommets de receivedComps et assigner une composante à ceux sans.
+    void flagRemaining(std::set<int>& receivedComps);
+
+
 public:
 
     /// Les constructeurs sont à compléter selon vos besoin...
@@ -142,15 +157,15 @@ public:
     void add_interfaced_edge(int idx, int vert1, int vert2, double weight=0);
 
     /// Méthode spéciale qui construit un graphe arbitraire (démo)
-    /// Voir implémentation dans le .cpp
-    /// Cette méthode est à enlever et remplacer par un système
-    /// de chargement de fichiers par exemple.
-    void make_example();
     void make_test1();
 
+    void reset_flags();
+    void reset_comps();
 
     /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
     void update();
+
+    void fortementConnexes();
 };
 
 

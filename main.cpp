@@ -5,11 +5,12 @@
 
 int main()
 {
-    /// A appeler en 1er avant d'instancier des objets graphiques etc...
-    grman::init();
-
     /// Le nom du répertoire où se trouvent les images à charger
     grman::set_pictures_path("pics");
+    //mis avant init pour utiliser la souris
+
+    /// A appeler en 1er avant d'instancier des objets graphiques etc...
+    grman::init();
 
     /// Un exemple de graphe
     Graph g;
@@ -20,6 +21,9 @@ int main()
     /// ( contrairement à des frameworks plus avancés )
     while ( !key[KEY_ESC] )
     {
+        if (grman::key_press[KEY_SPACE])
+            g.fortementConnexes();
+
         /// Il faut appeler les méthodes d'update des objets qui comportent des widgets
         g.update();
 
