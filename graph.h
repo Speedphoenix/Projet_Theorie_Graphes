@@ -78,6 +78,9 @@
 
 #include "grman/grman.h"
 
+
+class Graph;
+
 /***************************************************
                     VERTEX
 ****************************************************/
@@ -161,7 +164,7 @@ public:
     /// le pre_update et post_update de Vertex (pas directement la boucle de jeu)
     /// Voir l'implémentation Graph::update dans le .cpp
     //On fait l'étude démographique dans pre_update
-    void pre_update(Graph& g);
+    void pre_update(Graph* g);
     void post_update();
 };
 
@@ -297,11 +300,11 @@ public:
     /// Ici on ne donne qu'un seul constructeur qui peut utiliser une interface
     Graph (GraphInterface *interface=nullptr) :
         m_interface(interface)  {  }
-    
+
     //Getters and setters
     Edge& getEdge(int id) { return m_edges.at(id); }
     Vertex& getVertex (int id) { return m_vertices.at(id); }
-        
+
     ///Ajout de fonctions pour graphs non interfacé
     void add_vertex(int idx, double value, double r);
     void add_edge(int idx, int vert1, int vert2, double weight=0);

@@ -43,10 +43,10 @@ VertexInterface::VertexInterface(int idx, int x, int y, std::string pic_name, in
 
 
 /// Gestion du Vertex avant l'appel à l'interface
-void Vertex::pre_update(Graph& g)
+void Vertex::pre_update(Graph* g)
 {
     std::vector<double> k;
-    double n = m_value;
+//    double n = m_value;
     Edge temp;
 
     if (m_interface)
@@ -58,15 +58,15 @@ void Vertex::pre_update(Graph& g)
         m_interface->m_label_value.set_message( std::to_string( (int)m_value) );
     }
 
-    //Actualisation de m_value
-    for(int i = 0 ; i < m_in.size() ; i++)
-    {
-        temp = g.edges[ m_in[id] ];
-
-        k =  g.m_vertices[ temp.m_from ].m_value ;
-    }
-
-    m_value += m_r * n * (1 - n / k);
+//    //Actualisation de m_value
+//    for(int i = 0 ; i < m_in.size() ; i++)
+//    {
+//        temp = g.getEdge(m_in[i]);
+//        // k = Coef_herbe* N_herbe
+//        k =  g.getVertex(temp.m_from).m_value * N_herbe ;
+//    }
+//
+//    m_value += m_r * n * (1 - n / k);
 
 }
 
@@ -81,10 +81,7 @@ void Vertex::post_update()
     m_value = m_interface->m_slider_value.get_value();
 }
 
-void Vertex::update()
-{
 
-}
 
 /***************************************************
                     EDGE
@@ -222,7 +219,7 @@ void Graph::update()
     if (m_interface)
     {
         for (auto &elt : m_vertices)
-            elt.second.pre_update();
+            elt.second.pre_update(this);
 
         for (auto &elt : m_edges)
             elt.second.pre_update();
@@ -235,10 +232,6 @@ void Graph::update()
         for (auto &elt : m_edges)
             elt.second.post_update();
     }
-
-    //Etude demographique
-    for( auto &elt : m_vertices)
-        elt.second.update();
 }
 
 ///Ajout de sommet non interfacé
