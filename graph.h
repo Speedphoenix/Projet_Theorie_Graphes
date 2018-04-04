@@ -122,12 +122,19 @@ private :
     /// le POINTEUR sur l'interface associée, nullptr -> pas d'interface
     std::shared_ptr<GraphInterface> m_interface = nullptr;
 
-//    ///trouve une composante fortement connexe
-//    void loopCompos(std::vector<vector<int>>& , int start)
+
+    /// 'colorie' (change nompNum) tous les sommets ayant comme numero de comp 'old' et leur donne 'new'
     void unicompAllVert(int ancien, int nouveau);
-    void sgadablouch(std::vector<int>& origin, int where, std::set<int>& passedBy);
+
+    ///la fonction récursive appelée dans fortementConnexes()
+    ///permet de trouver les composantes connexes des sommets suivant 'where' de manière récursive
+    ///previously called sgadablouch
+    void reconnexite(std::vector<int>& origin, int where, std::set<int>& passedBy);
+
+    ///renvoie un numero de composante pas encore utilisé
     int getNewCompNum();
 
+    ///va flag les sommets de receivedComps et assigner une composante à ceux sans.
     void flagRemaining(std::set<int>& receivedComps);
 
 

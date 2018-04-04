@@ -42,6 +42,7 @@ void Graph::make_test1()
 
     /// Les arcs doivent être définis entre des sommets qui existent !
     // AJouter l'arc d'indice 0, allant du sommet 1 au sommet 2 de poids 50 etc...
+
     add_interfaced_edge(0, 1, 2, 50.0);
     add_interfaced_edge(1, 0, 1, 50.0);
     add_interfaced_edge(2, 1, 3, 75.0);
@@ -52,6 +53,33 @@ void Graph::make_test1()
     add_interfaced_edge(7, 2, 0, 100.0);
     add_interfaced_edge(8, 5, 2, 20.0);
     add_interfaced_edge(9, 3, 7, 80.0);
+
+
+/// un bon graphe de test pour essayer l'algo des composantes fortement connexes
+//    add_interfaced_vertex(0, 0, 1, 600, 450, "black-ground.png");
+//    add_interfaced_vertex(1, 0, 1, 400, 400, "black-ground.png");
+//    add_interfaced_vertex(2, 0, 1, 350, 550, "black-ground.png");
+//    add_interfaced_vertex(3, 0, 1, 400, 200, "black-ground.png");
+//    add_interfaced_vertex(4, 0, 1, 200, 400, "black-ground.png");
+//    add_interfaced_vertex(5, 0, 1, 150, 600, "black-ground.png");
+//    add_interfaced_vertex(6, 0, 1, 10, 525, "black-ground.png");
+//    add_interfaced_vertex(7, 0, 1, 150, 200, "black-ground.png");
+//    add_interfaced_vertex(8, 0, 1, 10, 250, "black-ground.png");
+//    add_interfaced_vertex(9, 0, 1, 10, 50, "black-ground.png");
+//
+//    add_interfaced_edge(0, 1, 0, 0);
+//    add_interfaced_edge(1, 0, 2, 0);
+//    add_interfaced_edge(2, 3, 0, 0);
+//    add_interfaced_edge(3, 1, 3, 0);
+//    add_interfaced_edge(4, 2, 1, 0);
+//    add_interfaced_edge(5, 4, 1, 0);
+//    add_interfaced_edge(6, 5, 4, 0);
+//    add_interfaced_edge(7, 7, 4, 0);
+//    add_interfaced_edge(8, 4, 8, 0);
+//    add_interfaced_edge(9, 5, 6, 0);
+//    add_interfaced_edge(10, 6, 5, 0);
+//    add_interfaced_edge(11, 8, 7, 0);
+//    add_interfaced_edge(12, 8, 9, 0);
 }
 
 
@@ -230,9 +258,7 @@ void Graph::fortementConnexes()
                 vector<int> dump; //juste pour verifier / paranoïa. Normalement il devrait rester vide.
                 set<int> receivedComps;
 
-                E(currSommet)
-
-                sgadablouch(dump, currSommet, receivedComps);
+                reconnexite(dump, currSommet, receivedComps);
 
                 if (receivedComps.empty())
                     throw "receivedComps in fortementConnexes func is empty!!!!";
@@ -251,10 +277,9 @@ void Graph::fortementConnexes()
 
 //le flag n'est levé QUE quand toute la composante est trouvée
 //la fonction appelée dans fortementConnexes()
-void Graph::sgadablouch(vector<int>& origin, int where, set<int>& passedBy)
+void Graph::reconnexite(vector<int>& origin, int where, set<int>& passedBy)
 {
     origin.push_back(where);
-E("doifnf")
 
     //passedBy est un set contenant tous les sommets par lesquels on est passé.
     //la fonction insert empeche la duplication
@@ -263,33 +288,33 @@ E("doifnf")
 
     //elem est un auto d'aretes
     for (auto& elem : m_vertices.at(where).m_out)
-    {E(10)
+    {
         //le sommet que l'on regarde maintenant
         int destVert = m_edges.at(elem).m_to;
 
         //s'il n'est pas déjà flagué
         if (!m_vertices.at(destVert).m_flag)
-        {E(11)
+        {
             //numéro de la composante fortement connexe
             int compNum = m_vertices.at(destVert).m_compNum;
-E(compNum)
+
             //si il fait déjà partie de la même composante que le courrant, y'a pas besoin
             if (compNum==-1 || compNum!=m_vertices.at(where).m_compNum)
-            {E(12)
+            {
                 vector<int>::iterator it = find(origin.begin(), origin.end(), destVert);
 
                 //si on a trouvé une boucle dans le graphe (pas forcément avec le départ)
                 if (it!=origin.end())
-                {E(13)
+                {
                     //numéro de la composante fortement connexe
                     compNum = getNewCompNum(); //fonction à coder, donne un numéro pas encore utilisé
 
                     //on cherche si un des sommets précedent n'ont pas déjà un num
                     for (vector<int>::iterator passer = it;passer!=origin.end();passer++)
-                    {E(14)
+                    {
                         //si il y avait déjà un num
                         if (m_vertices.at(*passer).m_compNum!=-1 && m_vertices.at(*passer).m_compNum!=compNum)
-                        {E(15)
+                        {
                             //préfere garder le déjà existant
 
                             unicompAllVert(compNum, m_vertices.at(*passer).m_compNum);
@@ -297,15 +322,15 @@ E(compNum)
                             compNum = m_vertices.at(*passer).m_compNum;
                         }
                         else
-                        {E(16)
+                        {
                             m_vertices.at(*passer).m_compNum = compNum;
                         }
                     } //fin du for: on cherche si un des sommets précedent n'ont pas déjà un num
                 }
                 else //si on a pas (encore) fait de boucle
-                {E(17)
+                {
                     //on appelle cette fonction recursivement pour le prochain
-                    sgadablouch(origin, destVert, passedBy);
+                    reconnexite(origin, destVert, passedBy);
                 } //fin du if/else: si on a trouvé une boucle dans le graphe (pas forcément avec le départ)
             } //fin du if: si il fait déjà partie de la même composante que le courrant, y'a pas besoin
         } //fin du if: s'il n'est pas déjà flagué
@@ -316,7 +341,7 @@ E(compNum)
 }
 
 
-//colorie tous les sommets ayant comme numero de comp 'old' et leur donne 'new'
+// 'colorie' (change nompNum) tous les sommets ayant comme numero de comp 'old' et leur donne 'new'
 void Graph::unicompAllVert(int ancien, int nouveau)
 {
     for (auto & elem : m_vertices)
@@ -332,15 +357,11 @@ void Graph::unicompAllVert(int ancien, int nouveau)
 //et donne à ceux tout seuls un numéro de composante
 void Graph::flagRemaining(set<int>& receivedComps)
 {
-    int i = 0;
     for (auto & elem : receivedComps)
     {
-        E(i)
-        i++;
         //ça veut dire que ce sommet est seul dans sa composante connexe forte
         if (m_vertices.at(elem).m_compNum == -1)
         {
-            E("oh non")
             m_vertices.at(elem).m_compNum = getNewCompNum();
         }
 
