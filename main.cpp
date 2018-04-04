@@ -5,21 +5,25 @@
 
 int main()
 {
+    /// Le nom du répertoire où se trouvent les images à charger
+    grman::set_pictures_path("pics");
+    //mis avant init pour utiliser la souris
+
     /// A appeler en 1er avant d'instancier des objets graphiques etc...
     grman::init();
 
-    /// Le nom du répertoire où se trouvent les images à charger
-    grman::set_pictures_path("pics");
-
     /// Un exemple de graphe
     Graph g;
-    g.make_example();
+    g.make_test1();
 
 
     /// Vous gardez la main sur la "boucle de jeu"
     /// ( contrairement à des frameworks plus avancés )
     while ( !key[KEY_ESC] )
     {
+        if (grman::key_press[KEY_SPACE])
+            g.fortementConnexes();
+
         /// Il faut appeler les méthodes d'update des objets qui comportent des widgets
         g.update();
 
@@ -32,5 +36,6 @@ int main()
     return 0;
 }
 END_OF_MAIN();
+
 
 
