@@ -47,6 +47,7 @@ class Edge
     // directement aux attributs (y compris privés)
     friend class Graph;
     friend class EdgeInterface;
+    friend class Vertex;
 
 private :
     /// indice du sommet de départ de l'arc
@@ -56,6 +57,7 @@ private :
     int m_to;
 
     /// un exemple de donnée associée à l'arc, on peut en ajouter d'autres...
+    //m_weight correspond au coeficient de prédation : un lapin mange 1kg d'herbe (on le note coef)
     double m_weight;
 
     /// le POINTEUR sur l'interface associée, nullptr -> pas d'interface

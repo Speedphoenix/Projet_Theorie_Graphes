@@ -9,8 +9,8 @@
 
 #include "grman/grman.h"
 
-
 class Graph;
+
 
 /***************************************************
                     VERTEX
@@ -95,8 +95,10 @@ public:
     /// le pre_update et post_update de Vertex (pas directement la boucle de jeu)
     /// Voir l'implémentation Graph::update dans le .cpp
     //On fait l'étude démographique dans pre_update
-    void pre_update(Graph* g);
+    void pre_update();
     void post_update();
+
+    void turn(Graph& g);
 };
 
 

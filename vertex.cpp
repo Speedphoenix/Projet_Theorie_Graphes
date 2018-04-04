@@ -2,6 +2,7 @@
 
 //pas de problème dansun .cpp
 #include "edge.h"
+#include "graph.h"
 
 /***************************************************
                     VERTEX
@@ -46,12 +47,8 @@ VertexInterface::VertexInterface(int idx, int x, int y, std::string pic_name, in
 
 
 /// Gestion du Vertex avant l'appel à l'interface
-void Vertex::pre_update(Graph* g)
+void Vertex::pre_update()
 {
-    std::vector<double> k;
-//    double n = m_value;
-    Edge temp;
-
     if (m_interface)
     {
         /// Copier la valeur locale de la donnée m_value vers le slider associé
@@ -60,18 +57,9 @@ void Vertex::pre_update(Graph* g)
         /// Copier la valeur locale de la donnée m_value vers le label sous le slider
         m_interface->m_label_value.set_message( std::to_string( (int)m_value) );
     }
-
-//    //Actualisation de m_value
-//    for(int i = 0 ; i < m_in.size() ; i++)
-//    {
-//        temp = g.getEdge(m_in[i]);
-//        // k = Coef_herbe* N_herbe
-//        k =  g.getVertex(temp.m_from).m_value * N_herbe ;
-//    }
-//
-//    m_value += m_r * n * (1 - n / k);
-
 }
+
+
 
 
 /// Gestion du Vertex après l'appel à l'interface
@@ -85,5 +73,32 @@ void Vertex::post_update()
 }
 
 
+void Vertex::turn(Graph& g)
+{
+    double k = 0;
+    double n = m_value;
+    Edge temp;
+    double coef = 0;
+    double n_proie = 0;
+
+
+    //Actualisation de m_value
+    ///Model 1 : on considere que si un sommet n'a aucune arete sortante, alors son N est constant
+    if(! m_in.empty())
+    {
+        for(unsigned i = 0 ; i < m_in.size() ; i++)
+        {
+            temp = g.getEdge(m_in[i]);
+
+            // k = Coef_herbe* N_herbe + Coef_carrottes *N_carrottes
+            coef = temp.m_weight;
+            n_proie = g.getVertex(temp.m_from).m_value;
+
+            k += coef * n_proie;
+        }
+
+        m_value = n + m_r * n *(1 - n / k);
+    }
+}
 
 

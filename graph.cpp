@@ -64,10 +64,10 @@ void Graph::make_test1()
 {
     m_interface = std::make_shared<GraphInterface>(50, 0, 750, 600);
 
-    add_interfaced_vertex(0, 30.0, 1, 200, 100, "clown1.jpg");
-    add_interfaced_vertex(1, 60.0, 1, 400, 100, "clown2.jpg");
+    add_interfaced_vertex(0, 30.0, 0.5, 200, 100, "clown1.jpg");
+    add_interfaced_vertex(1, 60.0, 0.5, 400, 100, "clown2.jpg");
 
-    add_interfaced_edge(0, 0, 1, 1.0);
+    add_interfaced_edge(0, 0, 1, 1);
 }
 
 
@@ -77,7 +77,7 @@ void Graph::update()
     if (m_interface)
     {
         for (auto &elt : m_vertices)
-            elt.second.pre_update(this);
+            elt.second.pre_update();
 
         for (auto &elt : m_edges)
             elt.second.pre_update();
@@ -90,6 +90,15 @@ void Graph::update()
         for (auto &elt : m_edges)
             elt.second.post_update();
     }
+}
+
+void Graph::turn()
+{
+    for (auto &elt : m_vertices)
+        elt.second.turn(*this);
+
+//    for (auto &elt : m_edges)
+//        elt.second.turn();
 }
 
 ///Ajout de sommet non interfacé
