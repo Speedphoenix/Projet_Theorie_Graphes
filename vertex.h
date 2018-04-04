@@ -6,6 +6,7 @@
 #include <map>
 #include <string>
 #include <memory>
+#include <set>
 
 #include "grman/grman.h"
 

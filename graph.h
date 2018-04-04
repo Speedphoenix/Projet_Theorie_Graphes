@@ -124,7 +124,12 @@ private :
 
 //    ///trouve une composante fortement connexe
 //    void loopCompos(std::vector<vector<int>>& , int start)
-        void unicompAllVert(int ancien, int nouveau);
+    void unicompAllVert(int ancien, int nouveau);
+    void sgadablouch(std::vector<int>& origin, int where, std::set<int>& passedBy);
+    int getNewCompNum();
+
+    void flagRemaining(std::set<int>& receivedComps);
+
 
 public:
 
@@ -152,6 +157,7 @@ public:
     void make_test1();
 
     void reset_flags();
+    void reset_comps();
 
     /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
     void update();
