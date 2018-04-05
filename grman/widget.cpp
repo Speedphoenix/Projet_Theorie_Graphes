@@ -192,9 +192,6 @@ void WidgetText::set_message(std::string message)
 void WidgetTextSaisie::interact_leave()
 {
     m_isTyping = true;
-    m_virgule = false;
-
-    m_value = 0;
 
     m_message = "";
 }

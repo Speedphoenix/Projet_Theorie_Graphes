@@ -21,7 +21,7 @@ private :
     grman::WidgetBox m_top_box;
 
     ///la liste des widgets qui sont dans la toolbox
-    vector<Widget &> m_widgets;
+    std::vector<grman::Widget *> m_widgets;
 
 public :
 
@@ -34,8 +34,8 @@ public :
 class Toolbox
 {
     friend class Graph;
-private :
 
+private :
 
     /// le POINTEUR sur l'interface associée, nullptr -> pas d'interface
     std::shared_ptr<ToolboxInterface> m_interface = nullptr;
@@ -46,6 +46,12 @@ public:
     /// Ici on ne donne qu'un seul constructeur qui peut utiliser une interface
     Toolbox (ToolboxInterface *interface=nullptr) :
         m_interface(interface)  {  }
+
+
+
+    void position_widgets();
+
+    void add_widget(grman::Widget& addit);
 
 };
 
