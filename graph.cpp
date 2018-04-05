@@ -41,7 +41,7 @@ Graph::Graph (std::istream& file)
 
 void Graph::initialize_toolbox()
 {
-    m_toolbox.m_interface = new ToolboxInterface(m_interface->m_tool_box.get_dimx, m_interface->m_tool_box.get_dimy);
+    m_toolbox.m_interface = make_shared<ToolboxInterface>(m_interface->m_tool_box.get_dimx()-2, m_interface->m_tool_box.get_dimy()-2);
 
     m_interface->m_tool_box.add_child(m_toolbox.m_interface->m_top_box);
 }
