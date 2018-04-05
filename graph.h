@@ -139,7 +139,7 @@ public:
     void add_edge(int idx, int vert1, int vert2, double weight=0);
 
     void add_interfaced_vertex(int idx, double value, double r, int x, int y, std::string name="", std::string pic_name="", int pic_idx=0 );
-    void add_interfaced_edge(int idx, int vert1, int vert2, double weight=0);
+    void add_interfaced_edge(int idx, int vert1, int vert2, double weight=0, Edge_type type= Edge_type::Trophic);
 
     /// Méthode spéciale qui construit un graphe arbitraire (démo)
     /// Voir implémentation dans le .cpp

@@ -8,6 +8,12 @@
                     EDGE
 ****************************************************/
 
+enum class Edge_type
+{
+    Trophic,
+    Non_Trophic
+};
+
 class EdgeInterface
 {
     // Les (methodes des) classes amies pourront accéder
@@ -37,7 +43,7 @@ public :
 
     // Le constructeur met en place les éléments de l'interface
     // voir l'implémentation dans le .cpp
-    EdgeInterface(Vertex& from, Vertex& to);
+    EdgeInterface(Vertex& from, Vertex& to, Edge_type type);
 };
 
 
@@ -60,6 +66,9 @@ private :
     //m_weight correspond au coeficient de prédation : un lapin mange 1kg d'herbe (on le note coef)
     double m_weight;
 
+    Edge_type m_type;
+
+
     /// le POINTEUR sur l'interface associée, nullptr -> pas d'interface
     std::shared_ptr<EdgeInterface> m_interface = nullptr;
 
@@ -68,8 +77,8 @@ public:
 
     /// Les constructeurs sont à compléter selon vos besoin...
     /// Ici on ne donne qu'un seul constructeur qui peut utiliser une interface
-    Edge (double weight=0, EdgeInterface *interface=nullptr) :
-        m_weight(weight), m_interface(interface)  {  }
+    Edge (double weight=0, EdgeInterface *interface=nullptr, Edge_type type=Edge_type::Trophic) :
+        m_weight(weight), m_type(type), m_interface(interface) { }
 
     /// Edge étant géré par Graph ce sera la méthode update de graph qui appellera
     /// le pre_update et post_update de Edge (pas directement la boucle de jeu)

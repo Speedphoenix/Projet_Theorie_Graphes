@@ -65,13 +65,13 @@ void Graph::make_test1()
     m_interface = std::make_shared<GraphInterface>(50, 0, 750, 600);
 
     add_interfaced_vertex( 0, 30.0, 0.5, 100, 600, "herbe", "clown1.jpg");
-    add_interfaced_vertex( 1, 60.0, 0.5, 100, 400, "lapin");
-    add_interfaced_vertex( 2, 10.0, 0.5, 100, 200, "australopitheque");
+    add_interfaced_vertex( 1, 60.0, 1, 100, 400, "lapin");
+    add_interfaced_vertex( 2, 10.0, 0.6, 100, 200, "renard");
 
-    add_interfaced_edge(0, 0, 1, 2);
-    add_interfaced_edge(1, 1, 0, 1);
+    add_interfaced_edge(0, 0, 1, 3);
+    add_interfaced_edge(1, 1, 0, 1, Edge_type::Non_Trophic);
     add_interfaced_edge(2, 1, 2, 1);
-    add_interfaced_edge(3, 2, 0, 1);
+    add_interfaced_edge(3, 2, 0, 1, Edge_type::Non_Trophic);
 }
 
 
@@ -153,7 +153,7 @@ void Graph::add_interfaced_vertex( int idx, double value, double r, int x, int y
 }
 
 /// Aide à l'ajout d'arcs interfacés
-void Graph::add_interfaced_edge(int idx, int id_vertFrom, int id_vertTo, double weight)
+void Graph::add_interfaced_edge(int idx, int id_vertFrom, int id_vertTo, double weight, Edge_type type)
 {
     if ( m_edges.find(idx)!=m_edges.end() )
     {
@@ -167,9 +167,9 @@ void Graph::add_interfaced_edge(int idx, int id_vertFrom, int id_vertTo, double 
         throw "Error adding edge";
     }
 
-    EdgeInterface *ei = new EdgeInterface(m_vertices[id_vertFrom], m_vertices[id_vertTo]);
+    EdgeInterface *ei = new EdgeInterface(m_vertices[id_vertFrom], m_vertices[id_vertTo], type);
     m_interface->m_main_box.add_child(ei->m_top_edge);
-    m_edges[idx] = Edge(weight, ei);
+    m_edges[idx] = Edge(weight, ei, type);
 
     //on ajoute les indices des sommets à l'arc
     m_edges.at(idx).m_from = id_vertFrom;

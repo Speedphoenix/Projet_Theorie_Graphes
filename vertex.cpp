@@ -92,26 +92,43 @@ void Vertex::turn(Graph& g)
     double k = 0;
     double n = m_value;
     Edge temp;
-    double coef = 0;
+    double coef_proie = 0;
+    double coef_pred = 0;
+    double pred_tot = 0;
     double n_proie = 0;
+    double n_pred = 0;
 
 
     //Actualisation de m_value
-    ///Model 1 : on considere que si un sommet n'a aucune arete sortante, alors son N est constant
+    ///Model 1 : on considere que si un sommet n'a aucune arete entrante, alors son N est constant
     if(! m_in.empty())
     {
+        //Ce que notre sommet mange
         for(unsigned i = 0 ; i < m_in.size() ; i++)
         {
+            //temps correspond à l'arete entrante
             temp = g.getEdge(m_in[i]);
 
-            // k = Coef_herbe* N_herbe + Coef_carrottes *N_carrottes
-            coef = temp.m_weight;
+            // k = Coef_herbe->lapin * N_herbe + Coef_carrottes->lapin *N_carrottes
+            coef_proie = temp.m_weight;
             n_proie = g.getVertex(temp.m_from).m_value;
 
-            k += coef * n_proie;
+            k += coef_proie * n_proie;
+        }
+        //Notre vertex est mangé par ses prédateurs
+        for(unsigned i = 0 ; i < m_out.size() ; i++ )
+        {
+            temp = g.getEdge(m_out[i]);
+
+            //pred_tot = coef_lapin->renard * n_renard - coef_lapin->loup * n_loup...
+            coef_pred = temp.m_weight;
+            n_pred = g.getVertex(temp.m_to).m_value;
+
+            pred_tot += coef_pred * n_pred;
+
         }
 
-        m_value = n + m_r * n *(1 - n / k);
+        m_value = n + m_r * n *(1 - n / k) - pred_tot ;
     }
 
     if(m_value < 0)
