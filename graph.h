@@ -97,6 +97,9 @@ private :
     /// Dans cette boite seront ajoutés des boutons de contrôle etc...
     grman::WidgetBox m_tool_box;
 
+        /// Dans cette boite sera ajout� l'interface de saisie
+        //grman::WidgetTextSaisie;
+
 
     // A compléter éventuellement par des widgets de décoration ou
     // d'édition (boutons ajouter/enlever ...)
