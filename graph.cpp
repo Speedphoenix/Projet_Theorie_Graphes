@@ -24,8 +24,21 @@ GraphInterface::GraphInterface(int x, int y, int w, int h)
     m_main_box.set_bg_color(BLANCJAUNE);
 }
 
+Graph::Graph (std::string filename)
+{
+    ifstream myFile(filename, ios::in);
 
-///PEUT CAUSER PROBLÈME COMPARAISON AVEC nullptr
+    get_stream(myFile);
+
+    myFile.close();
+}
+
+Graph::Graph (std::istream& file)
+{
+    get_stream(file);
+}
+
+
 void Graph::send_stream(ostream& myStream)
 {
     Coords someCoords;
@@ -49,9 +62,7 @@ void Graph::send_stream(ostream& myStream)
         myStream << elem.first << " "; // l'indice du sommet
 
         myStream << elem.second.m_value << " " << elem.second.m_r << " " << (int)has_interface << " ;" << endl;
-E((int)!has_interface)
-if (has_interface)
-    E("WHAT")
+
         if (has_interface)
         {
             VertexInterface& interface = *(elem.second.m_interface);
@@ -96,27 +107,29 @@ void Graph::get_stream(istream& myStream)
     myStream >> val;
 
     if (val)
-    {E(1)
+    {
         myStream >> someCoords;
-E(someCoords)
+
         m_interface = make_shared<GraphInterface>(0, 0, someCoords.x, someCoords.y);
     }
-E(2)
+    else
+    {
+        m_interface = nullptr;
+    }
 
     //la ligne n'etait pas terminée
     getline(myStream, dump); //pour bien séparer les vals
 
-E(dump)
+
     //la nombre de sommets
     myStream >> container_size;
-E(container_size)
+
 
     getline(myStream, dump);
 
-    E(dump)
 
     for (int i=0;i<container_size;i++)
-    {E(endl)
+    {
         //les variables à passer en param des func de création de vertex
         int idx;
         double value, r;
@@ -126,7 +139,7 @@ E(container_size)
         myStream >> idx;
         myStream >> value >> r >> val;
         getline(myStream, dump);
-E(idx) E(value) E(r) E(val) E(dump)
+
         //ici val est un bool si le vertex a une interface ou non
 
         if (val)
@@ -138,7 +151,7 @@ E(idx) E(value) E(r) E(val) E(dump)
 
             if (val2)
             {
-                getline(myStream, pic_name); /// ATTENTION PEUT CAUSER PROBLÈME AVEC LE DERNIER endl !!!!!
+                getline(myStream, pic_name);
                 myStream >> pic_idx;
                 getline(myStream, dump);
             }
@@ -149,18 +162,16 @@ E(idx) E(value) E(r) E(val) E(dump)
         {
             add_vertex(idx, value, r);
         }
-        E("end of a vertex")
     } //fin de la boucle for (for chaque sommet)
 
-E("end of all vertices")
     myStream >> container_size;
     getline(myStream, dump);
 
     for (int i=0;i<container_size;i++)
-    {E(endl)
+    {
         int idx, from, to;
         double weight = 0;
-E(idx) E(from) E(to) E(weight)
+
         myStream >> idx;
 
         myStream >> from >> to >> weight;
@@ -176,9 +187,8 @@ E(idx) E(from) E(to) E(weight)
         else
         {
             add_edge(idx, from, to, weight);
-        }E("end of an edge")
+        }
     } //fin de la boucle des aretes
-E("end of getstream func")
 }
 
 

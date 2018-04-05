@@ -145,6 +145,11 @@ public:
     Graph (GraphInterface *interface=nullptr) :
         m_interface(interface)  {  }
 
+    ///prend le graphe depuis un fichier
+    Graph (std::string filename);
+    Graph (std::istream& file);
+
+
     //Getters and setters
     Edge& getEdge(int id) { return m_edges.at(id); }
     Vertex& getVertex (int id) { return m_vertices.at(id); }
