@@ -18,15 +18,22 @@ int main()
     grman::init();
 
     /// Un exemple de graphe. pris depuis le fichier GRAPHEFILE1
-    Graph g(GRAPHFILE1);
-//    g.make_test1();
+    Graph g(GRAPHFILE2);
+    //g.make_test1();
+
+
+    //sauvegarde dans le nouveau fichier
+    ofstream myFile1(GRAPHFILE2, ios::out | ios::trunc);
+
+    myFile1 << g;
+    myFile1.close();
 
 
     /// Vous gardez la main sur la "boucle de jeu"
     /// ( contrairement à des frameworks plus avancés )
     while ( !key[KEY_ESC] )
     {
-        if (grman::key_press[KEY_SPACE])
+        if (grman::key_press[KEY_ENTER])
             g.fortementConnexes();
 
         /// Il faut appeler les méthodes d'update des objets qui comportent des widgets
@@ -40,10 +47,10 @@ int main()
     }
 
     //sauvegarde dans le nouveau fichier
-    ofstream myFile2(GRAPHFILE2, ios::out | ios::trunc);
-
-    myFile2 << g;
-    myFile2.close();
+//    ofstream myFile2(GRAPHFILE2, ios::out | ios::trunc);
+//
+//    myFile2 << g;
+//    myFile2.close();
 
     grman::fermer_allegro();
 

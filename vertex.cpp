@@ -74,7 +74,7 @@ void Vertex::pre_update()
 
         /// Copier la valeur locale de la donnée m_value vers le label sous le slider
         m_interface->m_label_value.set_message( std::to_string( (int)m_value) );
-      
+
         m_interface->m_label_comp.set_message( std::to_string(m_compNum));
     }
 }
@@ -90,7 +90,7 @@ void Vertex::post_update()
 
     /// Reprendre la valeur du slider dans la donnée m_value locale
     m_value = m_interface->m_slider_value.get_value();
-  
+
     //si la valeur est en train d'être entrée en texte, on prend celle là
     if (m_interface->m_label_value.is_typing())
         m_value = m_interface->m_label_value.get_value();
@@ -108,6 +108,7 @@ void Vertex::turn(Graph& g)
     double n_proie = 0;
     double n_pred = 0;
 
+    ///E(endl) E(m_value)
 
     //Actualisation de m_value
     ///Model 1 : on considere que si un sommet n'a aucune arete entrante, alors son N est constant
@@ -138,10 +139,14 @@ void Vertex::turn(Graph& g)
 
         }
 
+        ///DÉCOMMENTE POUR DEBUG
+//E(n) E(m_r) E(k) E(n/k) E((m_r * n *(1 - n / k))) E(pred_tot) E(coef_pred) E(n_pred)
+
         m_value = n + m_r * n *(1 - n / k) - pred_tot ;
     }
 
-    if(m_value < 0)
+    if(m_value < 0 || isnan(m_value))
         m_value = 0;
+
 }
 

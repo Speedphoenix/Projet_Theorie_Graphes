@@ -77,7 +77,7 @@ public:
 
     /// Les constructeurs sont à compléter selon vos besoin...
     /// Ici on ne donne qu'un seul constructeur qui peut utiliser une interface
-    Edge (double weight=0, EdgeInterface *interface=nullptr, Edge_type type=Edge_type::Trophic) :
+    Edge (double weight=0, Edge_type type=Edge_type::Trophic, EdgeInterface *interface=nullptr) :
         m_weight(weight), m_type(type), m_interface(interface) { }
 
     /// Edge étant géré par Graph ce sera la méthode update de graph qui appellera
