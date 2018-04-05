@@ -138,7 +138,7 @@ class Widget
 
         int get_dimx() { return m_frame.dim.x-2*get_bp(); }
         int get_dimy() { return m_frame.dim.y-2*get_bp(); }
-        Coords get_dim() { return Coords(get_dimx(), get_dimy()); } //la réference ici est dangeureuse mais pratique
+        Coords get_dim() { return Coords(get_dimx(), get_dimy()); }
 
         void set_posx(int x) { m_frame.pos.x = x+get_parent_bp(); m_gravity_x = GravityX::None; }
         void set_posy(int y) { m_frame.pos.y = y+get_parent_bp(); m_gravity_y = GravityY::None; }

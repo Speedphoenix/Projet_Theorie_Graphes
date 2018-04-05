@@ -122,6 +122,9 @@ private :
     /// le POINTEUR sur l'interface associée, nullptr -> pas d'interface
     std::shared_ptr<GraphInterface> m_interface = nullptr;
 
+    /// La tool_box qui contien les boutons
+    Toolbox m_toolbox;
+
 
     /// 'colorie' (change nompNum) tous les sommets ayant comme numero de comp 'old' et leur donne 'new'
     void unicompAllVert(int ancien, int nouveau);
@@ -143,11 +146,13 @@ public:
     /// Les constructeurs sont à compléter selon vos besoin...
     /// Ici on ne donne qu'un seul constructeur qui peut utiliser une interface
     Graph (GraphInterface *interface=nullptr) :
-        m_interface(interface)  {  }
+        m_interface(interface)  { if (interface) initialize_toolbox(); }
 
     ///prend le graphe depuis un fichier
     Graph (std::string filename);
     Graph (std::istream& file);
+
+    void initialize_toolbox();
 
 
     //Getters and setters

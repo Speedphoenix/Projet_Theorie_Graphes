@@ -40,18 +40,21 @@ private :
     /// le POINTEUR sur l'interface associée, nullptr -> pas d'interface
     std::shared_ptr<ToolboxInterface> m_interface = nullptr;
 
+    Coords m_bottom_space;
+
 public:
 
     /// Les constructeurs sont à compléter selon vos besoin...
     /// Ici on ne donne qu'un seul constructeur qui peut utiliser une interface
     Toolbox (ToolboxInterface *interface=nullptr) :
-        m_interface(interface)  {  }
+        m_interface(interface), m_bottom_space(0, 0)  {  }
 
 
 
     void position_widgets();
 
-    void add_widget(grman::Widget& addit);
+    void add_widget(grman::Widget* addit);
+
 
 };
 

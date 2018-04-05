@@ -39,6 +39,13 @@ Graph::Graph (std::istream& file)
     get_stream(file);
 }
 
+void Graph::initialize_toolbox()
+{
+    m_toolbox.m_interface = new ToolboxInterface(m_interface->m_tool_box.get_dimx, m_interface->m_tool_box.get_dimy);
+
+    m_interface->m_tool_box.add_child(m_toolbox.m_interface->m_top_box);
+}
+
 void Graph::send_stream(ostream& myStream)
 {
     Coords someCoords;
@@ -132,6 +139,8 @@ void Graph::get_stream(istream& myStream)
         myStream >> someCoords;
 
         m_interface = make_shared<GraphInterface>(0, 0, someCoords.x, someCoords.y);
+
+        initialize_toolbox();
     }
     else
     {
