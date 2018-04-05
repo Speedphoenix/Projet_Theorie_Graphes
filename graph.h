@@ -166,8 +166,16 @@ public:
     void update();
 
     void fortementConnexes();
+
+    void send_stream(std::ostream& myStream);
+    void get_stream(std::istream& myStream);
+
 };
 
+
+std::ostream& operator<<(std::ostream& myStream, Graph& what);
+
+std::istream& operator>>(std::istream& myStream, Graph& what);
 
 #endif // GRAPH_H_INCLUDED
 

@@ -7,6 +7,8 @@
                     VERTEX
 ****************************************************/
 
+using namespace std;
+
 /// Le constructeur met en place les éléments de l'interface
 VertexInterface::VertexInterface(int idx, int x, int y, std::string pic_name, int pic_idx)
 {
@@ -89,7 +91,5 @@ void Vertex::post_update()
     /// Reprendre la valeur du slider dans la donnée m_value locale
     m_value = m_interface->m_slider_value.get_value();
 }
-
-
 
 

@@ -3,6 +3,8 @@
 
 #include "graph.h"
 
+using namespace std;
+
 int main()
 {
     /// Le nom du répertoire où se trouvent les images à charger
@@ -14,7 +16,19 @@ int main()
 
     /// Un exemple de graphe
     Graph g;
-    g.make_test1();
+//    g.make_test1();
+
+/// POUR TESTER LE chargement/sauvegarde
+//    ifstream myFile("graphze1.txt", ios::in);
+//
+//    myFile >> g;
+//    myFile.close();
+//
+//
+//    ofstream myFile2("graphze2.txt", ios::out | ios::trunc);
+//
+//    myFile2 << g;
+//    myFile2.close();
 
 
     /// Vous gardez la main sur la "boucle de jeu"

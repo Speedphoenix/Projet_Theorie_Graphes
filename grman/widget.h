@@ -138,7 +138,7 @@ class Widget
 
         int get_dimx() { return m_frame.dim.x-2*get_bp(); }
         int get_dimy() { return m_frame.dim.y-2*get_bp(); }
-        Coords get_dim() { return Coords(get_dimx(), get_dimy());  }
+        Coords get_dim() { return Coords(get_dimx(), get_dimy()); } //la réference ici est dangeureuse mais pratique
 
         void set_posx(int x) { m_frame.pos.x = x+get_parent_bp(); m_gravity_x = GravityX::None; }
         void set_posy(int y) { m_frame.pos.y = y+get_parent_bp(); m_gravity_y = GravityY::None; }
@@ -348,11 +348,13 @@ class WidgetImage : public Widget
 
         virtual void reframe();
         void set_pic_name(std::string pic_name) { m_pic_name = pic_name; reframe(); }
+        std::string get_pic_name() {return m_pic_name; }
 
         void set_animate(bool ani=true) { m_animate = ani; }
         void set_animate_tempo(int tempo) { m_animate_tempo = tempo; }
 
         void set_pic_idx(int pic_idx) { m_pic_idx=pic_idx; }
+        int get_pic_idx() { return m_pic_idx; }
 };
 
 
