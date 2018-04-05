@@ -6,7 +6,7 @@
 ****************************************************/
 
 /// Le constructeur met en place les éléments de l'interface
-EdgeInterface::EdgeInterface(Vertex& from, Vertex& to)
+EdgeInterface::EdgeInterface(Vertex& from, Vertex& to, Edge_type type)
 {
     // Le WidgetEdge de l'interface de l'arc
     if ( !(from.m_interface && to.m_interface) )
@@ -17,6 +17,9 @@ EdgeInterface::EdgeInterface(Vertex& from, Vertex& to)
     m_top_edge.attach_from(from.m_interface->m_top_box);
     m_top_edge.attach_to(to.m_interface->m_top_box);
     m_top_edge.reset_arrow_with_bullet();
+    if(type == Edge_type::Non_Trophic)
+        m_top_edge.set_color(ORANGE);
+
 
     // Une boite pour englober les widgets de réglage associés
     m_top_edge.add_child(m_box_edge);

@@ -17,6 +17,7 @@
 
 class Graph;
 
+
 /***************************************************
                     VERTEX
 ****************************************************/
@@ -37,6 +38,12 @@ private :
 
     // La boite qui contient toute l'interface d'un sommet
     grman::WidgetBox m_top_box;
+
+    //Un text qui contient le nom du sommet
+    grman::WidgetText m_name;
+
+    //Une boite pour le nom
+    grman::WidgetText m_box_name;
 
     // Un slider de visualisation/modification de la valeur du sommet
     grman::WidgetVSlider m_slider_value;
@@ -61,7 +68,7 @@ public :
 
     // Le constructeur met en place les éléments de l'interface
     // voir l'implémentation dans le .cpp
-    VertexInterface(int idx, int x, int y, std::string pic_name="", int pic_idx=0);
+    VertexInterface(int idx, int x, int y, std::string name="", std::string pic_name="", int pic_idx=0);
 };
 
 
@@ -84,10 +91,12 @@ private :
     /// un exemple de donnée associée au sommet, on peut en ajouter d'autres...
     double m_value; //nombre d'individu (pour des animaux) ou masse totale (pour des ressources)
     double m_r; //rythme de croissance
+    std::string m_name;
 
     ///un marquages pour les algos de passage
     bool m_flag;
     int m_compNum;
+
 
     /// le POINTEUR sur l'interface associée, nullptr -> pas d'interface
     std::shared_ptr<VertexInterface> m_interface = nullptr;
@@ -100,18 +109,24 @@ private :
 public:
 
     /// Les constructeurs sont à compléter selon vos besoin...
+
     /// Ici on ne donne qu'un seul constructeur qui peut utiliser une interface
-    Vertex (double value=0, double r=1, VertexInterface *interface=nullptr) :
-        m_value(value), m_r(r), m_flag(false), m_compNum(-1), m_interface(interface)  {  }
+    //Problème d'ordre des paramètres (initialisation d'interface sans le nom...)
+    Vertex (double value=0, double r=1, VertexInterface *interface=nullptr, std::string name="") :
+        m_value(value), m_r(r), m_name(name), m_flag(false), m_interface(interface) { }
+
+    Vertex (double value, double r, std::string name="") :
+        m_value(value), m_r(r), m_name(name), m_flag(false), m_interface(nullptr) { }
 
     /// Vertex étant géré par Graph ce sera la méthode update de graph qui appellera
     /// le pre_update et post_update de Vertex (pas directement la boucle de jeu)
     /// Voir l'implémentation Graph::update dans le .cpp
     //On fait l'étude démographique dans pre_update
-    void pre_update(Graph* g);
+
+    void pre_update();
     void post_update();
+
+    void turn(Graph& g);
 };
-
-
 
 #endif

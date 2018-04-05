@@ -6,8 +6,8 @@ using namespace std;
                     GRAPH
 ****************************************************/
 
-/// Ici le constructeur se contente de prÈparer un cadre d'accueil des
-/// ÈlÈments qui seront ensuite ajoutÈs lors de la mise ne place du Graphe
+/// Ici le constructeur se contente de pr√©parer un cadre d'accueil des
+/// √©l√©ments qui seront ensuite ajout√©s lors de la mise ne place du Graphe
 GraphInterface::GraphInterface(int x, int y, int w, int h)
 {
     m_top_box.set_dim(1000,740);
@@ -24,6 +24,7 @@ GraphInterface::GraphInterface(int x, int y, int w, int h)
     m_main_box.set_bg_color(BLANCJAUNE);
 }
 
+
 Graph::Graph (std::string filename)
 {
     ifstream myFile(filename, ios::in);
@@ -36,6 +37,42 @@ Graph::Graph (std::string filename)
 Graph::Graph (std::istream& file)
 {
     get_stream(file);
+}
+
+/// M√©thode sp√©ciale qui construit un graphe arbitraire (d√©mo)
+/// Cette m√©thode est √† enlever et remplacer par un syst√®me
+/// de chargement de fichiers par exemple.
+/// Bien s√ªr on ne veut pas que vos graphes soient construits
+/// "√† la main" dans le code comme √ßa.
+void Graph::make_example()
+{
+    m_interface = std::make_shared<GraphInterface>(50, 0, 750, 600);
+    // La ligne pr√©c√©dente est en gros √©quivalente √† :
+    //m_interface = new GraphInterface(50, 0, 750, 600);
+
+    /// Les sommets doivent √™tre d√©finis avant les arcs
+    // Ajouter le sommet d'indice 0 de valeur 30 en x=200 et y=100 avec l'image clown1.jpg etc...
+//    add_interfaced_vertex(0, 30.0, 0.5, 200, 100, "clown1.jpg");
+//    add_interfaced_vertex(1, 60.0, 0.5, 400, 100, "clown2.jpg");
+//    add_interfaced_vertex(2, 50.0, 0.5, 200, 300, "clown3.jpg");
+//    add_interfaced_vertex(3, 0.0, 0.5, 400, 300, "clown4.jpg");
+//    add_interfaced_vertex(4, 100.0, 0.5, 600, 300, "clown5.jpg");
+//    add_interfaced_vertex(5, 0.0, 0.5, 100, 500, "bad_clowns_xx3xx.jpg", 0);
+//    add_interfaced_vertex(6, 0.0, 0.5, 300, 500, "bad_clowns_xx3xx.jpg", 1);
+//    add_interfaced_vertex(7, 0.0, 0.5, 500, 500, "bad_clowns_xx3xx.jpg", 2);
+
+    /// Les arcs doivent √™tre d√©finis entre des sommets qui existent !
+    // AJouter l'arc d'indice 0, allant du sommet 1 au sommet 2 de poids 50 etc...
+    add_interfaced_edge(0, 1, 2, 5.0);
+    add_interfaced_edge(1, 0, 1, 5.0);
+    add_interfaced_edge(2, 1, 3, 7.0);
+    add_interfaced_edge(3, 4, 1, 2.0);
+    add_interfaced_edge(4, 6, 3, 2.0);
+    add_interfaced_edge(5, 7, 3, 2.0);
+    add_interfaced_edge(6, 3, 4, 0.0);
+    add_interfaced_edge(7, 2, 0, 10.0);
+    add_interfaced_edge(8, 5, 2, 2.0);
+    add_interfaced_edge(9, 3, 7, 8.0);
 }
 
 
@@ -51,13 +88,13 @@ void Graph::send_stream(ostream& myStream)
         myStream << 1 << " " << someCoords;
     }
 
-    myStream << " ;" << endl; //pour bien sÈparer les vals
+    myStream << " ;" << endl; //pour bien s√©parer les vals
 
     myStream << m_vertices.size() << " ;" << endl;
 
     for (auto& elem : m_vertices)
     {
-        //le contenu de cette boucle pourrait Ítre mis dans un operator<<
+        //le contenu de cette boucle pourrait √™tre mis dans un operator<<
         bool has_interface = elem.second.m_interface!=nullptr;
         myStream << elem.first << " "; // l'indice du sommet
 
@@ -72,7 +109,7 @@ void Graph::send_stream(ostream& myStream)
             if (interface.m_img.get_pic_name()!="")
             {
                 myStream << 1 << " " << interface.m_img.get_pic_idx() << " ;" << endl;
-                myStream << interface.m_img.get_pic_name() << endl; // faire un getline pour le prendre aprËs
+                myStream << interface.m_img.get_pic_name() << endl; // faire un getline pour le prendre apr√®s
                 myStream << interface.m_img.get_pic_idx() << " ;" << endl;
             }
             else
@@ -82,13 +119,13 @@ void Graph::send_stream(ostream& myStream)
         }
     }
 
-    myStream << endl << endl; //fin des sommets, dÈbut des aretes
+    myStream << endl << endl; //fin des sommets, d√©but des aretes
 
     myStream << m_edges.size() << " ;" << endl;
 
     for (auto& elem : m_edges)
     {
-        //le contenu de cette boucle pourrait Ítre mis dans un operator<<
+        //le contenu de cette boucle pourrait √™tre mis dans un operator<<
         bool has_interface = elem.second.m_interface!=nullptr;
         myStream << elem.first << " " << endl; //l'indice de l'arete
 
@@ -117,8 +154,8 @@ void Graph::get_stream(istream& myStream)
         m_interface = nullptr;
     }
 
-    //la ligne n'etait pas terminÈe
-    getline(myStream, dump); //pour bien sÈparer les vals
+    //la ligne n'etait pas termin√©e
+    getline(myStream, dump); //pour bien s√©parer les vals
 
 
     //la nombre de sommets
@@ -130,7 +167,7 @@ void Graph::get_stream(istream& myStream)
 
     for (int i=0;i<container_size;i++)
     {
-        //les variables ‡ passer en param des func de crÈation de vertex
+        //les variables √† passer en param des func de cr√©ation de vertex
         int idx;
         double value, r;
         string pic_name = "";
@@ -144,7 +181,7 @@ void Graph::get_stream(istream& myStream)
 
         if (val)
         {
-            //les coordonnÈes
+            //les coordonn√©es
             myStream >> someCoords >> val2;
             //val2 est ici un booleen de si il y a une image ou non
             getline(myStream, dump);
@@ -209,67 +246,24 @@ void Graph::make_test1()
 {
     m_interface = std::make_shared<GraphInterface>(50, 0, 908, 720);
 
-    /// Les sommets doivent Ítre dÈfinis avant les arcs
-    //Ajouter le sommet d'indice 0 de valeur 30 en x=200 et y=100 avec l'image clown1.jpg etc...
-    add_interfaced_vertex(0, 30.0, 1, 200, 100, "clown1.jpg");
-    add_interfaced_vertex(1, 60.0, 1, 400, 100, "clown2.jpg");
-    add_interfaced_vertex(2,  50.0, 1, 200, 300, "clown3.jpg");
-    add_interfaced_vertex(3,  0.0, 1, 400, 300, "clown4.jpg");
-    add_interfaced_vertex(4,  100.0, 1, 600, 300, "clown5.jpg");
-    add_interfaced_vertex(5,  0.0, 1, 100, 500, "bad_clowns_xx3xx.jpg", 0);
-    add_interfaced_vertex(6,  0.0, 1, 300, 500, "bad_clowns_xx3xx.jpg", 1);
-    add_interfaced_vertex(7,  0.0, 1, 500, 500, "bad_clowns_xx3xx.jpg", 2);
+    add_interfaced_vertex( 0, 30.0, 0.5, 100, 600, "herbe", "clown1.jpg");
+    add_interfaced_vertex( 1, 60.0, 1, 100, 400, "lapin");
+    add_interfaced_vertex( 2, 10.0, 0.6, 100, 200, "renard");
 
-    /// Les arcs doivent Ítre dÈfinis entre des sommets qui existent !
-    // AJouter l'arc d'indice 0, allant du sommet 1 au sommet 2 de poids 50 etc...
-
-    add_interfaced_edge(0, 1, 2, 50.0);
-    add_interfaced_edge(1, 0, 1, 50.0);
-    add_interfaced_edge(2, 1, 3, 75.0);
-    add_interfaced_edge(3, 4, 1, 25.0);
-    add_interfaced_edge(4, 6, 3, 25.0);
-    add_interfaced_edge(5, 7, 3, 25.0);
-    add_interfaced_edge(6, 3, 4, 0.0);
-    add_interfaced_edge(7, 2, 0, 100.0);
-    add_interfaced_edge(8, 5, 2, 20.0);
-    add_interfaced_edge(9, 3, 7, 80.0);
-
-
-/// un bon graphe de test pour essayer l'algo des composantes fortement connexes
-//    add_interfaced_vertex(0, 0, 1, 600, 450, "black-ground.png");
-//    add_interfaced_vertex(1, 0, 1, 400, 400, "black-ground.png");
-//    add_interfaced_vertex(2, 0, 1, 350, 550, "black-ground.png");
-//    add_interfaced_vertex(3, 0, 1, 400, 200, "black-ground.png");
-//    add_interfaced_vertex(4, 0, 1, 200, 400, "black-ground.png");
-//    add_interfaced_vertex(5, 0, 1, 150, 600, "black-ground.png");
-//    add_interfaced_vertex(6, 0, 1, 10, 525, "black-ground.png");
-//    add_interfaced_vertex(7, 0, 1, 150, 200, "black-ground.png");
-//    add_interfaced_vertex(8, 0, 1, 10, 250, "black-ground.png");
-//    add_interfaced_vertex(9, 0, 1, 10, 50, "black-ground.png");
-//
-//    add_interfaced_edge(0, 1, 0, 0);
-//    add_interfaced_edge(1, 0, 2, 0);
-//    add_interfaced_edge(2, 3, 0, 0);
-//    add_interfaced_edge(3, 1, 3, 0);
-//    add_interfaced_edge(4, 2, 1, 0);
-//    add_interfaced_edge(5, 4, 1, 0);
-//    add_interfaced_edge(6, 5, 4, 0);
-//    add_interfaced_edge(7, 7, 4, 0);
-//    add_interfaced_edge(8, 4, 8, 0);
-//    add_interfaced_edge(9, 5, 6, 0);
-//    add_interfaced_edge(10, 6, 5, 0);
-//    add_interfaced_edge(11, 8, 7, 0);
-//    add_interfaced_edge(12, 8, 9, 0);
+    add_interfaced_edge(0, 0, 1, 3);
+    add_interfaced_edge(1, 1, 0, 1, Edge_type::Non_Trophic);
+    add_interfaced_edge(2, 1, 2, 1);
+    add_interfaced_edge(3, 2, 0, 1, Edge_type::Non_Trophic);
 }
 
 
-/// La mÈthode update ‡ appeler dans la boucle de jeu pour les graphes avec interface
+/// La m√©thode update √† appeler dans la boucle de jeu pour les graphes avec interface
 void Graph::update()
 {
     if (m_interface)
     {
         for (auto &elt : m_vertices)
-            elt.second.pre_update(this);
+            elt.second.pre_update();
 
         for (auto &elt : m_edges)
             elt.second.pre_update();
@@ -284,8 +278,17 @@ void Graph::update()
     }
 }
 
-///Ajout de sommet non interfacÈ
-void Graph::add_vertex(int idx, double value, double r)
+void Graph::turn()
+{
+    for (auto &elt : m_vertices)
+        elt.second.turn(*this);
+
+//    for (auto &elt : m_edges)
+//        elt.second.turn();
+}
+
+///Ajout de sommet non interfac√©
+void Graph::add_vertex(std::string name, int idx, double value, double r)
 {
     if ( m_vertices.find(idx) != m_vertices.end() )
     {
@@ -293,10 +296,10 @@ void Graph::add_vertex(int idx, double value, double r)
         throw "Error adding vertex";
     }
     // On peut ajouter directement des vertices dans la map avec la notation crochet :
-    m_vertices[idx] = Vertex(value, r);
+    m_vertices[idx] = Vertex(value, r, name);
 }
 
-///Ajout d'arete non interfacÈ
+///Ajout d'arete non interfac√©
 void Graph::add_edge(int idx, int id_vert1, int id_vert2, double weight)
 {
     if ( m_edges.find(idx)!=m_edges.end() )
@@ -315,25 +318,24 @@ void Graph::add_edge(int idx, int id_vert1, int id_vert2, double weight)
 }
 
 
-
-/// Aide ‡ l'ajout de sommets interfacÈs
-void Graph::add_interfaced_vertex(int idx, double value, double r, int x, int y, std::string pic_name, int pic_idx )
+/// Aide √† l'ajout de sommets interfac√©s
+void Graph::add_interfaced_vertex( int idx, double value, double r, int x, int y,std::string name, std::string pic_name, int pic_idx )
 {
     if ( m_vertices.find(idx) != m_vertices.end() )
     {
         std::cerr << "Error adding vertex at idx=" << idx << " already used..." << std::endl;
         throw "Error adding vertex";
     }
-    // CrÈation d'une interface de sommet
-    VertexInterface *vi = new VertexInterface(idx, x, y, pic_name, pic_idx);
+    // Cr√©ation d'une interface de sommet
+    VertexInterface *vi = new VertexInterface(idx, x, y, name, pic_name, pic_idx);
     // Ajout de la top box de l'interface de sommet
     m_interface->m_main_box.add_child(vi->m_top_box);
     // On peut ajouter directement des vertices dans la map avec la notation crochet :
-    m_vertices[idx] = Vertex(value, r, vi);
+    m_vertices[idx] = Vertex(value, r, vi, name);
 }
 
-/// Aide ‡ l'ajout d'arcs interfacÈs
-void Graph::add_interfaced_edge(int idx, int id_vertFrom, int id_vertTo, double weight)
+/// Aide √† l'ajout d'arcs interfac√©s
+void Graph::add_interfaced_edge(int idx, int id_vertFrom, int id_vertTo, double weight, Edge_type type)
 {
     if ( m_edges.find(idx)!=m_edges.end() )
     {
@@ -347,11 +349,11 @@ void Graph::add_interfaced_edge(int idx, int id_vertFrom, int id_vertTo, double 
         throw "Error adding edge";
     }
 
-    EdgeInterface *ei = new EdgeInterface(m_vertices[id_vertFrom], m_vertices[id_vertTo]);
+    EdgeInterface *ei = new EdgeInterface(m_vertices[id_vertFrom], m_vertices[id_vertTo], type);
     m_interface->m_main_box.add_child(ei->m_top_edge);
-    m_edges[idx] = Edge(weight, ei);
+    m_edges[idx] = Edge(weight, ei, type);
 
-    //on ajoute les indices des sommets ‡ l'arc
+    //on ajoute les indices des sommets √† l'arc
     m_edges.at(idx).m_from = id_vertFrom;
     m_edges.at(idx).m_to = id_vertTo;
 
@@ -425,7 +427,7 @@ void Graph::fortementConnexes()
         }
         else
         {
-            //si le sommet n'a aucun prÈdÈcesseur, il est seul dans la composante connexe
+            //si le sommet n'a aucun pr√©d√©cesseur, il est seul dans la composante connexe
             //pareil s'il n'a aucun suivant
             if (m_vertices.at(currSommet).m_in.empty() || m_vertices.at(currSommet).m_out.empty())
             {
@@ -435,7 +437,7 @@ void Graph::fortementConnexes()
             }
             else
             {
-                vector<int> dump; //juste pour verifier / paranoÔa. Normalement il devrait rester vide.
+                vector<int> dump; //juste pour verifier / parano√Øa. Normalement il devrait rester vide.
                 set<int> receivedComps;
 
                 reconnexite(dump, currSommet, receivedComps);
@@ -455,13 +457,13 @@ void Graph::fortementConnexes()
 }
 
 
-//le flag n'est levÈ QUE quand toute la composante est trouvÈe
-//la fonction appelÈe dans fortementConnexes()
+//le flag n'est lev√© QUE quand toute la composante est trouv√©e
+//la fonction appel√©e dans fortementConnexes()
 void Graph::reconnexite(vector<int>& origin, int where, set<int>& passedBy)
 {
     origin.push_back(where);
 
-    //passedBy est un set contenant tous les sommets par lesquels on est passÈ.
+    //passedBy est un set contenant tous les sommets par lesquels on est pass√©.
     //la fonction insert empeche la duplication
     passedBy.insert(where);
 
@@ -472,30 +474,30 @@ void Graph::reconnexite(vector<int>& origin, int where, set<int>& passedBy)
         //le sommet que l'on regarde maintenant
         int destVert = m_edges.at(elem).m_to;
 
-        //s'il n'est pas dÈj‡ flaguÈ
+        //s'il n'est pas d√©j√† flagu√©
         if (!m_vertices.at(destVert).m_flag)
         {
-            //numÈro de la composante fortement connexe
+            //num√©ro de la composante fortement connexe
             int compNum = m_vertices.at(destVert).m_compNum;
 
-            //si il fait dÈj‡ partie de la mÍme composante que le courrant, y'a pas besoin
+            //si il fait d√©j√† partie de la m√™me composante que le courrant, y'a pas besoin
             if (compNum==-1 || compNum!=m_vertices.at(where).m_compNum)
             {
                 vector<int>::iterator it = find(origin.begin(), origin.end(), destVert);
 
-                //si on a trouvÈ une boucle dans le graphe (pas forcÈment avec le dÈpart)
+                //si on a trouv√© une boucle dans le graphe (pas forc√©ment avec le d√©part)
                 if (it!=origin.end())
                 {
-                    //numÈro de la composante fortement connexe
-                    compNum = getNewCompNum(); //fonction ‡ coder, donne un numÈro pas encore utilisÈ
+                    //num√©ro de la composante fortement connexe
+                    compNum = getNewCompNum(); //fonction √† coder, donne un num√©ro pas encore utilis√©
 
-                    //on cherche si un des sommets prÈcedent n'ont pas dÈj‡ un num
+                    //on cherche si un des sommets pr√©cedent n'ont pas d√©j√† un num
                     for (vector<int>::iterator passer = it;passer!=origin.end();passer++)
                     {
-                        //si il y avait dÈj‡ un num
+                        //si il y avait d√©j√† un num
                         if (m_vertices.at(*passer).m_compNum!=-1 && m_vertices.at(*passer).m_compNum!=compNum)
                         {
-                            //prÈfere garder le dÈj‡ existant
+                            //pr√©fere garder le d√©j√† existant
 
                             unicompAllVert(compNum, m_vertices.at(*passer).m_compNum);
 
@@ -505,18 +507,18 @@ void Graph::reconnexite(vector<int>& origin, int where, set<int>& passedBy)
                         {
                             m_vertices.at(*passer).m_compNum = compNum;
                         }
-                    } //fin du for: on cherche si un des sommets prÈcedent n'ont pas dÈj‡ un num
+                    } //fin du for: on cherche si un des sommets pr√©cedent n'ont pas d√©j√† un num
                 }
                 else //si on a pas (encore) fait de boucle
                 {
                     //on appelle cette fonction recursivement pour le prochain
                     reconnexite(origin, destVert, passedBy);
-                } //fin du if/else: si on a trouvÈ une boucle dans le graphe (pas forcÈment avec le dÈpart)
-            } //fin du if: si il fait dÈj‡ partie de la mÍme composante que le courrant, y'a pas besoin
-        } //fin du if: s'il n'est pas dÈj‡ flaguÈ
-    } // fin de la boucle for gÈnÈrale des aretes suivantes du sommet en param
+                } //fin du if/else: si on a trouv√© une boucle dans le graphe (pas forc√©ment avec le d√©part)
+            } //fin du if: si il fait d√©j√† partie de la m√™me composante que le courrant, y'a pas besoin
+        } //fin du if: s'il n'est pas d√©j√† flagu√©
+    } // fin de la boucle for g√©n√©rale des aretes suivantes du sommet en param
 
-    //on enlËve le sommet courant du vector
+    //on enl√®ve le sommet courant du vector
     origin.pop_back();
 }
 
@@ -533,13 +535,13 @@ void Graph::unicompAllVert(int ancien, int nouveau)
     }
 }
 
-//flague tous les sommets par lesquels on est passÈ
-//et donne ‡ ceux tout seuls un numÈro de composante
+//flague tous les sommets par lesquels on est pass√©
+//et donne √† ceux tout seuls un num√©ro de composante
 void Graph::flagRemaining(set<int>& receivedComps)
 {
     for (auto & elem : receivedComps)
     {
-        //Áa veut dire que ce sommet est seul dans sa composante connexe forte
+        //√ßa veut dire que ce sommet est seul dans sa composante connexe forte
         if (m_vertices.at(elem).m_compNum == -1)
         {
             m_vertices.at(elem).m_compNum = getNewCompNum();

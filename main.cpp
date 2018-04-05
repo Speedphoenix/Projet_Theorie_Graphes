@@ -34,6 +34,9 @@ int main()
 
         /// Mise à jour générale (clavier/souris/buffer etc...)
         grman::mettre_a_jour();
+
+        if( grman::key_press[KEY_SPACE] )
+            g.turn();
     }
 
     //sauvegarde dans le nouveau fichier
