@@ -22,10 +22,6 @@ VertexInterface::VertexInterface(int idx, int x, int y, std::string name, std::s
     m_slider_value.set_dim(20,80);
     m_slider_value.set_gravity_xy(grman::GravityX::Left, grman::GravityY::Up);
 
-    // Label de visualisation de valeur
-    m_top_box.add_child( m_label_value );
-    m_label_value.set_gravity_xy(grman::GravityX::Left, grman::GravityY::Down);
-
     // Une illustration...
     if (pic_name!="")
     {
@@ -44,9 +40,10 @@ VertexInterface::VertexInterface(int idx, int x, int y, std::string name, std::s
     m_box_label_idx.add_child( m_label_idx );
     m_label_idx.set_message( std::to_string(idx) );
 
-    //Le nom
+    ///Le nom
     m_name.set_message( name );
 
+    //Le fonc du nom
     m_top_box.add_child( m_box_name );
     m_box_name.set_gravity_xy(grman::GravityX::Center, grman::GravityY::Up);
     m_box_name.set_dim(10 * m_name.get_message().size(), 9);
@@ -55,6 +52,9 @@ VertexInterface::VertexInterface(int idx, int x, int y, std::string name, std::s
     m_top_box.add_child( m_name );
     m_name.set_gravity_xy(grman::GravityX::Center, grman::GravityY::Up);
 
+    // Label de visualisation de valeur
+    m_top_box.add_child( m_label_value );
+    m_label_value.set_gravity_xy(grman::GravityX::Left, grman::GravityY::Down);
 
 
 }
@@ -103,7 +103,7 @@ void Vertex::turn(Graph& g)
     ///Model 1 : on considere que si un sommet n'a aucune arete entrante, alors son N est constant
     if(! m_in.empty())
     {
-        //Ce que notre sommet mange
+        ///Ce que notre sommet mange
         for(unsigned i = 0 ; i < m_in.size() ; i++)
         {
             //temps correspond à l'arete entrante
@@ -114,21 +114,29 @@ void Vertex::turn(Graph& g)
             n_proie = g.getVertex(temp.m_from).m_value;
 
             k += coef_proie * n_proie;
+
+            //Si l'arete est non trophique
+
         }
-        //Notre vertex est mangé par ses prédateurs
+        ///Notre vertex est mangé par ses prédateurs
         for(unsigned i = 0 ; i < m_out.size() ; i++ )
         {
             temp = g.getEdge(m_out[i]);
 
+            //si l'arête est de type trophique
+            if(temp.m_type == Edge_type::Trophic)
+            {
             //pred_tot = coef_lapin->renard * n_renard - coef_lapin->loup * n_loup...
             coef_pred = temp.m_weight;
             n_pred = g.getVertex(temp.m_to).m_value;
 
             pred_tot += coef_pred * n_pred;
+            }
 
         }
 
         m_value = n + m_r * n *(1 - n / k) - pred_tot ;
+        int check = m_value;
     }
 
     if(m_value < 0)

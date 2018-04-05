@@ -65,10 +65,10 @@ void Graph::make_test1()
     m_interface = std::make_shared<GraphInterface>(50, 0, 750, 600);
 
     add_interfaced_vertex( 0, 30.0, 0.5, 100, 600, "herbe", "clown1.jpg");
-    add_interfaced_vertex( 1, 60.0, 1, 100, 400, "lapin");
-    add_interfaced_vertex( 2, 10.0, 0.6, 100, 200, "renard");
+    add_interfaced_vertex( 1, 60.0, 0.5, 100, 400, "lapin");
+    add_interfaced_vertex( 2, 10.0, 0.5, 100, 200, "renard");
 
-    add_interfaced_edge(0, 0, 1, 3);
+    add_interfaced_edge(0, 0, 1, 1);
     add_interfaced_edge(1, 1, 0, 1, Edge_type::Non_Trophic);
     add_interfaced_edge(2, 1, 2, 1);
     add_interfaced_edge(3, 2, 0, 1, Edge_type::Non_Trophic);
