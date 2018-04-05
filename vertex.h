@@ -79,9 +79,9 @@ private :
     std::vector<int> m_out;
 
     /// un exemple de donnée associée au sommet, on peut en ajouter d'autres...
-    std::string m_name;
     double m_value; //nombre d'individu (pour des animaux) ou masse totale (pour des ressources)
     double m_r; //rythme de croissance
+    std::string m_name;
 
     /// le POINTEUR sur l'interface associée, nullptr -> pas d'interface
     std::shared_ptr<VertexInterface> m_interface = nullptr;
@@ -97,10 +97,10 @@ public:
     /// Ici on ne donne qu'un seul constructeur qui peut utiliser une interface
     //Problème d'ordre des paramètres (initialisation d'interface sans le nom...)
     Vertex (double value=0, double r=1, VertexInterface *interface=nullptr, std::string name="") :
-        m_value(value), m_r(r), m_interface(interface), m_name(name) { }
+        m_value(value), m_r(r), m_name(name), m_interface(interface) { }
 
     Vertex (double value, double r, std::string name="") :
-        m_value(value), m_r(r), m_interface(nullptr), m_name(name) { }
+        m_value(value), m_r(r), m_name(name), m_interface(nullptr) { }
 
     /// Vertex étant géré par Graph ce sera la méthode update de graph qui appellera
     /// le pre_update et post_update de Vertex (pas directement la boucle de jeu)
