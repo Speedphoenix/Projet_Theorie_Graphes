@@ -2,42 +2,42 @@
 8 ;
 0 30 1 1 ;
 Meilleur Clown
- 176 76  1 0 ;
+ 174 74  1 0 ;
 clown1.jpg
 0 ;
 1 60 1 1 ;
 Mauvais Clown
- 558 14  1 0 ;
+ 556 12  1 0 ;
 clown2.jpg
 0 ;
 2 50 1 1 ;
 
- 176 276  1 0 ;
+ 174 274  1 0 ;
 clown3.jpg
 0 ;
 3 0 1 1 ;
 
- 376 276  1 0 ;
+ 374 274  1 0 ;
 clown4.jpg
 0 ;
 4 100 1 1 ;
 
- 576 276  1 0 ;
+ 574 274  1 0 ;
 clown5.jpg
 0 ;
 5 0 1 1 ;
 
- 76 476  1 0 ;
+ 74 474  1 0 ;
 bad_clowns_xx3xx.jpg
 0 ;
 6 0 1 1 ;
 
- 276 476  1 1 ;
+ 274 474  1 1 ;
 bad_clowns_xx3xx.jpg
 1 ;
 7 0 1 1 ;
 
- 476 476  1 2 ;
+ 474 474  1 2 ;
 bad_clowns_xx3xx.jpg
 2 ;
 

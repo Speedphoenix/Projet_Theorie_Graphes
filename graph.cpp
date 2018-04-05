@@ -565,8 +565,78 @@ void Graph::flagRemaining(set<int>& receivedComps)
 
 
 
+//enlève une arete (et l'enlève des sommets)
+void Graph::remove_edge(int id)
+{
+    Edge& toRemove = m_edges.at(id);
+
+    int sommet = toRemove.m_from;
+
+    vector<int>::iterator it = find(m_vertices.at(sommet).m_out.begin(), m_vertices.at(sommet).m_out.end(), id);
+
+    if (it == m_vertices.at(sommet).m_out.end())
+    {
+        throw "L'arete à suprimer n'est pas dans le sommet sommet de depart..."; /// METTRE UN MESSAGE
+    }
+
+    m_vertices.at(sommet).m_out.erase(it);
+
+    //maintenant l'arete n'est plus dans m_from
+
+    sommet = toRemove.m_to;
+
+    it = find(m_vertices.at(sommet).m_in.begin(), m_vertices.at(sommet).m_in.end(), id);
+
+    if (it == m_vertices.at(sommet).m_in.end())
+    {
+        throw "L'arete à suprimer n'est pas dans le sommet d'arrivée..."; /// METTRE UN MESSAGE
+    }
+
+    m_vertices.at(sommet).m_in.erase(it);
+
+    //maintenant l'arete n'est plus dans m_to
+
+    m_interface->m_main_box.remove_child(toRemove.m_interface->m_top_edge);
+
+    //pas besoin de delete m_interface de l'arete car c'est contenu dans un shared ptr
+
+    //maintenant l'arete id n'existe plus
+    m_edges.erase(m_edges.find(id));
+}
 
 
+void Graph::remove_vertex(int id)
+{
+    Vertex& toRemove = m_vertices.at(id);
+
+    vector<int> edgesToRemove;
+
+    //on fait la liste des aretes à supprimer
+    for (unsigned i=0;i<toRemove.m_in.size();i++)
+    {
+        edgesToRemove.push_back(toRemove.m_in.at(i));
+    }
+
+    for (unsigned i=0;i<toRemove.m_out.size();i++)
+    {
+        edgesToRemove.push_back(toRemove.m_out.at(i));
+    }
+
+    //on les supprime une par une
+    for (unsigned i=0;i<edgesToRemove.size();i++)
+    {
+        remove_edge(edgesToRemove.at(i));
+    }
+
+    //maintenant toutes les aretes connéctées à notre sommet n'éxistent plus
+
+
+    m_interface->m_main_box.remove_child(toRemove.m_interface->m_top_box);
+
+    //pas besoin de delete m_interface du sommet car c'est contenu dans un shared ptr
+
+    m_vertices.erase(m_vertices.find(id));
+}
 
 
 
