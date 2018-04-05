@@ -148,6 +148,11 @@ public:
     Graph (GraphInterface *interface=nullptr) :
         m_interface(interface)  {  }
 
+    ///prend le graphe depuis un fichier
+    Graph (std::string filename);
+    Graph (std::istream& file);
+
+
     //Getters and setters
     Edge& getEdge(int id) { return m_edges.at(id); }
     Vertex& getVertex (int id) { return m_vertices.at(id); }
@@ -169,8 +174,16 @@ public:
     void update();
 
     void fortementConnexes();
+
+    void send_stream(std::ostream& myStream);
+    void get_stream(std::istream& myStream);
+
 };
 
+
+std::ostream& operator<<(std::ostream& myStream, Graph& what);
+
+std::istream& operator>>(std::istream& myStream, Graph& what);
 
 #endif // GRAPH_H_INCLUDED
 

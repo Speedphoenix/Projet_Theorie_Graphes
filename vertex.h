@@ -1,6 +1,8 @@
 #ifndef VERTEX_H_INCLUDED
 #define VERTEX_H_INCLUDED
 
+#include <iostream>
+#include <fstream>
 
 #include <vector>
 #include <map>
@@ -109,6 +111,7 @@ public:
     void pre_update(Graph* g);
     void post_update();
 };
+
 
 
 #endif

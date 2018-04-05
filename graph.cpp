@@ -19,15 +19,195 @@ GraphInterface::GraphInterface(int x, int y, int w, int h)
     m_tool_box.set_bg_color(BLANCBLEU);
 
     m_top_box.add_child(m_main_box);
-    m_main_box.set_dim(908,720);
+    m_main_box.set_dim(w, h);
     m_main_box.set_gravity_xy(grman::GravityX::Right, grman::GravityY::Up);
     m_main_box.set_bg_color(BLANCJAUNE);
+}
+
+Graph::Graph (std::string filename)
+{
+    ifstream myFile(filename, ios::in);
+
+    get_stream(myFile);
+
+    myFile.close();
+}
+
+Graph::Graph (std::istream& file)
+{
+    get_stream(file);
+}
+
+
+void Graph::send_stream(ostream& myStream)
+{
+    Coords someCoords;
+
+    if (m_interface==nullptr)
+        myStream << 0 << " ";
+    else
+    {
+        someCoords = m_interface->m_main_box.get_dim();
+        myStream << 1 << " " << someCoords;
+    }
+
+    myStream << " ;" << endl; //pour bien séparer les vals
+
+    myStream << m_vertices.size() << " ;" << endl;
+
+    for (auto& elem : m_vertices)
+    {
+        //le contenu de cette boucle pourrait être mis dans un operator<<
+        bool has_interface = elem.second.m_interface!=nullptr;
+        myStream << elem.first << " "; // l'indice du sommet
+
+        myStream << elem.second.m_value << " " << elem.second.m_r << " " << (int)has_interface << " ;" << endl;
+
+        if (has_interface)
+        {
+            VertexInterface& interface = *(elem.second.m_interface);
+            someCoords = interface.m_top_box.get_pos();
+            myStream << someCoords << " ";
+
+            if (interface.m_img.get_pic_name()!="")
+            {
+                myStream << 1 << " " << interface.m_img.get_pic_idx() << " ;" << endl;
+                myStream << interface.m_img.get_pic_name() << endl; // faire un getline pour le prendre après
+                myStream << interface.m_img.get_pic_idx() << " ;" << endl;
+            }
+            else
+            {
+                myStream << 0 << " ;" << endl;
+            }
+        }
+    }
+
+    myStream << endl << endl; //fin des sommets, début des aretes
+
+    myStream << m_edges.size() << " ;" << endl;
+
+    for (auto& elem : m_edges)
+    {
+        //le contenu de cette boucle pourrait être mis dans un operator<<
+        bool has_interface = elem.second.m_interface!=nullptr;
+        myStream << elem.first << " " << endl; //l'indice de l'arete
+
+        myStream << elem.second.m_from << " " << elem.second.m_to << " " << elem.second.m_weight << endl;
+        myStream << (int) has_interface << " ;" << endl;
+    }
+}
+
+void Graph::get_stream(istream& myStream)
+{
+    //val et val2 sont des entiers pour quand y'en a besoin
+    int val, val2, container_size = 0;
+    string dump;
+    Coords someCoords;
+
+    myStream >> val;
+
+    if (val)
+    {
+        myStream >> someCoords;
+
+        m_interface = make_shared<GraphInterface>(0, 0, someCoords.x, someCoords.y);
+    }
+    else
+    {
+        m_interface = nullptr;
+    }
+
+    //la ligne n'etait pas terminée
+    getline(myStream, dump); //pour bien séparer les vals
+
+
+    //la nombre de sommets
+    myStream >> container_size;
+
+
+    getline(myStream, dump);
+
+
+    for (int i=0;i<container_size;i++)
+    {
+        //les variables à passer en param des func de création de vertex
+        int idx;
+        double value, r;
+        string pic_name = "";
+        int pic_idx = 0;
+
+        myStream >> idx;
+        myStream >> value >> r >> val;
+        getline(myStream, dump);
+
+        //ici val est un bool si le vertex a une interface ou non
+
+        if (val)
+        {
+            //les coordonnées
+            myStream >> someCoords >> val2;
+            //val2 est ici un booleen de si il y a une image ou non
+            getline(myStream, dump);
+
+            if (val2)
+            {
+                getline(myStream, pic_name);
+                myStream >> pic_idx;
+                getline(myStream, dump);
+            }
+
+            add_interfaced_vertex(idx, value, r, someCoords.x, someCoords.y, pic_name, pic_idx);
+        }
+        else
+        {
+            add_vertex(idx, value, r);
+        }
+    } //fin de la boucle for (for chaque sommet)
+
+    myStream >> container_size;
+    getline(myStream, dump);
+
+    for (int i=0;i<container_size;i++)
+    {
+        int idx, from, to;
+        double weight = 0;
+
+        myStream >> idx;
+
+        myStream >> from >> to >> weight;
+
+        myStream >> val;
+
+        getline(myStream, dump);
+
+        if (val)
+        {
+            add_interfaced_edge(idx, from, to, weight);
+        }
+        else
+        {
+            add_edge(idx, from, to, weight);
+        }
+    } //fin de la boucle des aretes
+}
+
+
+ostream& operator<<(ostream& myStream, Graph& what)
+{
+    what.send_stream(myStream);
+    return myStream;
+}
+
+istream& operator>>(istream& myStream, Graph& what)
+{
+    what.get_stream(myStream);
+    return myStream;
 }
 
 
 void Graph::make_test1()
 {
-    m_interface = std::make_shared<GraphInterface>(50, 0, 750, 600);
+    m_interface = std::make_shared<GraphInterface>(50, 0, 908, 720);
 
     /// Les sommets doivent être définis avant les arcs
     //Ajouter le sommet d'indice 0 de valeur 30 en x=200 et y=100 avec l'image clown1.jpg etc...

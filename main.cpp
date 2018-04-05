@@ -3,6 +3,11 @@
 
 #include "graph.h"
 
+#define GRAPHFILE1 "graphe1.txt"
+#define GRAPHFILE2 "graphe2.txt"
+
+using namespace std;
+
 int main()
 {
     /// Le nom du répertoire où se trouvent les images à charger
@@ -12,9 +17,9 @@ int main()
     /// A appeler en 1er avant d'instancier des objets graphiques etc...
     grman::init();
 
-    /// Un exemple de graphe
-    Graph g;
-    g.make_test1();
+    /// Un exemple de graphe. pris depuis le fichier GRAPHEFILE1
+    Graph g(GRAPHFILE1);
+//    g.make_test1();
 
 
     /// Vous gardez la main sur la "boucle de jeu"
@@ -30,6 +35,12 @@ int main()
         /// Mise à jour générale (clavier/souris/buffer etc...)
         grman::mettre_a_jour();
     }
+
+    //sauvegarde dans le nouveau fichier
+    ofstream myFile2(GRAPHFILE2, ios::out | ios::trunc);
+
+    myFile2 << g;
+    myFile2.close();
 
     grman::fermer_allegro();
 

@@ -20,7 +20,7 @@
  *
  *
  *
- *
+ *  dans coord: operator << et >> de coord
  *
 */
 
