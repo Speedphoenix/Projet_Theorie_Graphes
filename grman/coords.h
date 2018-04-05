@@ -2,6 +2,7 @@
 #define COORDS_H
 
 #include <cmath>
+#include <iostream>
 
 /**
  *  Modifications apportées:
@@ -79,6 +80,12 @@ struct Coords
         Coords rotate_90() { return Coords(y, -x);  }
 
 };
+
+
+std::ostream& operator<<(std::ostream& myStream, Coords& what);
+
+std::istream& operator>>(std::istream& myStream, Coords& what);
+
 
 struct Frame
 {

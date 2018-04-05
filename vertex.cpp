@@ -8,6 +8,8 @@
                     VERTEX
 ****************************************************/
 
+using namespace std;
+
 /// Le constructeur met en place les éléments de l'interface
 VertexInterface::VertexInterface(int idx, int x, int y, std::string name, std::string pic_name, int pic_idx)
 {
@@ -56,7 +58,9 @@ VertexInterface::VertexInterface(int idx, int x, int y, std::string name, std::s
     m_name.set_gravity_xy(grman::GravityX::Center, grman::GravityY::Up);
 
 
-
+    m_top_box.add_child( m_label_comp);
+    m_label_comp.set_message( std::to_string(-1) );
+    m_label_comp.set_color(ROSECLAIR);
 }
 
 
@@ -70,6 +74,8 @@ void Vertex::pre_update()
 
         /// Copier la valeur locale de la donnée m_value vers le label sous le slider
         m_interface->m_label_value.set_message( std::to_string( (int)m_value) );
+      
+        m_interface->m_label_comp.set_message( std::to_string(m_compNum));
     }
 }
 
@@ -84,6 +90,10 @@ void Vertex::post_update()
 
     /// Reprendre la valeur du slider dans la donnée m_value locale
     m_value = m_interface->m_slider_value.get_value();
+  
+    //si la valeur est en train d'être entrée en texte, on prend celle là
+    if (m_interface->m_label_value.is_typing())
+        m_value = m_interface->m_label_value.get_value();
 }
 
 
@@ -134,5 +144,4 @@ void Vertex::turn(Graph& g)
     if(m_value < 0)
         m_value = 0;
 }
-
 

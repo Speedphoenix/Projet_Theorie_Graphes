@@ -6,12 +6,12 @@
 
 
 /**
- *  Modifications apportées:
+ *  Modifications apportÃ©es:
  *  set_dim(int w, int h) -> une seule reframe
  *
  *
  *
- *  Modifications à apporter:
+ *  Modifications Ã  apporter:
  *  m_abs_frame n'est pas syncro... par exemple reframe
  *
  *  mettre tous les margin, padding etc dans une classe fille
@@ -48,9 +48,9 @@ enum class GravityY {
                 WIDGET BASE CLASS
 ****************************************************/
 
-/// Cette classe est trop grosse, elle fait le repassage, répare la voiture, pêche au harpon...
+/// Cette classe est trop grosse, elle fait le repassage, rÃ©pare la voiture, pÃªche au harpon...
 /// En principe il faut revoir la conception quand une classe devient aussi grosse (refactoriser)
-/// Par exemple une classe de base Widget pour l'aspect composite et une classe dérivée WidgetDecorated pour les styles
+/// Par exemple une classe de base Widget pour l'aspect composite et une classe dÃ©rivÃ©e WidgetDecorated pour les styles
 class Widget
 {
     protected :
@@ -61,7 +61,7 @@ class Widget
         Frame m_frame;
         Frame m_abs_frame;
 
-        // Viewport du contenu (intérieur Padding)
+        // Viewport du contenu (intÃ©rieur Padding)
         BITMAP *m_view = nullptr;
 
         // Viewport total incluant les bords
@@ -80,26 +80,26 @@ class Widget
         int m_margin = 1;
         int m_padding = 1;
 
-    /// Méthodes utilisables dans les classes dérivées
-    /// et les classes qui ont un Widget ou dérivé en attribut
+    /// MÃ©thodes utilisables dans les classes dÃ©rivÃ©es
+    /// et les classes qui ont un Widget ou dÃ©rivÃ© en attribut
     public :
 
         /// Construction/Destruction
         Widget(double x, double y, double w, double h) :
             m_frame(x, y, w, h) {}
         Widget() = default;
-        // Destructeur virtuel en principe inutile tant que les objets ne sont pas détruits polymorphiquement
-        // ( çàd que des objets dérivés seraient delete en tant que Widget *, ce n'est pas le cas dans les exemples d'utilisation )
-        // Note : il n'est pas utile de redéfinir un destructeur virtuel par défaut dans les classes dérivées (si celui par défaut convient)
+        // Destructeur virtuel en principe inutile tant que les objets ne sont pas dÃ©truits polymorphiquement
+        // ( Ã§Ã d que des objets dÃ©rivÃ©s seraient delete en tant que Widget *, ce n'est pas le cas dans les exemples d'utilisation )
+        // Note : il n'est pas utile de redÃ©finir un destructeur virtuel par dÃ©faut dans les classes dÃ©rivÃ©es (si celui par dÃ©faut convient)
         virtual ~Widget() = default;
 
-        /// Gestion familiale... navigation et édition de l'arbre des sous-éléments...
+        /// Gestion familiale... navigation et Ã©dition de l'arbre des sous-Ã©lÃ©ments...
         Widget *get_child(int i) { return m_children.at(i); }
         void add_child(Widget &elt) { elt.set_parent(this); m_children.push_back(&elt); elt.reframe(); }
         void remove_child(Widget &elt) { m_children.erase( std::remove( m_children.begin(), m_children.end(), &elt ), m_children.end() ); }
         void reframe();
 
-        /// Gestion géométrie
+        /// Gestion gÃ©omÃ©trie
         void set_no_gravity()
             { m_gravity_x = GravityX::None;   m_gravity_y = GravityY::None;}
 
@@ -138,7 +138,7 @@ class Widget
 
         int get_dimx() { return m_frame.dim.x-2*get_bp(); }
         int get_dimy() { return m_frame.dim.y-2*get_bp(); }
-        Coords get_dim() { return Coords(get_dimx(), get_dimy());  }
+        Coords get_dim() { return Coords(get_dimx(), get_dimy()); } //la rÃ©ference ici est dangeureuse mais pratique
 
         void set_posx(int x) { m_frame.pos.x = x+get_parent_bp(); m_gravity_x = GravityX::None; }
         void set_posy(int y) { m_frame.pos.y = y+get_parent_bp(); m_gravity_y = GravityY::None; }
@@ -185,9 +185,11 @@ class Widget
         virtual void draw_border();
 
         virtual void interact_over() {} //si la souris est dessus (peu importe si clic)
-        virtual void interact_focus() {} //si la souris clique dessus
+        virtual void interact_focus() {} //si la souris est en train de cliquer dessus
         virtual void interact_leave() {} //si la souris relache le clic dessus
         virtual void interact_keybd() {}
+        virtual void interact_elsewhere() {} //si on clique quelquepart d'autre
+
 
         virtual bool captures_focus() { return false; }
 
@@ -197,7 +199,7 @@ class Widget
 
         bool is_mouse_over();
 
-        /// Les accesseurs de "styles" sont à compléter...
+        /// Les accesseurs de "styles" sont Ã  complÃ©ter...
         void set_bg_color(int bgc) { m_bg_color = bgc; }
         int get_border_color() { return is_gui_focus() ? m_border_color_focus : is_gui_over() ? m_border_color_over : m_border_color; }
 
@@ -205,12 +207,12 @@ class Widget
         Widget & operator=(const Widget&) = delete;
 
 
-    /// En principe non directement utiles dans les classes dérivées (aspects techniques)
+    /// En principe non directement utiles dans les classes dÃ©rivÃ©es (aspects techniques)
     private:
-        // Gestion familiale... construction de l'arbre des éléments/sous-éléments ...
+        // Gestion familiale... construction de l'arbre des Ã©lÃ©ments/sous-Ã©lÃ©ments ...
         void set_parent(Widget *parent) { m_parent = parent; }
 
-        // Gestion géométrie
+        // Gestion gÃ©omÃ©trie
         void create_frame_context();
         void destroy_frame_context();
 };
@@ -221,7 +223,7 @@ class Widget
                     TEXT
 ****************************************************/
 
-/// Extrêmement rudimentaire : à compléter !
+/// ExtrÃªmement rudimentaire : Ã  complÃ©ter !
 class WidgetText : public Widget
 {
     protected :
@@ -237,9 +239,34 @@ class WidgetText : public Widget
         void set_message(std::string message="");
         std::string get_message() { return m_message; }
         void set_vertical(bool vertical=true) { m_vertical=vertical; set_message(m_message); } /// BRICOLAGE ...
+
+        void set_color(int col) { m_color = col; }
 };
 
 
+class WidgetTextSaisie : public WidgetText
+{
+    protected:
+        const int m_max_exposant = 3;
+        double m_value = 0;
+        int m_exposant = 0;
+        bool m_virgule = false;
+        bool m_isTyping = false;
+
+    public:
+        WidgetTextSaisie(int value = 0) { m_value = value; }
+        virtual void interact_keybd();   ///fonction qui prend la saisie par l'utilisateur
+
+        //on peut cliquer dessus
+        virtual bool captures_focus() { return true; }
+
+        virtual void interact_leave();
+        virtual void interact_elsewhere();
+
+        double get_value() { return m_value; }
+        void set_value(double val) { m_value = val; }
+        bool is_typing() { return m_isTyping; }
+};
 
 /***************************************************
                     CHECKBOX
@@ -345,11 +372,13 @@ class WidgetImage : public Widget
 
         virtual void reframe();
         void set_pic_name(std::string pic_name) { m_pic_name = pic_name; reframe(); }
+        std::string get_pic_name() {return m_pic_name; }
 
         void set_animate(bool ani=true) { m_animate = ani; }
         void set_animate_tempo(int tempo) { m_animate_tempo = tempo; }
 
         void set_pic_idx(int pic_idx) { m_pic_idx=pic_idx; }
+        int get_pic_idx() { return m_pic_idx; }
 };
 
 
@@ -364,10 +393,10 @@ class WidgetBox : public Widget
         // La WidgetBox a une position modifiable par drag & drop
         bool m_moveable = false;
 
-        // La WidgetBox reste dans le cadre de son parent (préférable)
+        // La WidgetBox reste dans le cadre de son parent (prÃ©fÃ©rable)
         bool m_contained = true;
 
-        // Position au moment du click quand on commence à bouger la WidgetBox
+        // Position au moment du click quand on commence Ã  bouger la WidgetBox
         Coords m_pos_start_move;
 
 
@@ -384,8 +413,8 @@ class WidgetBox : public Widget
                     EDGE
 ****************************************************/
 
-/// Différents éléments de décoration des flèches
-/// Ceci peut être étendu en étendant le code WidgetEdge::draw
+/// DiffÃ©rents Ã©lÃ©ments de dÃ©coration des flÃ¨ches
+/// Ceci peut Ãªtre Ã©tendu en Ã©tendant le code WidgetEdge::draw
 enum class ArrowItemType
 {
     Arrow,
@@ -395,16 +424,16 @@ enum class ArrowItemType
 
 struct ArrowItem
 {
-    // Type de décoration (pointe de flèche, triangle, rond...
+    // Type de dÃ©coration (pointe de flÃ¨che, triangle, rond...
     ArrowItemType m_type;
 
-    // Position relative de l'élément le long de l'arc, 0 origine, 0.5 milieu, 1.0 destination
+    // Position relative de l'Ã©lÃ©ment le long de l'arc, 0 origine, 0.5 milieu, 1.0 destination
     double m_position;
 
-    // Taille absolue de l'élément (voir valeur par défaut dans le constructeur)
+    // Taille absolue de l'Ã©lÃ©ment (voir valeur par dÃ©faut dans le constructeur)
     double m_size;
 
-    // Proportion (pointe de flèche plus aigue <1 ou plus obtuse >1) (voir valeur par défaut dans le constructeur)
+    // Proportion (pointe de flÃ¨che plus aigue <1 ou plus obtuse >1) (voir valeur par dÃ©faut dans le constructeur)
     double m_proportion;
 
     ArrowItem(ArrowItemType type, double position, double size=14.0, double proportion=0.5) :
@@ -415,23 +444,23 @@ class WidgetEdge : public Widget
 {
     protected :
 
-        // Les Widgets de référence de départ [0] et d'arrivée [1] de l'arête
-        /// Si un de 2 pointeur est à nul, l'arête n'est pas traitée
-        /// Si les 2 pointeurs sont distincts du nul l'arête est traité
-        /// Les 2 instances pointées ne doivent pas être détruites
+        // Les Widgets de rÃ©fÃ©rence de dÃ©part [0] et d'arrivÃ©e [1] de l'arÃªte
+        /// Si un de 2 pointeur est Ã  nul, l'arÃªte n'est pas traitÃ©e
+        /// Si les 2 pointeurs sont distincts du nul l'arÃªte est traitÃ©
+        /// Les 2 instances pointÃ©es ne doivent pas Ãªtre dÃ©truites
         /// sous peine de plantage douloureux du programme !
         Widget *m_attach[2] = {nullptr, nullptr};
 
-        // Elements de décoration : pointes de flèches, rond etc...
+        // Elements de dÃ©coration : pointes de flÃ¨ches, rond etc...
         std::vector<ArrowItem> m_items;
 
         int m_color = GRISSOMBRE;
         int m_thickness = 2;
 
-        // Position relative des éventuels Widgets enfants le long de l'arc, 0 origine, 0.5 milieu, 1.0 destination
+        // Position relative des Ã©ventuels Widgets enfants le long de l'arc, 0 origine, 0.5 milieu, 1.0 destination
         double m_children_position = 0.5;
 
-        // Position laterale absolue des éventuels Widgets enfants à l'écart de l'arc, >0 à gauche en suivant l'arc, <0 à droite en suivant l'arc
+        // Position laterale absolue des Ã©ventuels Widgets enfants Ã  l'Ã©cart de l'arc, >0 Ã  gauche en suivant l'arc, <0 Ã  droite en suivant l'arc
         double m_children_lateral = 16;
 
     public :
@@ -449,7 +478,7 @@ class WidgetEdge : public Widget
         void reset_middle_arrow_with_bullets() { m_items = { {ArrowItemType::Arrow, 0.5},
                                                              {ArrowItemType::Bullet, 0.0},
                                                              {ArrowItemType::Bullet, 1.0}  }; }
-
+        ///ajoute un arrowItem
         void add_item( ArrowItem ai )  { m_items.push_back(ai); }
 
         void set_children_position(double rel_pos) { m_children_position = rel_pos; }
