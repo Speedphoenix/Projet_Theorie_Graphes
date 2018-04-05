@@ -185,9 +185,11 @@ class Widget
         virtual void draw_border();
 
         virtual void interact_over() {} //si la souris est dessus (peu importe si clic)
-        virtual void interact_focus() {} //si la souris clique dessus
+        virtual void interact_focus() {} //si la souris est en train de cliquer dessus
         virtual void interact_leave() {} //si la souris relache le clic dessus
         virtual void interact_keybd() {}
+        virtual void interact_elsewhere() {} //si on clique quelquepart d'autre
+
 
         virtual bool captures_focus() { return false; }
 
@@ -250,10 +252,21 @@ class WidgetTextSaisie : public WidgetText
         double m_value = 0;
         int m_exposant = 0;
         bool m_virgule = false;
+        bool m_isTyping = false;
 
     public:
         WidgetTextSaisie(int value = 0) { m_value = value; }
-        virtual void interract_keyboard();   ///fonction de saisie par l'utilisateur
+        virtual void interact_keybd();   ///fonction qui prend la saisie par l'utilisateur
+
+        //on peut cliquer dessus
+        virtual bool captures_focus() { return true; }
+
+        virtual void interact_leave();
+        virtual void interact_elsewhere();
+
+        double get_value() { return m_value; }
+        void set_value(double val) { m_value = val; }
+        bool is_typing() { return m_isTyping; }
 };
 
 /***************************************************

@@ -40,7 +40,7 @@ private :
     grman::WidgetVSlider m_slider_value;
 
     // Un label de visualisation de la valeur du sommet
-    grman::WidgetText m_label_value;
+    grman::WidgetTextSaisie m_label_value;
 
     // Une image de "remplissage"
     grman::WidgetImage m_img;
@@ -52,6 +52,7 @@ private :
     grman::WidgetText m_box_label_idx;
 
     // Un label indiquant le numero de sa composante (fortement) connexe
+    ///A DÉPLACER!! (en termes de position/methode d'affichage dans le widget principal)
     grman::WidgetText m_label_comp;
 
 public :

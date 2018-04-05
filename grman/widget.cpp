@@ -54,6 +54,10 @@ void Widget::update_interact()
     if ( key_last!='\0' )
         interact_keybd();
 
+        //si la souris a cliqué qqp mais pas ici
+    if ( !is_gui_over() && gui_focus)
+        interact_elsewhere();
+
     destroy_frame_context();
 }
 
@@ -185,9 +189,29 @@ void WidgetText::set_message(std::string message)
 }
 
 
-void WidgetTextSaisie::interract_keyboard()
+
+void WidgetTextSaisie::interact_leave()
+{
+    m_isTyping = true;
+    m_virgule = false;
+
+    m_value = 0;
+
+    m_message = "";
+}
+
+void WidgetTextSaisie::interact_elsewhere()
+{
+    m_isTyping = false;
+
+}
+
+void WidgetTextSaisie::interact_keybd()
 {
     if (key_last == '\0')
+        return ;
+
+    if (!m_isTyping)
         return ;
 
     //Si on entre une valeur entre 0 et 9
@@ -201,17 +225,26 @@ void WidgetTextSaisie::interract_keyboard()
         }
         else if(m_virgule)      //si c'est un nombre à virgule
         {
-            m_value += val/(pow(10, m_exposant));
+            int puissDix = 1;
+
+            //la fonction pow utilise dess aproximations exponentielles...
+            for (int i=0;i<m_exposant;i++)
+            {
+                puissDix *= 10;
+            }
+
+            m_value += val/puissDix;
             if((m_exposant>= 0) && (m_exposant<= m_max_exposant))
                 m_exposant++;
         }
         m_message = std::to_string(m_value);
     }
-    else if(key_last == '.' || key_last == ',')
-    {
-        m_virgule = true;
-        m_message += '.';
-    }
+//    else if(key_last == '.' || key_last == ',')
+//    {
+//        m_virgule = true;
+//        m_exposant = 1;
+//        m_message += '.';
+//    }
 
     if (key_press[KEY_BACKSPACE])           ///SI on choisit de supprimer la dernière valeur saisie
     {
@@ -223,10 +256,25 @@ void WidgetTextSaisie::interract_keyboard()
         // si il y a une virgule
         else
         {
-            m_value = ( (int) (m_value*(pow(10, m_exposant-1))) ) * pow(10, m_exposant-1);
+            int puissDix = 1;
+
+            //la fonction pow utilise dess aproximations exponentielles...
+            for (int i=0 ; i < m_exposant-1 ; i++)
+            {
+                puissDix *= 10;
+            }
+
+            m_value = ( (int) (m_value*puissDix) ) * puissDix;
 
             m_exposant--;
+
+            if (m_exposant==0)
+            {
+                m_virgule = false;
+            }
         }
+
+        m_message = std::to_string(m_value);
     }
 }
 
