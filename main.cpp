@@ -22,11 +22,11 @@ int main()
     //g.make_test1();
 
 
-    //sauvegarde dans le nouveau fichier
-    ofstream myFile1(GRAPHFILE2, ios::out | ios::trunc);
-
-    myFile1 << g;
-    myFile1.close();
+//    //sauvegarde dans le nouveau fichier
+//    ofstream myFile1(GRAPHFILE1, ios::out | ios::trunc);
+//
+//    myFile1 << g;
+//    myFile1.close();
 
 
     /// Vous gardez la main sur la "boucle de jeu"
@@ -35,6 +35,7 @@ int main()
     {
         if (grman::key_press[KEY_ENTER])
             g.fortementConnexes();
+
 
         /// Il faut appeler les méthodes d'update des objets qui comportent des widgets
         g.update();
@@ -46,11 +47,12 @@ int main()
             g.turn();
     }
 
+    ///NE PAS ÉCRIRE DANS LE GRAPHEFILE1!! (on veut garder une instance de ce fichier propre)
     //sauvegarde dans le nouveau fichier
-//    ofstream myFile2(GRAPHFILE2, ios::out | ios::trunc);
-//
-//    myFile2 << g;
-//    myFile2.close();
+    ofstream myFile2(GRAPHFILE2, ios::out | ios::trunc);
+
+    myFile2 << g;
+    myFile2.close();
 
     grman::fermer_allegro();
 

@@ -247,15 +247,10 @@ class WidgetText : public Widget
 class WidgetTextSaisie : public WidgetText
 {
     protected:
-        const int m_max_exposant = 3;
-        double m_value = 0;
-        int m_exposant = 0;
-        bool m_virgule = false;
         bool m_isTyping = false;
 
     public:
-        WidgetTextSaisie(int value = 0) { m_value = value; }
-        virtual void interact_keybd();   ///fonction qui prend la saisie par l'utilisateur
+        virtual void interact_keybd();   //fonction qui prend la saisie par l'utilisateur
 
         //on peut cliquer dessus
         virtual bool captures_focus() { return true; }
@@ -263,10 +258,26 @@ class WidgetTextSaisie : public WidgetText
         virtual void interact_leave();
         virtual void interact_elsewhere();
 
+        virtual bool is_typing() { return m_isTyping; }
+};
+
+
+class WidgetNumSaisie : public WidgetTextSaisie
+{
+    protected:
+        const int m_max_exposant = 3;
+        double m_value = 0;
+        int m_exposant = 0;
+        bool m_virgule = false;
+
+    public:
+        virtual void interact_keybd();   //fonction qui prend la saisie par l'utilisateur
+
         double get_value() { return m_value; }
         void set_value(double val) { m_value = val; }
-        bool is_typing() { return m_isTyping; }
 };
+
+
 
 /***************************************************
                     CHECKBOX

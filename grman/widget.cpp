@@ -189,7 +189,6 @@ void WidgetText::set_message(std::string message)
 }
 
 
-
 void WidgetTextSaisie::interact_leave()
 {
     m_isTyping = true;
@@ -203,10 +202,30 @@ void WidgetTextSaisie::interact_leave()
 void WidgetTextSaisie::interact_elsewhere()
 {
     m_isTyping = false;
-
 }
 
 void WidgetTextSaisie::interact_keybd()
+{
+    if (key_last == '\0')
+        return ;
+
+    if (!m_isTyping)
+        return ;
+
+    //les caractères acceptés
+    if ((key_last>='a' && key_last<='z')    ||
+        (key_last>='A' && key_last<='Z')    ||
+        key_last=='_' || key_last=='-'      ||
+        key_last==' ' || key_last=='!'      ||
+        key_last=='(' || key_last==')'      ||
+        key_last=='#' || key_last=='\''     )
+    {
+        m_message += key_last;
+    }
+}
+
+
+void WidgetNumSaisie::interact_keybd()
 {
     if (key_last == '\0')
         return ;

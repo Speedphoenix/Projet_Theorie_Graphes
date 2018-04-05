@@ -49,7 +49,7 @@ private :
     grman::WidgetVSlider m_slider_value;
 
     // Un label de visualisation de la valeur du sommet
-    grman::WidgetTextSaisie m_label_value;
+    grman::WidgetNumSaisie m_label_value;
 
     // Une image de "remplissage"
     grman::WidgetImage m_img;
