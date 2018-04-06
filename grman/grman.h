@@ -9,18 +9,30 @@
 
 #include <string>
 
+/**
+    Ce fichier est un adaptation du code fourni par M. Robin Fercoq
+    Adapté par le groupe n°2 du TD09, ING2 PROMO 2021 à l'ECE Paris
+        Benoit Coville
+        Leonardo Jeanteur
+        Louis Galibert
+
+    Merci de citer vos sources
+*/
 
 /**
  *  MODIFICATIONS APPORTÉES (dans grmanglob aussi):
  *
- *  déplacé le commentaire de mouse_click_x/y (mouse_move_x/y)
+ *  déplacé le commentaire de mouse_click_x/y (mouse_move_x/y) (causait confusion
+ *
  *  enlevé la deuxième déclaration de mouse_click
+ *
  *  changé le type de key_press/unpress à char pour économie de mémoire (key de allegro est un tableau de volatile char)
  *                key_prev et key_now dans rafraichir_clavier_souris() aussi
  *
+ *  Ajout de la fonction afficher_souris()
+ *  (dans un effort vain pour résoudre les problèmes sou linux...)
  *
  *
- *  dans coord: operator << et >> de coord
  *
 */
 

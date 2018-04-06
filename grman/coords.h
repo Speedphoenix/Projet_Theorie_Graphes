@@ -10,6 +10,7 @@
         Benoit Coville
         Leonardo Jeanteur
         Louis Galibert
+
     Merci de citer vos sources
 */
 
@@ -18,6 +19,7 @@
  *
  *  Ajout de l'operator/ pour un double
  *  Ajout des operator<< et >>
+ *  des commentaires...
  *
  *  À faire:
  *  une meilleure fonction de rotation

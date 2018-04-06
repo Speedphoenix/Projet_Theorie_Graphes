@@ -13,6 +13,25 @@
 #include <loadpng.h>
 #include <jpgalleg.h>
 
+
+/**
+    Ce fichier est un adaptation du code fourni par M. Robin Fercoq
+    Adapté par le groupe n°2 du TD09, ING2 PROMO 2021 à l'ECE Paris
+        Benoit Coville
+        Leonardo Jeanteur
+        Louis Galibert
+
+    Merci de citer vos sources
+*/
+
+/**
+    Modifications:
+
+    Affichage custom de la souris
+
+*/
+
+
 ///ligne 137 remplacer le rest
 
 namespace grman

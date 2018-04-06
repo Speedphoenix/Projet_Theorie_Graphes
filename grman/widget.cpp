@@ -10,9 +10,14 @@
         Benoit Coville
         Leonardo Jeanteur
         Louis Galibert
+
     Merci de citer vos sources
 */
 
+/**
+ *  Modifications:
+ *  Les classes WidgetTextSaisie, WidgetNumSaisie, WidgetButtonText
+*/
 
 namespace grman
 {

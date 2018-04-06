@@ -23,10 +23,20 @@
     Merci de citer vos sources
 */
 
+/**
+    Ce fichier contient toutes les globales du namespace grman
+    Ce fichier a été séparé de grman.h pour pouvoir include widget.h en haut de grman.h (au lieu de tout en bas)
+
+    Modifications:
+
+    Ajout de la macro E pour debug, recyclée du projet Ecemon
+
+    les autres modifications apportées sont énoncées dans grman.h
+*/
 
 #define MOUSEFILE "Mouse.bmp"
 
-///pour eviter les problèmes de souris
+///pour eviter les problèmes de souris (en vain)
 #ifndef _WINDOWS
 
     #include <xalleg.h>

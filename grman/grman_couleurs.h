@@ -1,6 +1,14 @@
 #ifndef COULEURS_H_INCLUDED
 #define COULEURS_H_INCLUDED
 
+
+/**
+    Ce fichier fait partie du code fourni par M. Robin Fercoq
+
+    Merci de citer vos sources
+*/
+
+
 namespace grman
 {
 

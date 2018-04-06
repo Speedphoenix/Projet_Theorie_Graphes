@@ -6,9 +6,16 @@
         Benoit Coville
         Leonardo Jeanteur
         Louis Galibert
+
     Merci de citer vos sources
 */
 
+/**
+    Modifications:
+
+    Ajout des operator<< et >>
+
+*/
 
 
 // Renvoie les coordonnées (dans le repère de la position de Frame) de l'intersection

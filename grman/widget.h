@@ -11,19 +11,29 @@
         Benoit Coville
         Leonardo Jeanteur
         Louis Galibert
+
     Merci de citer vos sources
 */
 
 /**
  *  Modifications apportées:
- *  set_dim(int w, int h) -> une seule reframe
+ *  set_dim(int w, int h) -> un seul reframe (mais maintenant avec du code moche...)
  *
- *  Les classes WidgetTextSaisie, WidgetNumSaisie
+ *  Ajout des fonction virtuelles
+ *  interact_keybd() et
+ *  interact_elsewhere() (si l'utilisateur clique autrepart)
+ *
+ *
+ *  Les classes WidgetTextSaisie, WidgetNumSaisie, WidgetButtonText
+ *
+ *  get_pic_name() et get_pic_idx dans WidgetImage...
+ *  set_color() et séparation de la fonction reframe_text_box() dans la classe WidgetText
+ *  commentaires...
+ *
  *
  *
  *  Modifications à apporter:
- *  m_abs_frame n'est pas syncro... par exemple reframe
- *
+ *  séparer la classe Widget
  *  mettre tous les margin, padding etc dans une classe fille
 
  *  WidgetText
