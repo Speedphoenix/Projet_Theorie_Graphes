@@ -36,7 +36,7 @@ Pour les conflits, et les merge de différentes "grosses" branches, je conseille
 |`git pull`|Télécharge et fusionne tous les changement|
 |`git push origin [une branche]`|Envoie les changements d'une certaine branche à la repo distante|
 |`git push --all origin`|Envoie tous les changements à la repo distante|
-|`git push -u origin [une branche]`|Push en créan|
+|`git push -u origin [une branche]`|Push en créant la branche origin/[une branche] si elle n'existe pas déjà|
 
 ## Dans le code:
 ### En général:
@@ -82,5 +82,5 @@ Les commentaires de documentions permettent après, dans la complétion de code 
 #### Plus généralement, utiliser [la documentation de Doxygen](https://sourceforge.net/projects/doxygen/)  
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNzIwNzExMzBdfQ==
+eyJoaXN0b3J5IjpbLTYzODIzNTI1Nl19
 -->
