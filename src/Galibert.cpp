@@ -1,7 +1,11 @@
 #include "Galibert.h"
-#include <time.h>
-#include <stdlib.h>
-#include <allegro.h>
+//#include <time.h>
+//#include <stdlib.h>
+//#include <allegro.h>
+//#include <cstdio>
+
+/*
+using namespace std;
 
 Galibert::Galibert()
 {
@@ -13,30 +17,17 @@ Galibert::~Galibert()
     //dtor
 }
 
-//void Galibert::GetSec(void)
-//{
-//    m_game_time++;
-//}
-//
-//void Galibert::GetMiliSec(void)
-//{
-//    m_milisec_counter++;
-//}
-
-void GetTime()
+void Galibert::GetTime()
 {
-    install_timer();
+//clock_t startTime = clock();
+
+    m_time = std::clock();
 }
 
-int GetMilisec(Galibert* first, Galibert* second)
+int Galibert::GetMilisec(Galibert& second)
 {
-    int sec, mili_sec;
+    //int sec, mili_sec;
 
-    sec = second->Getm_sec_counter() - first->Getm_sec_counter();
-
-    mili_sec = (int)(second->Getm_milisec_counter()/1000) - (int)(first->Getm_milisec_counter()/1000);
-
-    return (1000*sec + (int)(mili_sec/1000));
+    return ( second.get_time() - m_time )*1000 / (double) CLOCKS_PER_SEC;
 }
-
-
+*/
