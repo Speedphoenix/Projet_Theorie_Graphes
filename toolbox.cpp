@@ -1,5 +1,7 @@
 #include "toolbox.h"
 
+#include "graph.h" //ok dans un .cpp
+
 using namespace std;
 
 void setup_button(grman::Widget& x, int currently, int col)
@@ -27,6 +29,17 @@ ToolboxInterface::ToolboxInterface(int w, int h)
     m_top_box.set_padding(0);
     m_top_box.set_margin(0);
     m_top_box.set_border(0);
+
+    //bouton dde sauvegarde de graphe
+    m_top_box.add_child(m_quit_btn);
+    setup_button(m_quit_btn, currently, BLANC); //trouver une bonne couleur svp!
+
+    //le message à mettre sur le bouton
+    setup_msg(m_quit_btn.get_message_widget(), ROUGE, "exit");
+
+
+    currently += BUTTONSPACE;
+
 
     //bouton dde création de graphe
     m_top_box.add_child(m_new_graph_btn);
@@ -176,7 +189,11 @@ void Toolbox::post_update()
 {
     ToolboxInterface& interface = *m_interface;
 
-    if (interface.m_new_graph_btn.clicked())
+    if (interface.m_quit_btn.clicked())
+    {
+        m_user_choice = UserAction::Quit;
+    }
+    else if (interface.m_new_graph_btn.clicked())
     {
         m_user_choice = UserAction::NewGraph;
     }
@@ -221,7 +238,7 @@ void Toolbox::post_update()
 }
 
 
-void separate_loop(grman::Widget& parent)
+void separate_loop(grman::Widget& parent, bool enter_to_send)
 {
     bool fini = false;
 
@@ -248,13 +265,15 @@ void separate_loop(grman::Widget& parent)
 
 
 
-    while (!fini && !grman::key_press[KEY_ESC])
+    while (!fini)
     {
         top_box.update();
 
         grman::mettre_a_jour();
 
-        fini = exit_btn.clicked();
+        if (grman::key_press[KEY_ESC] || exit_btn.clicked()     ||
+            (enter_to_send && (grman::key_press[KEY_ENTER] || grman::key_press[KEY_ENTER_PAD])) )
+            fini = true;
     }
 }
 
@@ -283,7 +302,7 @@ void text_input(string& dest, string message_to_disp)
     }
 
 
-    separate_loop(top_box);
+    separate_loop(top_box, true);
 
     dest = val.get_message();
 }
@@ -308,7 +327,7 @@ void new_vertex_values(string& name, string& pic_file_name)
 
 
     top_box.add_child(ask1);
-    ask1.set_message("entrez le nom du nouveau sommet");
+    ask1.set_message("enter the name of the new vertex");
     ask1.set_posy(100);
 
 
@@ -319,7 +338,7 @@ void new_vertex_values(string& name, string& pic_file_name)
     pic_file.set_posy(220);
 
     top_box.add_child(ask2);
-    ask2.set_message("entrez le nom du fichier de l'image");
+    ask2.set_message("enter filename");
     ask2.set_posy(200);
 
 
@@ -330,7 +349,54 @@ void new_vertex_values(string& name, string& pic_file_name)
 }
 
 
+void new_edge_tips(Graph& dest, int& from, int& to)
+{
+    grman::WidgetBox top_box;
 
+    grman::WidgetText ask1;
+    grman::WidgetText ask2;
+    grman::WidgetNumSaisie fromVertex;
+    grman::WidgetNumSaisie toVertex;
+
+    top_box.set_dim(500, 500);
+
+    top_box.add_child(fromVertex);
+    fromVertex.set_padding(2);
+    fromVertex.set_border(2);
+    fromVertex.set_posy(120);
+
+
+    top_box.add_child(ask1);
+    ask1.set_message("enter the number of the from vertex");
+    ask1.set_posy(100);
+
+
+    top_box.add_child(toVertex);
+    toVertex.set_padding(2);
+    toVertex.set_border(2);
+    toVertex.set_posy(220);
+
+    top_box.add_child(ask2);
+    ask2.set_message("enter the number of the to vertex");
+    ask2.set_posy(200);
+
+    bool works = false;
+
+    while (!works)
+    {
+
+        separate_loop(top_box);
+
+        from = fromVertex.get_value();
+        to = toVertex.get_value();
+
+        if ( (from != to && dest.vertex_exists(from) && dest.edge_exists(to)) || grman::key_press[KEY_ESC])
+        {
+            works = true;
+        }
+
+    }
+}
 
 
 

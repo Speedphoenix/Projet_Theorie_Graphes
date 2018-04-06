@@ -60,10 +60,10 @@ class Edge
 
 private :
     /// indice du sommet de départ de l'arc
-    int m_from;
+    int m_from = -1;
 
     /// indice du sommet d'arrivée de l'arc
-    int m_to;
+    int m_to = -1;
 
     /// un exemple de donnée associée à l'arc, on peut en ajouter d'autres...
     //m_weight correspond au coeficient de prédation : un lapin mange 1kg d'herbe (on le note coef)
@@ -71,7 +71,7 @@ private :
 
     Edge_type m_type;
 
-    bool m_selected;
+    bool m_selected = false;
 
 
     /// le POINTEUR sur l'interface associée, nullptr -> pas d'interface

@@ -31,7 +31,7 @@ int main()
 
     /// Vous gardez la main sur la "boucle de jeu"
     /// ( contrairement à des frameworks plus avancés )
-    while ( !key[KEY_ESC] )
+    while ( !key[KEY_ESC] && !g.get_quit())
     {
 
         /// Il faut appeler les méthodes d'update des objets qui comportent des widgets

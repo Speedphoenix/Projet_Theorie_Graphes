@@ -229,6 +229,7 @@ void WidgetTextSaisie::interact_keybd()
     //les caractères acceptés
     if ((key_last>='a' && key_last<='z')    ||
         (key_last>='A' && key_last<='Z')    ||
+        (key_last>='0' && key_last<='9')    ||
         key_last=='_' || key_last=='-'      ||
         key_last==' ' || key_last=='.'      )
     {
@@ -313,6 +314,7 @@ void WidgetNumSaisie::interact_keybd()
 
         m_message = std::to_string(m_value);
     }
+    reframe_text_box();
 }
 
 

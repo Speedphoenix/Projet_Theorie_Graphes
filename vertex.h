@@ -16,6 +16,12 @@
 class Graph;
 
 
+const int default_x = 20;
+const int default_y = 20;
+const int default_value = 0;
+const int default_r = 0.1;
+
+
 /***************************************************
                     VERTEX
 ****************************************************/
@@ -101,7 +107,7 @@ private :
     int m_compNum;
 
     ///si ce sommet est séléctionné À FAIRE AVEC DES CHECKBOXES
-    bool m_selected;
+    bool m_selected = false;
 
 
     /// le POINTEUR sur l'interface associée, nullptr -> pas d'interface

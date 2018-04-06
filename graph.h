@@ -113,6 +113,8 @@ class Graph
 {
 private :
 
+    bool m_want_to_quit = false;
+
     /// La "liste" des arêtes
     std::map<int, Edge> m_edges;
 
@@ -144,6 +146,9 @@ private :
 
     ///renvoie un numero de composante pas encore utilisé
     int getNewCompNum();
+
+    int getUnusedVertexId();
+    int getUnusedEdgeId();
 
     ///va flag les sommets de receivedComps et assigner une composante à ceux sans.
     void flagRemaining(std::set<int>& receivedComps);
@@ -184,6 +189,10 @@ public:
     void reset_comps();
     void reset_graph();
 
+    bool vertex_exists(int id) { return m_vertices.find(id)!=m_vertices.end(); }
+    bool edge_exists(int id) { return m_edges.find(id)!=m_edges.end(); }
+
+
     /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
     void update();
 
@@ -193,6 +202,8 @@ public:
     void get_stream(std::istream& myStream);
 
     void turn();
+
+    bool get_quit() { return m_want_to_quit; }
 };
 
 

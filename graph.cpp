@@ -421,6 +421,30 @@ void Graph::add_interfaced_edge(int idx, int id_vertFrom, int id_vertTo, double 
     m_vertices.at(id_vertTo).m_in.push_back(idx);
 }
 
+
+//pas très robuste mais bon
+int Graph::getUnusedVertexId()
+{
+    int i = 0;
+
+    while (m_vertices.find(i)!=m_vertices.end())
+        i++;
+
+    return i;
+}
+
+//pas très robuste mais bon
+int Graph::getUnusedEdgeId()
+{
+    int i = 0;
+
+    while (m_edges.find(i)!=m_edges.end())
+        i++;
+
+    return i;
+}
+
+
 //reset le graphe
 void Graph::reset_graph()
 {
@@ -475,12 +499,10 @@ int Graph::getNewCompNum()
             break;
         else
             rep++;
-
     }
 
     return rep;
 }
-
 
 
 void Graph::fortementConnexes()
@@ -719,15 +741,23 @@ void Graph::remove_vertex(int id)
 ///FAIRE UNE CLASSE/FONCTION QUI A SON PROPRE TOUR DE BOUCLE - pour nouveau sommet arete et pour les noms etc
 void Graph::processInput(UserAction what)
 {
-    string filename;
+    //all these can't be declared inside the switch
+    string name, filename;
     ofstream outfile;
     ifstream infile;
+
+    //these can't be declared inside the switch
+    int integer1, integer2;
 
     switch (what)
     {
         default:
         case UserAction::Nothing:
         //nothing
+    break;
+
+        case UserAction::Quit:
+        m_want_to_quit = true;
     break;
 
         case UserAction::NewGraph:
@@ -770,10 +800,16 @@ void Graph::processInput(UserAction what)
     break;
 
         case UserAction::AddVertex:
+        new_vertex_values(name, filename);
+
+        add_interfaced_vertex(getUnusedVertexId(), default_value, default_r, default_x, default_y, name, filename);
 
     break;
 
         case UserAction::AddEdge:
+        new_edge_tips(*this, integer1, integer2);
+
+        add_interfaced_edge(getUnusedEdgeId(), integer1, integer2);
 
     break;
 
