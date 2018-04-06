@@ -36,6 +36,9 @@ EdgeInterface::EdgeInterface(Vertex& from, Vertex& to, Edge_type type)
     m_box_edge.add_child( m_label_weight );
     m_label_weight.set_gravity_y(grman::GravityY::Down);
 
+    m_top_edge.add_child( m_selection );
+    m_selection.set_gravity_x(grman::GravityX::Left);
+    m_selection.set_dim(10, 10);
 }
 
 
@@ -60,6 +63,10 @@ void Edge::post_update()
 
     /// Reprendre la valeur du slider dans la donnée m_weight locale
     m_weight = m_interface->m_slider_weight.get_value();
+
+    //selectionné ou pas
+    m_selected = m_interface->m_selection.get_value();
+
 }
 
 

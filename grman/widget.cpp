@@ -189,13 +189,9 @@ void WidgetText::set_message(std::string message)
 }
 
 
-
 void WidgetTextSaisie::interact_leave()
 {
     m_isTyping = true;
-    m_virgule = false;
-
-    m_value = 0;
 
     m_message = "";
 }
@@ -203,10 +199,30 @@ void WidgetTextSaisie::interact_leave()
 void WidgetTextSaisie::interact_elsewhere()
 {
     m_isTyping = false;
-
 }
 
 void WidgetTextSaisie::interact_keybd()
+{
+    if (key_last == '\0')
+        return ;
+
+    if (!m_isTyping)
+        return ;
+
+    //les caractères acceptés
+    if ((key_last>='a' && key_last<='z')    ||
+        (key_last>='A' && key_last<='Z')    ||
+        key_last=='_' || key_last=='-'      ||
+        key_last==' ' || key_last=='!'      ||
+        key_last=='(' || key_last==')'      ||
+        key_last=='#' || key_last=='\''     )
+    {
+        m_message += key_last;
+    }
+}
+
+
+void WidgetNumSaisie::interact_keybd()
 {
     if (key_last == '\0')
         return ;
@@ -318,6 +334,12 @@ void WidgetButton::interact_focus()
         m_value = true;
 }
 
+
+WidgetButtonText::WidgetButtonText()
+{
+    add_child(m_message);
+    m_message.set_gravity_xy(grman::GravityX::Center, grman::GravityY::Center);
+}
 
 
 /***************************************************

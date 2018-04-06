@@ -138,7 +138,7 @@ class Widget
 
         int get_dimx() { return m_frame.dim.x-2*get_bp(); }
         int get_dimy() { return m_frame.dim.y-2*get_bp(); }
-        Coords get_dim() { return Coords(get_dimx(), get_dimy()); } //la réference ici est dangeureuse mais pratique
+        Coords get_dim() { return Coords(get_dimx(), get_dimy()); }
 
         void set_posx(int x) { m_frame.pos.x = x+get_parent_bp(); m_gravity_x = GravityX::None; }
         void set_posy(int y) { m_frame.pos.y = y+get_parent_bp(); m_gravity_y = GravityY::None; }
@@ -247,15 +247,10 @@ class WidgetText : public Widget
 class WidgetTextSaisie : public WidgetText
 {
     protected:
-        const int m_max_exposant = 3;
-        double m_value = 0;
-        int m_exposant = 0;
-        bool m_virgule = false;
         bool m_isTyping = false;
 
     public:
-        WidgetTextSaisie(int value = 0) { m_value = value; }
-        virtual void interact_keybd();   ///fonction qui prend la saisie par l'utilisateur
+        virtual void interact_keybd();   //fonction qui prend la saisie par l'utilisateur
 
         //on peut cliquer dessus
         virtual bool captures_focus() { return true; }
@@ -263,10 +258,26 @@ class WidgetTextSaisie : public WidgetText
         virtual void interact_leave();
         virtual void interact_elsewhere();
 
+        virtual bool is_typing() { return m_isTyping; }
+};
+
+
+class WidgetNumSaisie : public WidgetTextSaisie
+{
+    protected:
+        const int m_max_exposant = 3;
+        double m_value = 0;
+        int m_exposant = 0;
+        bool m_virgule = false;
+
+    public:
+        virtual void interact_keybd();   //fonction qui prend la saisie par l'utilisateur
+
         double get_value() { return m_value; }
         void set_value(double val) { m_value = val; }
-        bool is_typing() { return m_isTyping; }
 };
+
+
 
 /***************************************************
                     CHECKBOX
@@ -306,6 +317,18 @@ class WidgetButton : public Widget
         bool clicked() { bool clk = m_value; m_value=false; return clk; }
         bool get_value() { return m_value; }
         void set_value(bool value) { m_value = value; }
+};
+
+
+class WidgetButtonText : public WidgetButton
+{
+    protected :
+        WidgetText m_message;
+
+    public :
+        WidgetButtonText();
+
+        WidgetText& get_message_widget() { return m_message; }
 };
 
 

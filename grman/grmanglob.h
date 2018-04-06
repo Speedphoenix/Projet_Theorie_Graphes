@@ -25,6 +25,12 @@
 
 #endif // _WINDOWS
 
+#ifdef E
+    #undef E
+#endif // E
+
+///cette macro sert à débug: affichera x sous la forme d'une string, puis la valeur de x.
+#define E(x) {std::cerr<<std::endl<<#x " : " << x << std::endl;}
 
 namespace grman
 {

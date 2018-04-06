@@ -39,6 +39,13 @@ Graph::Graph (std::istream& file)
     get_stream(file);
 }
 
+void Graph::initialize_toolbox()
+{
+    m_toolbox.m_interface = make_shared<ToolboxInterface>(m_interface->m_tool_box.get_dimx()-2, m_interface->m_tool_box.get_dimy()-2);
+
+    m_interface->m_tool_box.add_child(m_toolbox.m_interface->m_top_box);
+}
+
 void Graph::send_stream(ostream& myStream)
 {
     Coords someCoords;
@@ -132,6 +139,8 @@ void Graph::get_stream(istream& myStream)
         myStream >> someCoords;
 
         m_interface = make_shared<GraphInterface>(0, 0, someCoords.x, someCoords.y);
+
+        initialize_toolbox();
     }
     else
     {
@@ -280,13 +289,48 @@ void Graph::update()
         for (auto &elt : m_edges)
             elt.second.pre_update();
 
+        m_toolbox.pre_update();
+
+
+        //update of all Widgets
         m_interface->m_top_box.update();
 
+
+        m_selected_vertices.clear();
         for (auto &elt : m_vertices)
+        {
             elt.second.post_update();
 
+            if (elt.second.m_selected)
+                m_selected_vertices.push_back(elt.first);
+        }
+
+        m_selected_edges.clear();
         for (auto &elt : m_edges)
+        {
             elt.second.post_update();
+
+            if (elt.second.m_selected)
+                m_selected_edges.push_back(elt.first);
+        }
+
+        if (!m_selected_edges.empty() || !m_selected_vertices.empty())
+        {
+            m_toolbox.set_selection(true);
+        }
+        else
+        {
+            m_toolbox.set_selection(false);
+        }
+
+        m_toolbox.post_update();
+
+        processInput(m_toolbox.m_user_choice);
+
+        if (m_toolbox.m_continuous_turn)
+        {
+            ///FAIRE DES TOURS CONTINUS
+        }
     }
 }
 
@@ -562,6 +606,154 @@ void Graph::flagRemaining(set<int>& receivedComps)
         m_vertices.at(elem).m_flag = true;
     }
 }
+
+
+
+//enlève une arete (et l'enlève des sommets)
+void Graph::remove_edge(int id)
+{
+    if (m_edges.find(id)==m_edges.end())
+        return ;
+
+    Edge& toRemove = m_edges.at(id);
+
+    int sommet = toRemove.m_from;
+
+    vector<int>::iterator it = find(m_vertices.at(sommet).m_out.begin(), m_vertices.at(sommet).m_out.end(), id);
+
+    if (it == m_vertices.at(sommet).m_out.end())
+    {
+        throw "L'arete à suprimer n'est pas dans le sommet sommet de depart..."; /// METTRE UN MESSAGE
+    }
+
+    m_vertices.at(sommet).m_out.erase(it);
+
+    //maintenant l'arete n'est plus dans m_from
+
+    sommet = toRemove.m_to;
+
+    it = find(m_vertices.at(sommet).m_in.begin(), m_vertices.at(sommet).m_in.end(), id);
+
+    if (it == m_vertices.at(sommet).m_in.end())
+    {
+        throw "L'arete à suprimer n'est pas dans le sommet d'arrivée..."; /// METTRE UN MESSAGE
+    }
+
+    m_vertices.at(sommet).m_in.erase(it);
+
+    //maintenant l'arete n'est plus dans m_to
+
+    m_interface->m_main_box.remove_child(toRemove.m_interface->m_top_edge);
+
+    //pas besoin de delete m_interface de l'arete car c'est contenu dans un shared ptr
+
+    //maintenant l'arete id n'existe plus
+    m_edges.erase(m_edges.find(id));
+}
+
+
+void Graph::remove_vertex(int id)
+{
+    if (m_vertices.find(id)==m_vertices.end())
+        return ;
+
+    Vertex& toRemove = m_vertices.at(id);
+
+    vector<int> edgesToRemove;
+
+    //on fait la liste des aretes à supprimer
+    for (unsigned i=0;i<toRemove.m_in.size();i++)
+    {
+        edgesToRemove.push_back(toRemove.m_in.at(i));
+    }
+
+    for (unsigned i=0;i<toRemove.m_out.size();i++)
+    {
+        edgesToRemove.push_back(toRemove.m_out.at(i));
+    }
+
+    //on les supprime une par une
+    for (unsigned i=0;i<edgesToRemove.size();i++)
+    {
+        remove_edge(edgesToRemove.at(i));
+    }
+
+    //maintenant toutes les aretes connéctées à notre sommet n'éxistent plus
+
+    m_interface->m_main_box.remove_child(toRemove.m_interface->m_top_box);
+
+    //pas besoin de delete m_interface du sommet car c'est contenu dans un shared ptr
+
+    m_vertices.erase(m_vertices.find(id));
+}
+
+
+///FAIRE UNE CLASSE/FONCTION QUI A SON PROPRE TOUR DE BOUCLE
+void Graph::processInput(UserAction what)
+{
+    switch (what)
+    {
+        default:
+        case UserAction::Nothing:
+        //nothing
+    break;
+
+        case UserAction::NewGraph:
+
+    break;
+
+        case UserAction::LoadGraph:
+
+        ///get_stream()
+    break;
+
+        case UserAction::SaveGraph:
+
+        ///send_stream()
+    break;
+
+        case UserAction::AddVertex:
+
+    break;
+
+        case UserAction::AddEdge:
+
+    break;
+
+        case UserAction::Delete:
+        //que s'il y a des trucs à supprimer
+        if (m_selected_edges.empty() && m_selected_vertices.empty())
+            break;
+
+        //delete the edges first so don't have to check if they were deleted with a vertex...
+        for (auto& elem : m_selected_edges)
+            remove_edge(elem);
+
+        for (auto& elem : m_selected_vertices)
+            remove_vertex(elem);
+    break;
+
+        case UserAction::HardConnex:
+        fortementConnexes();
+    break;
+
+        case UserAction::Turn:
+
+    break;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

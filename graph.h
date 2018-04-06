@@ -71,7 +71,7 @@
 
 ***********************************************************************************************/
 
-#include "edge.h"
+#include "toolbox.h"
 
 
 /***************************************************
@@ -96,9 +96,6 @@ private :
 
     /// Dans cette boite seront ajoutés des boutons de contrôle etc...
     grman::WidgetBox m_tool_box;
-
-        /// Dans cette boite sera ajout� l'interface de saisie
-        //grman::WidgetTextSaisie;
 
 
     // A compléter éventuellement par des widgets de décoration ou
@@ -125,6 +122,17 @@ private :
     /// le POINTEUR sur l'interface associée, nullptr -> pas d'interface
     std::shared_ptr<GraphInterface> m_interface = nullptr;
 
+    /// La tool_box qui contien les boutons
+    Toolbox m_toolbox;
+
+    ///les sommets selectionnés
+    std::vector<int> m_selected_vertices;
+
+    ///les aretes selectionnées
+    std::vector<int> m_selected_edges;
+
+    ///Regarde what et agit en conséquence
+    void processInput(UserAction what);
 
     /// 'colorie' (change nompNum) tous les sommets ayant comme numero de comp 'old' et leur donne 'new'
     void unicompAllVert(int ancien, int nouveau);
@@ -146,11 +154,13 @@ public:
     /// Les constructeurs sont à compléter selon vos besoin...
     /// Ici on ne donne qu'un seul constructeur qui peut utiliser une interface
     Graph (GraphInterface *interface=nullptr) :
-        m_interface(interface)  {  }
+        m_interface(interface)  { if (interface) initialize_toolbox(); }
 
     ///prend le graphe depuis un fichier
     Graph (std::string filename);
     Graph (std::istream& file);
+
+    void initialize_toolbox();
 
 
     //Getters and setters
@@ -163,6 +173,9 @@ public:
 
     void add_interfaced_vertex(int idx, double value, double r, int x, int y, std::string name="", std::string pic_name="", int pic_idx=0 );
     void add_interfaced_edge(int idx, int vert1, int vert2, double weight=0, Edge_type type=Edge_type::Trophic);
+
+    void remove_vertex(int id);
+    void remove_edge(int id);
 
     /// Méthode spéciale qui construit un graphe arbitraire (démo)
     void make_test1();
