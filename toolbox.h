@@ -35,7 +35,7 @@ class ToolboxInterface
 
 private :
 
-    /// La boite qui contient toute l'interface de la tool box
+    // La boite qui contient toute l'interface de la tool box
     grman::WidgetBox m_top_box;
 
 
@@ -51,13 +51,13 @@ private :
 
     grman::WidgetButtonText m_new_edge_btn;
 
-    ///bouton pour detecter les composantes fortement connexes
+    //bouton pour detecter les composantes fortement connexes
     grman::WidgetButtonText m_fortement_conn_btn;
 
-    ///bouton pour faire un tour
+    //bouton pour faire un tour
     grman::WidgetButtonText m_turn_btn;
 
-    ///check this to make a real-time turn
+    //check this to make a real-time turn
     grman::WidgetBox m_continuous_turn_box;
     grman::WidgetCheckBox m_continuous_turn_checkbox;
     grman::WidgetText m_continuous_turn_msg;
