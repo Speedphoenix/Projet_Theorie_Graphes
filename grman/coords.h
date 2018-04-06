@@ -5,10 +5,20 @@
 #include <iostream>
 
 /**
+    Ce fichier est un adaptation du code fourni par M. Robin Fercoq
+    Adapté par le groupe n°2 du TD09, ING2 PROMO 2021 à l'ECE Paris
+        Benoit Coville
+        Leonardo Jeanteur
+        Louis Galibert
+    Merci de citer vos sources
+*/
+
+/**
  *  Modifications apportées:
  *
  *  Ajout de l'operator/ pour un double
-
+ *  Ajout des operator<< et >>
+ *
  *  À faire:
  *  une meilleure fonction de rotation
 */

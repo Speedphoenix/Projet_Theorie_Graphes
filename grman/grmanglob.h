@@ -12,6 +12,18 @@
 #include "grman_couleurs.h"
 #include "coords.h"
 
+
+/**
+    Ce fichier est un adaptation du code fourni par M. Robin Fercoq
+    Adapté par le groupe n°2 du TD09, ING2 PROMO 2021 à l'ECE Paris
+        Benoit Coville
+        Leonardo Jeanteur
+        Louis Galibert
+
+    Merci de citer vos sources
+*/
+
+
 #define MOUSEFILE "Mouse.bmp"
 
 ///pour eviter les problèmes de souris

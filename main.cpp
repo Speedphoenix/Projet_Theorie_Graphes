@@ -3,6 +3,16 @@
 
 #include "graph.h"
 
+/**
+    Ce fichier est un adaptation du code fourni par M. Robin Fercoq
+    Adapté par le groupe n°2 du TD09, ING2 PROMO 2021 à l'ECE Paris
+        Benoit Coville
+        Leonardo Jeanteur
+        Louis Galibert
+    Merci de citer vos sources
+*/
+
+
 #define GRAPHFILE1 "graphe1.txt"
 #define GRAPHFILE2 "graphe2.txt"
 

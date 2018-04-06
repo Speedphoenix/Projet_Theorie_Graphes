@@ -6,6 +6,15 @@ using namespace std;
                     GRAPH
 ****************************************************/
 
+/**
+    Ce fichier est un adaptation du code fourni par M. Robin Fercoq
+    Adapté par le groupe n°2 du TD09, ING2 PROMO 2021 à l'ECE Paris
+        Benoit Coville
+        Leonardo Jeanteur
+        Louis Galibert
+    Merci de citer vos sources
+*/
+
 /// Ici le constructeur se contente de préparer un cadre d'accueil des
 /// éléments qui seront ensuite ajoutés lors de la mise ne place du Graphe
 GraphInterface::GraphInterface(int x, int y, int w, int h)

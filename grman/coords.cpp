@@ -1,5 +1,16 @@
 #include "coords.h"
 
+/**
+    Ce fichier est un adaptation du code fourni par M. Robin Fercoq
+    Adapté par le groupe n°2 du TD09, ING2 PROMO 2021 à l'ECE Paris
+        Benoit Coville
+        Leonardo Jeanteur
+        Louis Galibert
+    Merci de citer vos sources
+*/
+
+
+
 // Renvoie les coordonnées (dans le repère de la position de Frame) de l'intersection
 // entre la demi-droite centre Frame -> vecteur directeur vec et le cadre de la Frame
 Coords Frame::intersect(Coords vec)
