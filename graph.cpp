@@ -132,6 +132,9 @@ void Graph::get_stream(istream& myStream)
     string dump;
     Coords someCoords;
 
+
+    reset_graph();
+
     myStream >> val;
 
     if (val)
@@ -419,6 +422,55 @@ void Graph::add_interfaced_edge(int idx, int id_vertFrom, int id_vertTo, double 
 }
 
 
+//pas très robuste mais bon
+int Graph::getUnusedVertexId()
+{
+    int i = 0;
+
+    while (m_vertices.find(i)!=m_vertices.end())
+        i++;
+
+    return i;
+}
+
+//pas très robuste mais bon
+int Graph::getUnusedEdgeId()
+{
+    int i = 0;
+
+    while (m_edges.find(i)!=m_edges.end())
+        i++;
+
+    return i;
+}
+
+
+//reset le graphe
+void Graph::reset_graph()
+{
+    for (auto& elem : m_edges)
+    {
+        m_interface->m_main_box.remove_child(elem.second.m_interface->m_top_edge);
+
+        elem.second.m_interface = nullptr; //on sait jamais
+    }
+
+    //on sait jamais
+    for (auto& elem : m_vertices)
+    {
+        m_interface->m_main_box.remove_child(elem.second.m_interface->m_top_box);
+
+        elem.second.m_interface = nullptr; //on sait jamais
+    }
+
+    m_edges.clear();
+    m_vertices.clear();
+
+    m_selected_edges.clear();
+    m_selected_vertices.clear();
+}
+
+
 void Graph::reset_flags()
 {
     for (auto &elem : m_vertices)
@@ -447,12 +499,10 @@ int Graph::getNewCompNum()
             break;
         else
             rep++;
-
     }
 
     return rep;
 }
-
 
 
 void Graph::fortementConnexes()
@@ -688,9 +738,17 @@ void Graph::remove_vertex(int id)
 }
 
 
-///FAIRE UNE CLASSE/FONCTION QUI A SON PROPRE TOUR DE BOUCLE
+///FAIRE UNE CLASSE/FONCTION QUI A SON PROPRE TOUR DE BOUCLE - pour nouveau sommet arete et pour les noms etc
 void Graph::processInput(UserAction what)
 {
+    //all these can't be declared inside the switch
+    string name, filename;
+    ofstream outfile;
+    ifstream infile;
+
+    //these can't be declared inside the switch
+    int integer1, integer2;
+
     switch (what)
     {
         default:
@@ -698,25 +756,60 @@ void Graph::processInput(UserAction what)
         //nothing
     break;
 
-        case UserAction::NewGraph:
+        case UserAction::Quit:
+        m_want_to_quit = true;
+    break;
 
+        case UserAction::NewGraph:
+        reset_graph();
     break;
 
         case UserAction::LoadGraph:
+        text_input(filename, "entrez le nom du fichier");
 
-        ///get_stream()
+        infile.open(filename, ios::in);
+
+        if (!infile)
+        {
+            cerr << "veuillez entrer un nom de fichier existant";
+        }
+        else
+        {
+            get_stream(infile); ///RESET LE GRAPHE DABORD
+
+            infile.close();
+        }
     break;
 
         case UserAction::SaveGraph:
 
-        ///send_stream()
+        text_input(filename, "entrez le nom du fichier");
+
+        outfile.open(filename, ios::out | ios::trunc);
+
+        if (!outfile)
+        {
+            cerr << "veuillez entrer un nom de fichier valable....";
+        }
+        else
+        {
+            send_stream(outfile);
+
+            outfile.close();
+        }
     break;
 
         case UserAction::AddVertex:
+        new_vertex_values(name, filename);
+
+        add_interfaced_vertex(getUnusedVertexId(), default_value, default_r, default_x, default_y, name, filename);
 
     break;
 
         case UserAction::AddEdge:
+        new_edge_tips(*this, integer1, integer2);
+
+        add_interfaced_edge(getUnusedEdgeId(), integer1, integer2);
 
     break;
 

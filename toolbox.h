@@ -17,6 +17,7 @@ const int BUTTONPART = 20;
 enum class UserAction
 {
     Nothing,
+    Quit,
     NewGraph,
     SaveGraph,
     LoadGraph,
@@ -25,7 +26,6 @@ enum class UserAction
     Delete,
     HardConnex,
     Turn
-
 };
 
 class ToolboxInterface
@@ -39,13 +39,15 @@ private :
     grman::WidgetBox m_top_box;
 
 
-    //les boutons de création, chargement, sauvegarde de graphe
+    //les boutons
+    ///tous ces boutons pourraient être mis dans un tableau...
+    grman::WidgetButtonText m_quit_btn;
+
     grman::WidgetButtonText m_new_graph_btn;
 
     grman::WidgetButtonText m_save_graph_btn;
 
     grman::WidgetButtonText m_load_graph_btn;
-
 
     grman::WidgetButtonText m_new_vertex_btn;
 
@@ -117,5 +119,21 @@ public:
 
 };
 
+
+///fais tourner une boucle de jeu et quitte avec un bouton.
+///pratique pour des saisies d'utilisateur
+void separate_loop(grman::Widget& parent, bool enter_to_send = false);
+
+void text_input(std::string& dest, std::string message_to_disp="");
+
+void new_vertex_values(std::string& name, std::string& pic_file_name);
+
+//on a pas de solution graphique pour les chiffres à virgule pour l'instant
+void new_edge_tips(Graph& dest, int& from, int& to);
+
+
 #endif // TOOLBOX_H_INCLUDED
+
+
+
 

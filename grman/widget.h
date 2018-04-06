@@ -241,9 +241,12 @@ class WidgetText : public Widget
         void set_vertical(bool vertical=true) { m_vertical=vertical; set_message(m_message); } /// BRICOLAGE ...
 
         void set_color(int col) { m_color = col; }
+
+        virtual void reframe_text_box();
 };
 
 
+//aurait été plus judicieux un stringbuf au lieu de string mais bon
 class WidgetTextSaisie : public WidgetText
 {
     protected:
@@ -259,6 +262,8 @@ class WidgetTextSaisie : public WidgetText
         virtual void interact_elsewhere();
 
         virtual bool is_typing() { return m_isTyping; }
+
+        virtual void reframe_text_box();
 };
 
 
@@ -266,15 +271,17 @@ class WidgetNumSaisie : public WidgetTextSaisie
 {
     protected:
         const int m_max_exposant = 3;
-        double m_value = 0;
+        int m_value = 0; //remplacer par un double...
         int m_exposant = 0;
         bool m_virgule = false;
 
     public:
+        WidgetNumSaisie()
+            { m_message=std::to_string(m_value); reframe_text_box(); }
         virtual void interact_keybd();   //fonction qui prend la saisie par l'utilisateur
 
-        double get_value() { return m_value; }
-        void set_value(double val) { m_value = val; }
+        int get_value() { return m_value; }
+        void set_value(int val) { m_value = val; m_message = std::to_string(val); reframe_text_box(); }
 };
 
 

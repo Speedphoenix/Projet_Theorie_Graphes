@@ -16,6 +16,12 @@
 class Graph;
 
 
+const int default_x = 20;
+const int default_y = 20;
+const int default_value = 0;
+const int default_r = 0.1;
+
+
 /***************************************************
                     VERTEX
 ****************************************************/
@@ -59,8 +65,10 @@ private :
     grman::WidgetText m_box_label_idx;
 
     // Un label indiquant le numero de sa composante (fortement) connexe
-    ///A DÉPLACER!! (en termes de position/methode d'affichage dans le widget principal)
     grman::WidgetText m_label_comp;
+
+    //une boite pour le label précédent
+    grman::WidgetText m_box_label_comp;
 
     // Une checkbox pour etre selectionné
     grman::WidgetCheckBox m_selection;
@@ -99,7 +107,7 @@ private :
     int m_compNum;
 
     ///si ce sommet est séléctionné À FAIRE AVEC DES CHECKBOXES
-    bool m_selected;
+    bool m_selected = false;
 
 
     /// le POINTEUR sur l'interface associée, nullptr -> pas d'interface
