@@ -668,6 +668,47 @@ void Graph::flagRemaining(set<int>& receivedComps)
 }
 
 
+bool Graph::simplementConnexe()
+{
+    unsigned flag_count = 0;
+
+    int some_vertex = m_vertices.begin()->first;
+
+    reset_flags();
+
+    dfs_recurs(some_vertex, flag_count);
+
+    if (flag_count!=m_vertices.size())
+        return false;
+    else
+        return true;
+}
+
+void Graph::dfs_recurs(int where, unsigned& flag_count)
+{
+    //pour economiser des lignes de code dans les boucles
+    if (m_vertices.at(where).m_flag)
+        return;
+    else
+    {
+        m_vertices.at(where).m_flag = true;
+        flag_count++;
+    }
+
+    if (flag_count==m_vertices.size())
+        return;
+
+    for (auto& elem : m_vertices.at(where).m_out)
+    {
+        dfs_recurs(m_edges.at(elem).m_to, flag_count);
+    }
+
+    for (auto& elem : m_vertices.at(where).m_in)
+    {
+        dfs_recurs(m_edges.at(elem).m_from, flag_count);
+    }
+}
+
 
 //enlève une arete (et l'enlève des sommets)
 void Graph::remove_edge(int id)

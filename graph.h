@@ -163,6 +163,8 @@ private :
     ///va flag les sommets de receivedComps et assigner une composante à ceux sans.
     void flagRemaining(std::set<int>& receivedComps);
 
+    ///fonction style dsf pour voir si le graphe est connexe (simplement)
+    void dfs_recurs(int where, unsigned& flag_count);
 
 public:
 
@@ -207,6 +209,9 @@ public:
     void update();
 
     void fortementConnexes();
+
+    bool simplementConnexe();
+
 
     void send_stream(std::ostream& myStream);
     void get_stream(std::istream& myStream);
