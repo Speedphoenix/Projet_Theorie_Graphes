@@ -320,6 +320,18 @@ class WidgetButton : public Widget
 };
 
 
+class WidgetButtonText : public WidgetButton
+{
+    protected :
+        WidgetText m_message;
+
+    public :
+        WidgetButtonText();
+
+        WidgetText& get_message_widget() { return m_message; }
+};
+
+
 
 /***************************************************
                     VSLIDER

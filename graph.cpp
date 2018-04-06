@@ -326,6 +326,11 @@ void Graph::update()
         m_toolbox.post_update();
 
         processInput(m_toolbox.m_user_choice);
+
+        if (m_toolbox.m_continuous_turn)
+        {
+            ///FAIRE DES TOURS CONTINUS
+        }
     }
 }
 
@@ -683,6 +688,7 @@ void Graph::remove_vertex(int id)
 }
 
 
+///FAIRE UNE CLASSE/FONCTION QUI A SON PROPRE TOUR DE BOUCLE
 void Graph::processInput(UserAction what)
 {
     switch (what)
@@ -690,6 +696,20 @@ void Graph::processInput(UserAction what)
         default:
         case UserAction::Nothing:
         //nothing
+    break;
+
+        case UserAction::NewGraph:
+
+    break;
+
+        case UserAction::LoadGraph:
+
+        ///get_stream()
+    break;
+
+        case UserAction::SaveGraph:
+
+        ///send_stream()
     break;
 
         case UserAction::AddVertex:
@@ -711,6 +731,14 @@ void Graph::processInput(UserAction what)
 
         for (auto& elem : m_selected_vertices)
             remove_vertex(elem);
+    break;
+
+        case UserAction::HardConnex:
+        fortementConnexes();
+    break;
+
+        case UserAction::Turn:
+
     break;
     }
 }

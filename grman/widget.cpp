@@ -335,6 +335,12 @@ void WidgetButton::interact_focus()
 }
 
 
+WidgetButtonText::WidgetButtonText()
+{
+    add_child(m_message);
+    m_message.set_gravity_xy(grman::GravityX::Center, grman::GravityY::Center);
+}
+
 
 /***************************************************
                     VSLIDER

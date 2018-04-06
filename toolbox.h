@@ -12,14 +12,20 @@ const int BUTTONWIDTH = 72;
 const int BUTTONHEIGHT = 35;
 const int BUTTONMARGIN = 4;
 const int BUTTONSPACE = BUTTONHEIGHT + 2*BUTTONMARGIN; //l'espace total utilisé par un bouton
-
+const int BUTTONPART = 20;
 
 enum class UserAction
 {
     Nothing,
+    NewGraph,
+    SaveGraph,
+    LoadGraph,
     AddVertex,
     AddEdge,
-    Delete
+    Delete,
+    HardConnex,
+    Turn
+
 };
 
 class ToolboxInterface
@@ -32,19 +38,33 @@ private :
     /// La boite qui contient toute l'interface de la tool box
     grman::WidgetBox m_top_box;
 
-    grman::WidgetButton m_new_vertex_btn;
-    grman::WidgetText m_new_vertex_msg;
 
-    grman::WidgetButton m_new_edge_btn;
-    grman::WidgetText m_new_edge_msg;
+    //les boutons de création, chargement, sauvegarde de graphe
+    grman::WidgetButtonText m_new_graph_btn;
+
+    grman::WidgetButtonText m_save_graph_btn;
+
+    grman::WidgetButtonText m_load_graph_btn;
+
+
+    grman::WidgetButtonText m_new_vertex_btn;
+
+    grman::WidgetButtonText m_new_edge_btn;
+
+    ///bouton pour detecter les composantes fortement connexes
+    grman::WidgetButtonText m_fortement_conn_btn;
+
+    ///bouton pour faire un tour
+    grman::WidgetButtonText m_turn_btn;
+
+    ///check this to make a real-time turn
+    grman::WidgetBox m_continuous_turn_box;
+    grman::WidgetCheckBox m_continuous_turn_checkbox;
+    grman::WidgetText m_continuous_turn_msg;
 
     //the following should be hidden until something is selected
-    grman::WidgetButton m_delete_btn;
-    grman::WidgetText m_delete_msg;
+    grman::WidgetButtonText m_delete_btn;
 
-//    //only when exactly one edge/vertex is selected? not necessary, is it?
-//    grman::WidgetButton m_edit_btn;
-//    grman::WidgetText m_edit_msg;
 
 
 //    ///la liste des widgets qui sont dans la toolbox
@@ -73,6 +93,9 @@ private :
     ///l'action choisie de l'utilisateur, le plus souvent UserAction::Nothing
     UserAction m_user_choice;
 
+    ///si il faut effectuer des tours en continu
+    bool m_continuous_turn;
+
 //    Coords m_bottom_space;
 
 public:
@@ -80,7 +103,7 @@ public:
     /// Les constructeurs sont à compléter selon vos besoin...
     /// Ici on ne donne qu'un seul constructeur qui peut utiliser une interface
     Toolbox (ToolboxInterface *interface=nullptr) :
-        m_interface(interface), m_show_selection(false)  {  }
+        m_interface(interface), m_show_selection(false), m_continuous_turn(false)  {  }
 
 
     void set_selection(bool how = true);
