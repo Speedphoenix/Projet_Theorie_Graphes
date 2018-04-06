@@ -13,6 +13,15 @@ const int BUTTONHEIGHT = 35;
 const int BUTTONMARGIN = 4;
 const int BUTTONSPACE = BUTTONHEIGHT + 2*BUTTONMARGIN; //l'espace total utilisé par un bouton
 
+
+enum class UserAction
+{
+    Nothing,
+    AddVertex,
+    AddEdge,
+    Delete
+};
+
 class ToolboxInterface
 {
     friend class Toolbox;
@@ -29,7 +38,6 @@ private :
     grman::WidgetButton m_new_edge_btn;
     grman::WidgetText m_new_edge_msg;
 
-    ///FAIRE UNE FONCTION QUI AFFICHE/ENLEVE
     //the following should be hidden until something is selected
     grman::WidgetButton m_delete_btn;
     grman::WidgetText m_delete_msg;
@@ -59,6 +67,12 @@ private :
     /// le POINTEUR sur l'interface associée, nullptr -> pas d'interface
     std::shared_ptr<ToolboxInterface> m_interface = nullptr;
 
+    ///s'il faut montrer le bouton de suppression etc
+    bool m_show_selection;
+
+    ///l'action choisie de l'utilisateur, le plus souvent UserAction::Nothing
+    UserAction m_user_choice;
+
 //    Coords m_bottom_space;
 
 public:
@@ -66,14 +80,17 @@ public:
     /// Les constructeurs sont à compléter selon vos besoin...
     /// Ici on ne donne qu'un seul constructeur qui peut utiliser une interface
     Toolbox (ToolboxInterface *interface=nullptr) :
-        m_interface(interface)  {  }
+        m_interface(interface), m_show_selection(false)  {  }
 
 
+    void set_selection(bool how = true);
 
-    void position_widgets();
+    //void position_widgets();
 
-    void add_widget(grman::Widget* addit);
+    //void add_widget(grman::Widget* addit);
 
+    void pre_update();
+    void post_update();
 
 };
 

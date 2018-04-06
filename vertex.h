@@ -12,8 +12,6 @@
 
 #include "grman/grman.h"
 
-///cette macro sert à débug: affichera x sous la forme d'une string, puis la valeur de x.
-#define E(x) {std::cerr<<std::endl<<#x " : " << x << std::endl;}
 
 class Graph;
 
@@ -64,6 +62,9 @@ private :
     ///A DÉPLACER!! (en termes de position/methode d'affichage dans le widget principal)
     grman::WidgetText m_label_comp;
 
+    // Une checkbox pour etre selectionné
+    grman::WidgetCheckBox m_selection;
+
 public :
 
     // Le constructeur met en place les éléments de l'interface
@@ -96,6 +97,9 @@ private :
     ///un marquages pour les algos de passage
     bool m_flag;
     int m_compNum;
+
+    ///si ce sommet est séléctionné À FAIRE AVEC DES CHECKBOXES
+    bool m_selected;
 
 
     /// le POINTEUR sur l'interface associée, nullptr -> pas d'interface

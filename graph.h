@@ -125,6 +125,14 @@ private :
     /// La tool_box qui contien les boutons
     Toolbox m_toolbox;
 
+    ///les sommets selectionnés
+    std::vector<int> m_selected_vertices;
+
+    ///les aretes selectionnées
+    std::vector<int> m_selected_edges;
+
+    ///Regarde what et agit en conséquence
+    void processInput(UserAction what);
 
     /// 'colorie' (change nompNum) tous les sommets ayant comme numero de comp 'old' et leur donne 'new'
     void unicompAllVert(int ancien, int nouveau);

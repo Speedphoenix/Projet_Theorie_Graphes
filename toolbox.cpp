@@ -14,7 +14,7 @@ ToolboxInterface::ToolboxInterface(int w, int h)
     //bouton d'ajout de sommet
     m_top_box.add_child(m_new_vertex_btn);
     m_new_vertex_btn.set_posy(currenty + BUTTONMARGIN); //x n'est pas nécéssaire car on utilise de la gravité
-   m_new_vertex_btn.set_bg_color(VERTCLAIR); //trouver une bonne couleur svp!
+    m_new_vertex_btn.set_bg_color(VERTCLAIR); //trouver une bonne couleur svp!
     m_new_vertex_btn.set_dim(BUTTONWIDTH, BUTTONHEIGHT);
     m_new_vertex_btn.set_gravity_xy(grman::GravityX::Center, grman::GravityY::None);
     m_new_vertex_btn.set_margin(BUTTONMARGIN);
@@ -30,7 +30,7 @@ ToolboxInterface::ToolboxInterface(int w, int h)
     //bouton d'ajout d'arete
     m_top_box.add_child(m_new_edge_btn);
     m_new_edge_btn.set_posy(currenty + BUTTONMARGIN);
-   m_new_edge_btn.set_bg_color(VERTCLAIR); //trouver une bonne couleur svp!
+    m_new_edge_btn.set_bg_color(VERTCLAIR); //trouver une bonne couleur svp!
     m_new_edge_btn.set_dim(BUTTONWIDTH, BUTTONHEIGHT);
     m_new_edge_btn.set_gravity_xy(grman::GravityX::Center, grman::GravityY::None);
     m_new_edge_btn.set_margin(BUTTONMARGIN);
@@ -48,7 +48,7 @@ ToolboxInterface::ToolboxInterface(int w, int h)
     //m_top_box.add_child(m_delete_btn);
 
     m_delete_btn.set_posy(currenty + BUTTONMARGIN);
-   m_delete_btn.set_bg_color(ROUGECLAIR); //trouver une bonne couleur svp!
+    m_delete_btn.set_bg_color(ROUGECLAIR); //trouver une bonne couleur svp!
     m_delete_btn.set_dim(BUTTONWIDTH, BUTTONHEIGHT);
     m_delete_btn.set_gravity_xy(grman::GravityX::Center, grman::GravityY::None);
     m_delete_btn.set_margin(BUTTONMARGIN);
@@ -56,22 +56,84 @@ ToolboxInterface::ToolboxInterface(int w, int h)
     //le message à mettre sur le bouton
     m_delete_btn.add_child(m_delete_msg);
     m_delete_msg.set_gravity_xy(grman::GravityX::Center, grman::GravityY::Center);
-    m_delete_msg.set_color(ROUGESOMBRE); //trouver une bonne couleur svp!
-    m_delete_msg.set_message("delte");
+    m_delete_msg.set_color(NOIR); //trouver une bonne couleur svp!
+    m_delete_msg.set_message("delete");
 
 
-//    currenty += BUTTONSPACE;
-//
-//    m_edit_btn.set_posy(currenty + BUTTONMARGIN);
-/////   m_edit_btn.set_bg_color(); //trouver une bonne couleur svp! (du orange?)
-//    m_edit_btn.set_dim(BUTTONWIDTH, BUTTONHEIGHT);
-//    m_edit_btn.set_gravity_xy(grman::GravityX::Center, grman::GravityY::None);
-//    m_edit_btn.set_margin(BUTTONMARGIN);
-//
-//    //le message à mettre sur le bouton
-//    m_edit_btn.add_child(m_edit_msg);
-//    m_edit_msg.set_gravity_xy(grman::GravityX::Center, grman::GravityY::Center);
-/////    m_edit_msg.set_color(); //trouver une bonne couleur svp!
+    currenty += BUTTONSPACE;
+/*  //pas nécéssaire
+    m_edit_btn.set_posy(currenty + BUTTONMARGIN);
+///   m_edit_btn.set_bg_color(); //trouver une bonne couleur svp! (du orange?)
+    m_edit_btn.set_dim(BUTTONWIDTH, BUTTONHEIGHT);
+    m_edit_btn.set_gravity_xy(grman::GravityX::Center, grman::GravityY::None);
+    m_edit_btn.set_margin(BUTTONMARGIN);
+
+    //le message à mettre sur le bouton
+    m_edit_btn.add_child(m_edit_msg);
+    m_edit_msg.set_gravity_xy(grman::GravityX::Center, grman::GravityY::Center);
+///    m_edit_msg.set_color(); //trouver une bonne couleur svp!
+*/
+}
+
+
+void Toolbox::set_selection(bool val)
+{
+    if (m_show_selection!=val)
+    {
+        ToolboxInterface& interface = *m_interface;
+
+        if (val)
+        {
+            interface.m_top_box.add_child(interface.m_delete_btn);
+        }
+        else
+        {
+            interface.m_top_box.remove_child(interface.m_delete_btn);
+        }
+
+        m_show_selection = val;
+    }
+}
+
+void Toolbox::pre_update()
+{
 
 }
+
+
+void Toolbox::post_update()
+{
+    ToolboxInterface& interface = *m_interface;
+
+    m_user_choice = UserAction::Nothing;
+
+    if (interface.m_new_vertex_btn.clicked())
+    {
+        m_user_choice = UserAction::AddVertex;
+    }
+
+
+    if (interface.m_new_edge_btn.clicked())
+    {
+        m_user_choice = UserAction::AddEdge;
+    }
+
+
+    if (interface.m_delete_btn.clicked())
+    {
+        m_user_choice = UserAction::Delete;
+    }
+
+
+    //add for edit btn if necessary
+
+}
+
+
+
+
+
+
+
+
 

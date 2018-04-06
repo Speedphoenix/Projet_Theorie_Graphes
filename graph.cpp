@@ -289,13 +289,43 @@ void Graph::update()
         for (auto &elt : m_edges)
             elt.second.pre_update();
 
+        m_toolbox.pre_update();
+
+
+        //update of all Widgets
         m_interface->m_top_box.update();
 
+
+        m_selected_vertices.clear();
         for (auto &elt : m_vertices)
+        {
             elt.second.post_update();
 
+            if (elt.second.m_selected)
+                m_selected_vertices.push_back(elt.first);
+        }
+
+        m_selected_edges.clear();
         for (auto &elt : m_edges)
+        {
             elt.second.post_update();
+
+            if (elt.second.m_selected)
+                m_selected_edges.push_back(elt.first);
+        }
+
+        if (!m_selected_edges.empty() || !m_selected_vertices.empty())
+        {
+            m_toolbox.set_selection(true);
+        }
+        else
+        {
+            m_toolbox.set_selection(false);
+        }
+
+        m_toolbox.post_update();
+
+        processInput(m_toolbox.m_user_choice);
     }
 }
 
@@ -577,6 +607,9 @@ void Graph::flagRemaining(set<int>& receivedComps)
 //enlève une arete (et l'enlève des sommets)
 void Graph::remove_edge(int id)
 {
+    if (m_edges.find(id)==m_edges.end())
+        return ;
+
     Edge& toRemove = m_edges.at(id);
 
     int sommet = toRemove.m_from;
@@ -616,6 +649,9 @@ void Graph::remove_edge(int id)
 
 void Graph::remove_vertex(int id)
 {
+    if (m_vertices.find(id)==m_vertices.end())
+        return ;
+
     Vertex& toRemove = m_vertices.at(id);
 
     vector<int> edgesToRemove;
@@ -639,13 +675,62 @@ void Graph::remove_vertex(int id)
 
     //maintenant toutes les aretes connéctées à notre sommet n'éxistent plus
 
-
     m_interface->m_main_box.remove_child(toRemove.m_interface->m_top_box);
 
     //pas besoin de delete m_interface du sommet car c'est contenu dans un shared ptr
 
     m_vertices.erase(m_vertices.find(id));
 }
+
+
+void Graph::processInput(UserAction what)
+{
+    switch (what)
+    {
+        default:
+        case UserAction::Nothing:
+        //nothing
+    break;
+
+        case UserAction::AddVertex:
+
+    break;
+
+        case UserAction::AddEdge:
+
+    break;
+
+        case UserAction::Delete:
+        //que s'il y a des trucs à supprimer
+        if (m_selected_edges.empty() && m_selected_vertices.empty())
+            break;
+
+        //delete the edges first so don't have to check if they were deleted with a vertex...
+        for (auto& elem : m_selected_edges)
+            remove_edge(elem);
+
+        for (auto& elem : m_selected_vertices)
+            remove_vertex(elem);
+    break;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

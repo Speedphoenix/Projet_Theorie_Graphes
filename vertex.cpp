@@ -61,6 +61,11 @@ VertexInterface::VertexInterface(int idx, int x, int y, std::string name, std::s
     m_top_box.add_child( m_label_comp);
     m_label_comp.set_message( std::to_string(-1) );
     m_label_comp.set_color(ROSECLAIR);
+
+
+    m_top_box.add_child( m_selection );
+    m_selection.set_gravity_xy(grman::GravityX::Right, grman::GravityY::Up);
+    m_selection.set_dim(20, 20);
 }
 
 
@@ -74,8 +79,11 @@ void Vertex::pre_update()
 
         /// Copier la valeur locale de la donnée m_value vers le label sous le slider
         m_interface->m_label_value.set_message( std::to_string( (int)m_value) );
+        m_interface->m_label_value.set_value( m_value );
 
         m_interface->m_label_comp.set_message( std::to_string(m_compNum));
+
+        //m_interface->m_selection.set_value(m_selected);
     }
 }
 
@@ -94,6 +102,9 @@ void Vertex::post_update()
     //si la valeur est en train d'être entrée en texte, on prend celle là
     if (m_interface->m_label_value.is_typing())
         m_value = m_interface->m_label_value.get_value();
+
+    //selectionné ou pas
+    m_selected = m_interface->m_selection.get_value();
 }
 
 

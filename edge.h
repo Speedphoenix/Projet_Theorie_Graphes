@@ -39,6 +39,9 @@ private :
     // Un label de visualisation du poids de l'arc
     grman::WidgetText m_label_weight;
 
+    // Une checkbox pour etre selectionné
+    grman::WidgetCheckBox m_selection;
+
 public :
 
     // Le constructeur met en place les éléments de l'interface
@@ -67,6 +70,8 @@ private :
     double m_weight;
 
     Edge_type m_type;
+
+    bool m_selected;
 
 
     /// le POINTEUR sur l'interface associée, nullptr -> pas d'interface

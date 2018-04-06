@@ -18,7 +18,7 @@ int main()
     grman::init();
 
     /// Un exemple de graphe. pris depuis le fichier GRAPHEFILE1
-    Graph g(GRAPHFILE2);
+    Graph g(GRAPHFILE1);
     //g.make_test1();
 
 
