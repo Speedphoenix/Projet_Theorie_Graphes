@@ -58,9 +58,13 @@ VertexInterface::VertexInterface(int idx, int x, int y, std::string name, std::s
     m_name.set_gravity_xy(grman::GravityX::Center, grman::GravityY::Up);
 
 
-    m_top_box.add_child( m_label_comp);
+    m_top_box.add_child( m_box_label_comp );
+    m_box_label_comp.set_gravity_y(grman::GravityY::Down);
+    m_box_label_comp.set_dim(20,12);
+    m_box_label_comp.set_bg_color(BLANC);
+
+    m_box_label_comp.add_child( m_label_comp);
     m_label_comp.set_message( std::to_string(-1) );
-    m_label_comp.set_color(ROSECLAIR);
 
 
     m_top_box.add_child( m_selection );

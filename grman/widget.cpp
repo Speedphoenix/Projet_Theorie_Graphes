@@ -178,14 +178,31 @@ void WidgetText::draw()
             textprintf_ex(m_view, font, 0, y, m_color, -1, "%c", m_message[i]);
 }
 
+
 void WidgetText::set_message(std::string message)
 {
     m_message = message;
+    reframe_text_box();
+}
+
+
+void WidgetText::reframe_text_box()
+{
     if (!m_vertical)
         set_dim( text_length(m_font, m_message.c_str()), text_height(m_font) );
     else
         set_dim( text_length(m_font, "M"), text_height(m_font)*m_message.length() );
     reframe();
+}
+
+void WidgetTextSaisie::reframe_text_box()
+{
+    if (m_message=="" && !m_vertical)
+    {
+        set_dim( text_length(m_font, m_message.c_str()) + 15, text_height(m_font) + 9);
+    }
+    else
+        WidgetText::reframe_text_box();
 }
 
 
@@ -213,12 +230,16 @@ void WidgetTextSaisie::interact_keybd()
     if ((key_last>='a' && key_last<='z')    ||
         (key_last>='A' && key_last<='Z')    ||
         key_last=='_' || key_last=='-'      ||
-        key_last==' ' || key_last=='!'      ||
-        key_last=='(' || key_last==')'      ||
-        key_last=='#' || key_last=='\''     )
+        key_last==' ' || key_last=='.'      )
     {
         m_message += key_last;
     }
+    else if (key_press[KEY_BACKSPACE])
+    {
+        m_message.pop_back();
+    }
+
+    reframe_text_box();
 }
 
 

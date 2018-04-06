@@ -117,5 +117,21 @@ public:
 
 };
 
+
+///fais tourner une boucle de jeu et quitte avec un bouton.
+///pratique pour des saisies d'utilisateur
+void separate_loop(grman::Widget& parent);
+
+void text_input(std::string& dest, std::string message_to_disp="");
+
+void new_vertex_values(std::string& name, std::string& pic_file_name);
+
+//on a pas de solution graphique pour les chiffres à virgule pour l'instant
+//void new_edge(Graph& dest, int& from, int& to);
+
+
 #endif // TOOLBOX_H_INCLUDED
+
+
+
 

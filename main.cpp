@@ -33,12 +33,10 @@ int main()
     /// ( contrairement à des frameworks plus avancés )
     while ( !key[KEY_ESC] )
     {
-        if (grman::key_press[KEY_ENTER])
-            g.fortementConnexes();
-
 
         /// Il faut appeler les méthodes d'update des objets qui comportent des widgets
         g.update();
+
 
         /// Mise à jour générale (clavier/souris/buffer etc...)
         grman::mettre_a_jour();

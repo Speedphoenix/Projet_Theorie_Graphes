@@ -241,9 +241,12 @@ class WidgetText : public Widget
         void set_vertical(bool vertical=true) { m_vertical=vertical; set_message(m_message); } /// BRICOLAGE ...
 
         void set_color(int col) { m_color = col; }
+
+        virtual void reframe_text_box();
 };
 
 
+//aurait été plus judicieux un stringbuf au lieu de string mais bon
 class WidgetTextSaisie : public WidgetText
 {
     protected:
@@ -259,6 +262,8 @@ class WidgetTextSaisie : public WidgetText
         virtual void interact_elsewhere();
 
         virtual bool is_typing() { return m_isTyping; }
+
+        virtual void reframe_text_box();
 };
 
 

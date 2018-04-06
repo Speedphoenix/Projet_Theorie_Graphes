@@ -59,8 +59,10 @@ private :
     grman::WidgetText m_box_label_idx;
 
     // Un label indiquant le numero de sa composante (fortement) connexe
-    ///A DÉPLACER!! (en termes de position/methode d'affichage dans le widget principal)
     grman::WidgetText m_label_comp;
+
+    //une boite pour le label précédent
+    grman::WidgetText m_box_label_comp;
 
     // Une checkbox pour etre selectionné
     grman::WidgetCheckBox m_selection;

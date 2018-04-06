@@ -182,6 +182,7 @@ public:
 
     void reset_flags();
     void reset_comps();
+    void reset_graph();
 
     /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
     void update();

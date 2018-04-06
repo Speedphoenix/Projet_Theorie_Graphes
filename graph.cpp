@@ -132,6 +132,9 @@ void Graph::get_stream(istream& myStream)
     string dump;
     Coords someCoords;
 
+
+    reset_graph();
+
     myStream >> val;
 
     if (val)
@@ -418,6 +421,31 @@ void Graph::add_interfaced_edge(int idx, int id_vertFrom, int id_vertTo, double 
     m_vertices.at(id_vertTo).m_in.push_back(idx);
 }
 
+//reset le graphe
+void Graph::reset_graph()
+{
+    for (auto& elem : m_edges)
+    {
+        m_interface->m_main_box.remove_child(elem.second.m_interface->m_top_edge);
+
+        elem.second.m_interface = nullptr; //on sait jamais
+    }
+
+    //on sait jamais
+    for (auto& elem : m_vertices)
+    {
+        m_interface->m_main_box.remove_child(elem.second.m_interface->m_top_box);
+
+        elem.second.m_interface = nullptr; //on sait jamais
+    }
+
+    m_edges.clear();
+    m_vertices.clear();
+
+    m_selected_edges.clear();
+    m_selected_vertices.clear();
+}
+
 
 void Graph::reset_flags()
 {
@@ -688,9 +716,13 @@ void Graph::remove_vertex(int id)
 }
 
 
-///FAIRE UNE CLASSE/FONCTION QUI A SON PROPRE TOUR DE BOUCLE
+///FAIRE UNE CLASSE/FONCTION QUI A SON PROPRE TOUR DE BOUCLE - pour nouveau sommet arete et pour les noms etc
 void Graph::processInput(UserAction what)
 {
+    string filename;
+    ofstream outfile;
+    ifstream infile;
+
     switch (what)
     {
         default:
@@ -699,17 +731,42 @@ void Graph::processInput(UserAction what)
     break;
 
         case UserAction::NewGraph:
-
+        reset_graph();
     break;
 
         case UserAction::LoadGraph:
+        text_input(filename, "entrez le nom du fichier");
 
-        ///get_stream()
+        infile.open(filename, ios::in);
+
+        if (!infile)
+        {
+            cerr << "veuillez entrer un nom de fichier existant";
+        }
+        else
+        {
+            get_stream(infile); ///RESET LE GRAPHE DABORD
+
+            infile.close();
+        }
     break;
 
         case UserAction::SaveGraph:
 
-        ///send_stream()
+        text_input(filename, "entrez le nom du fichier");
+
+        outfile.open(filename, ios::out | ios::trunc);
+
+        if (!outfile)
+        {
+            cerr << "veuillez entrer un nom de fichier valable....";
+        }
+        else
+        {
+            send_stream(outfile);
+
+            outfile.close();
+        }
     break;
 
         case UserAction::AddVertex:
