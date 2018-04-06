@@ -91,6 +91,7 @@ void Vertex::turn(Graph& g)
 {
     double k = 0;
     double n = m_value;
+
     Edge temp;
     double coef_proie = 0;
     double coef_pred = 0;
@@ -98,10 +99,12 @@ void Vertex::turn(Graph& g)
     double n_proie = 0;
     double n_pred = 0;
 
+    int check = 0;
 
-    //Actualisation de m_value
-    ///Model 1 : on considere que si un sommet n'a aucune arete entrante, alors son N est constant
-    if(! m_in.empty())
+
+    ///Actualisation de m_value
+
+    if(m_type == Vertex_type::Logistic)
     {
         ///Ce que notre sommet mange
         for(unsigned i = 0 ; i < m_in.size() ; i++)
@@ -109,38 +112,187 @@ void Vertex::turn(Graph& g)
             //temps correspond à l'arete entrante
             temp = g.getEdge(m_in[i]);
 
-            // k = Coef_herbe->lapin * N_herbe + Coef_carrottes->lapin *N_carrottes
-            coef_proie = temp.m_weight;
-            n_proie = g.getVertex(temp.m_from).m_value;
-
-            k += coef_proie * n_proie;
-
-            //Si l'arete est non trophique
-
+            ///si l'arete est de type trophique
+            if(temp.m_type == Edge_type::Trophic)
+            {
+                // k = Coef_herbe->lapin * N_herbe + Coef_carrottes->lapin *N_carrottes
+                coef_proie = temp.m_weight;
+                n_proie = g.getVertex(temp.m_from).m_value;
+                k += coef_proie * n_proie;
+            }
+            ///Si l'arete est non trophique
+            ///...
         }
+    }
+    else k = 100; ///mettre des valeurs pour chacun ?
+
+    if(k != 0)
+        m_value = n + m_r * n *(1 - n / k);
+    else
+        m_value = 0;
+
+    if(m_value < 0) m_value = 0;
+
+    ///Si notre vertex a des prédateurs
+    if(!m_out.empty())
+    {
         ///Notre vertex est mangé par ses prédateurs
         for(unsigned i = 0 ; i < m_out.size() ; i++ )
         {
             temp = g.getEdge(m_out[i]);
 
-            //si l'arête est de type trophique
+            ///si l'arête est de type trophique
             if(temp.m_type == Edge_type::Trophic)
             {
-            //pred_tot = coef_lapin->renard * n_renard - coef_lapin->loup * n_loup...
-            coef_pred = temp.m_weight;
-            n_pred = g.getVertex(temp.m_to).m_value;
+                //pred_tot = coef_lapin->renard * n_renard - coef_lapin->loup * n_loup...
+                coef_pred = temp.m_weight;
+                n_pred = g.getVertex(temp.m_to).m_value;
 
-            pred_tot += coef_pred * n_pred;
+                pred_tot += coef_pred * n_pred;
             }
 
         }
-
-        m_value = n + m_r * n *(1 - n / k) - pred_tot ;
-        int check = m_value;
+        m_value = m_value - pred_tot;
     }
 
-    if(m_value < 0)
+    if(m_value < 0) m_value = 0;
+
+    check = m_value;
+
+//affichage : on a -inf ou -nan...
+    std::cout << m_name << " " << m_value << std::endl;
+
+}
+
+
+void Vertex::turn2(Graph& g)
+{
+    double k = 0;
+    double n = m_value;
+
+    Edge temp;
+    double coef_proie = 0;
+    double coef_pred = 0;
+    double pred_tot = 0;
+    double n_proie = 0;
+    double n_pred = 0;
+
+    int check = 0;
+
+
+    ///Actualisation de m_value
+
+    if(m_type == Vertex_type::Logistic)
+    {
+        ///Ce que notre sommet mange
+        for(unsigned i = 0 ; i < m_in.size() ; i++)
+        {
+            //temps correspond à l'arete entrante
+            temp = g.getEdge(m_in[i]);
+
+            ///si l'arete est de type trophique
+            if(temp.m_type == Edge_type::Trophic)
+            {
+                // k = Coef_herbe->lapin * N_herbe + Coef_carrottes->lapin *N_carrottes
+                coef_proie = temp.m_weight;
+                n_proie = g.getVertex(temp.m_from).m_value;
+                k += coef_proie * n_proie;
+            }
+            ///Si l'arete est non trophique
+            ///...
+        }
+    }
+    else k = 100; ///mettre des valeurs pour chacun ?
+
+
+    ///Si notre vertex a des prédateurs
+    if(!m_out.empty())
+    {
+        ///Notre vertex est mangé par ses prédateurs
+        for(unsigned i = 0 ; i < m_out.size() ; i++ )
+        {
+            temp = g.getEdge(m_out[i]);
+
+            ///si l'arête est de type trophique
+            if(temp.m_type == Edge_type::Trophic)
+            {
+                //pred_tot = coef_lapin->renard * n_renard - coef_lapin->loup * n_loup...
+                coef_pred = temp.m_weight;
+                n_pred = g.getVertex(temp.m_to).m_value;
+
+                k -= coef_pred * n_pred;
+            }
+
+        }
+    }
+
+
+    if(k > 0)
+        m_value = n + m_r * n *(1 - n / k);
+    else
+        m_value = 0;
+
+    if(m_value < 0) m_value = 0;
+
+
+    check = m_value;
+
+//affichage : on a -inf ou -nan...
+    std::cout << m_name << " " << m_value << "           k : " << k << std::endl;
+}
+
+
+void Vertex::turn_exp(Graph& g)
+{
+    double N = m_value;
+    double i_non_tro = 0;//Influence non_trophique
+    Edge temp;
+
+
+    for(unsigned i = 0 ; i < m_in.size() ; i ++)
+    {
+        temp = g.getEdge(m_in[i]);
+
+        if(temp.m_type == Edge_type::Non_Trophic)
+        {
+            //Ni * m_weight : nombre d'individu * le nombre d'influence par individu = influence totale sur notre vertex
+            i_non_tro += g.getVertex(temp.m_from).m_value * temp.m_weight;
+        }
+        if(temp.m_type == Edge_type::Trophic)
+            std::cout << "erreur de logique, un sommet de type exp est prédateur" << std::endl;
+    }
+
+    if( (N + m_r*N + i_non_tro) > 0 )
+        m_value = N + m_r * N + i_non_tro;
+    else
         m_value = 0;
 }
 
+void Vertex::turn_logistic(Graph& g)
+{
+//    double N = m_value;
+//    Edge temp;
+//    //Pour chaque proie on attribue un nbr de proie nécéssaire (m_weight) pour nourire un de nos vertex
+//    //exemple un renard doit manger un labin ou 10 sauterelles pour être rassasié
+//    double nbr_nourrit = 0;
+//
+//    //Si un individu ne peut pas être rassasié, alors il meurt
+//    //Chaque survivant fait m_r bébé
+//    for(int i = 0 ; i < m_in.size() ; i++)
+//    {
+//        temp = g.getEdge(m_in[i]);
+//
+//        if(temp.m_type == Edge_type::Trophic)
+//        {
+//            //Calcul du nombre
+//            nbr_nourrit +=
+//
+//
+//
+//        }
+//    }
+//
+//    m_value = N + m_r * ()
+
+}
 

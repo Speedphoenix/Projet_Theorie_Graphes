@@ -64,14 +64,14 @@ void Graph::make_test1()
 {
     m_interface = std::make_shared<GraphInterface>(50, 0, 750, 600);
 
-    add_interfaced_vertex( 0, 30.0, 0.5, 100, 600, "herbe", "clown1.jpg");
-    add_interfaced_vertex( 1, 60.0, 0.5, 100, 400, "lapin");
-    add_interfaced_vertex( 2, 10.0, 0.5, 100, 200, "renard");
+    add_interfaced_vertex( 0, 30.0, 1.3, 100, 600, "herbe", Vertex_type::Exp);
+    add_interfaced_vertex( 1, 60.0, 1.1, 100, 400, "lapin");
+    add_interfaced_vertex( 2, 10.0, 0.3, 100, 200, "renard");
 
-    add_interfaced_edge(0, 0, 1, 1);
-    add_interfaced_edge(1, 1, 0, 1, Edge_type::Non_Trophic);
-    add_interfaced_edge(2, 1, 2, 1);
-    add_interfaced_edge(3, 2, 0, 1, Edge_type::Non_Trophic);
+    add_interfaced_edge(0, 0, 1, 1.0);
+//    add_interfaced_edge(1, 1, 0, 1, Edge_type::Non_Trophic);
+    add_interfaced_edge(2, 1, 2, 0.5);
+//    add_interfaced_edge(3, 2, 0, 1, Edge_type::Non_Trophic);
 }
 
 
@@ -99,7 +99,7 @@ void Graph::update()
 void Graph::turn()
 {
     for (auto &elt : m_vertices)
-        elt.second.turn(*this);
+        elt.second.turn2(*this);
 
 //    for (auto &elt : m_edges)
 //        elt.second.turn();
@@ -137,7 +137,7 @@ void Graph::add_edge(int idx, int id_vert1, int id_vert2, double weight)
 
 
 /// Aide à l'ajout de sommets interfacés
-void Graph::add_interfaced_vertex( int idx, double value, double r, int x, int y,std::string name, std::string pic_name, int pic_idx )
+void Graph::add_interfaced_vertex( int idx, double value, double r, int x, int y,std::string name, Vertex_type type, std::string pic_name, int pic_idx)
 {
     if ( m_vertices.find(idx) != m_vertices.end() )
     {
@@ -149,7 +149,7 @@ void Graph::add_interfaced_vertex( int idx, double value, double r, int x, int y
     // Ajout de la top box de l'interface de sommet
     m_interface->m_main_box.add_child(vi->m_top_box);
     // On peut ajouter directement des vertices dans la map avec la notation crochet :
-    m_vertices[idx] = Vertex(value, r, vi, name);
+    m_vertices[idx] = Vertex(value, r, vi, name, type);
 }
 
 /// Aide à l'ajout d'arcs interfacés

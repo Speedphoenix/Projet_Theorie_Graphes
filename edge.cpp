@@ -28,7 +28,7 @@ EdgeInterface::EdgeInterface(Vertex& from, Vertex& to, Edge_type type)
 
     // Le slider de réglage de valeur
     m_box_edge.add_child( m_slider_weight );
-    m_slider_weight.set_range(0.0, 100.0);  // Valeurs arbitraires, à adapter...
+    m_slider_weight.set_range(0.0, 2.0);  // Valeurs arbitraires, à adapter...
     m_slider_weight.set_dim(16,40);
     m_slider_weight.set_gravity_y(grman::GravityY::Up);
 
@@ -49,7 +49,7 @@ void Edge::pre_update()
     m_interface->m_slider_weight.set_value(m_weight);
 
     /// Copier la valeur locale de la donnée m_weight vers le label sous le slider
-    m_interface->m_label_weight.set_message( std::to_string( (int)m_weight ) );
+    m_interface->m_label_weight.set_message( std::to_string( m_weight ) );
 }
 
 /// Gestion du Edge après l'appel à l'interface

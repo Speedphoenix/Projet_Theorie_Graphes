@@ -16,6 +16,13 @@ class Graph;
                     VERTEX
 ****************************************************/
 
+enum class Vertex_type
+{
+    Exp,///vertex non prédateur, ne consommant pas de ressource (herbe)
+    Logistic,///vertex predateur et predaté
+    Fossil
+};
+
 class VertexInterface
 {
     // Les (methodes des) classes amies pourront accéder
@@ -82,6 +89,7 @@ private :
     double m_value; //nombre d'individu (pour des animaux) ou masse totale (pour des ressources)
     double m_r; //rythme de croissance
     std::string m_name;
+    Vertex_type m_type;
 
     /// le POINTEUR sur l'interface associée, nullptr -> pas d'interface
     std::shared_ptr<VertexInterface> m_interface = nullptr;
@@ -95,9 +103,9 @@ public:
 
     /// Les constructeurs sont à compléter selon vos besoin...
     /// Ici on ne donne qu'un seul constructeur qui peut utiliser une interface
-    //Problème d'ordre des paramètres (initialisation d'interface sans le nom...)
-    Vertex (double value=0, double r=1, VertexInterface *interface=nullptr, std::string name="") :
-        m_value(value), m_r(r), m_name(name), m_interface(interface) { }
+
+    Vertex (double value=0, double r=1, VertexInterface *interface=nullptr, std::string name="", Vertex_type type=Vertex_type::Logistic) :
+        m_value(value), m_r(r), m_name(name), m_type(type), m_interface(interface) { }
 
     Vertex (double value, double r, std::string name="") :
         m_value(value), m_r(r), m_name(name), m_interface(nullptr) { }
@@ -110,6 +118,9 @@ public:
     void post_update();
 
     void turn(Graph& g);
+    void turn2(Graph& g);
+    void turn_exp(Graph& g);
+    void turn_logistic(Graph& g);
 };
 
 
