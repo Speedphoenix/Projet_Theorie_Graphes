@@ -88,6 +88,8 @@
                     GRAPH
 ****************************************************/
 
+const int max_k_connexe = 8;
+
 class GraphInterface
 {
     friend class Graph;
@@ -185,11 +187,15 @@ public:
     Vertex& getVertex (int id) { return m_vertices.at(id); }
 
     ///Ajout de fonctions pour graphs non interfacé
+    void add_vertex(Vertex& source, int id);
     void add_vertex(std::string name, int idx, double value, double r);
-    void add_edge(int idx, int vert1, int vert2, double weight=0, Edge_type type=Edge_type::Trophic);
+    void add_edge(Edge& source, int id);
+    void add_edge(int idx, int id_vertFrom, int id_vertTo, double weight=0, Edge_type type=Edge_type::Trophic);
 
+    void add_interfaced_vertex(Vertex& source, int id);
     void add_interfaced_vertex(int idx, double value, double r, int x, int y, std::string name="", std::string pic_name="", int pic_idx=0 );
-    void add_interfaced_edge(int idx, int vert1, int vert2, double weight=0, Edge_type type=Edge_type::Trophic);
+    void add_interfaced_edge(Edge& source, int id);
+    void add_interfaced_edge(int idx, int id_vertFrom, int id_vertTo, double weight=0, Edge_type type=Edge_type::Trophic);
 
     void remove_vertex(int id);
     void remove_edge(int id);
@@ -201,6 +207,12 @@ public:
     void reset_comps();
     void reset_graph();
 
+    //copie un autre graph
+    void operator=(Graph& source);
+
+    //copie un autre graph sans l'interface
+    void interfaceless(Graph& source);
+
     bool vertex_exists(int id) { return m_vertices.find(id)!=m_vertices.end(); }
     bool edge_exists(int id) { return m_edges.find(id)!=m_edges.end(); }
 
@@ -211,6 +223,9 @@ public:
     void fortementConnexes();
 
     bool simplementConnexe();
+
+    //renvoie k, le nombre minimum de sommets à enlever pour que le graphe ne soit plus (simplement)connexe
+    int kConnexe(std::vector<int>& rep, int max_k, bool& worked);
 
 
     void send_stream(std::ostream& myStream);

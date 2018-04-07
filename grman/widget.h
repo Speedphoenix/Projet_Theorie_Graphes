@@ -300,6 +300,8 @@ class WidgetNumSaisie : public WidgetTextSaisie
             { m_message=std::to_string(m_value); reframe_text_box(); }
         virtual void interact_keybd();   //fonction qui prend la saisie par l'utilisateur
 
+        virtual void interact_leave();
+
         int get_value() { return m_value; }
         void set_value(int val) { m_value = val; m_message = std::to_string(val); reframe_text_box(); }
 };
