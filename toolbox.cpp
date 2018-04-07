@@ -117,6 +117,16 @@ ToolboxInterface::ToolboxInterface(int w, int h)
 
 
     //bouton pour faire un tour
+    m_top_box.add_child(m_k_connexe_btn);
+    setup_button(m_k_connexe_btn, currently, BLEUCLAIR);
+
+    setup_msg(m_k_connexe_btn.get_message_widget(), NOIR, "k-connexe");
+
+
+    currently += BUTTONSPACE;
+
+
+    //bouton pour faire un tour
     m_top_box.add_child(m_turn_btn);
     setup_button(m_turn_btn, currently, BLEUCLAIR);
 
@@ -227,6 +237,10 @@ void Toolbox::post_update()
     {
         m_user_choice = UserAction::HardConnex;
     }
+    else if (interface.m_k_connexe_btn.clicked())
+    {
+        m_user_choice = UserAction::KConnex;
+    }
     else if (interface.m_turn_btn.clicked())
     {
         m_user_choice = UserAction::Turn;
@@ -247,6 +261,9 @@ void Toolbox::post_update()
 
 }
 
+
+///LES FONCTIONS CI-DESSOUS NE FONT PAS PARTIE DE LA CLASSE TOOLBOX
+///mais elles servent tout de même à intérragir avec l'utilisateur
 
 void separate_loop(grman::Widget& parent, bool enter_to_send)
 {
@@ -352,7 +369,7 @@ void new_vertex_values(string& name, string& pic_file_name)
     ask2.set_posy(200);
 
 
-    separate_loop(top_box);
+    separate_loop(top_box, true);
 
     name = nom.get_message();
     pic_file_name = pic_file.get_message();
@@ -374,6 +391,7 @@ void new_edge_tips(Graph& dest, int& from, int& to)
     fromVertex.set_padding(2);
     fromVertex.set_border(2);
     fromVertex.set_posy(120);
+    fromVertex.set_value(-1);
 
 
     top_box.add_child(ask1);
@@ -385,6 +403,7 @@ void new_edge_tips(Graph& dest, int& from, int& to)
     toVertex.set_padding(2);
     toVertex.set_border(2);
     toVertex.set_posy(220);
+    toVertex.set_value(-1);
 
     top_box.add_child(ask2);
     ask2.set_message("enter the number of the to vertex");
@@ -395,7 +414,7 @@ void new_edge_tips(Graph& dest, int& from, int& to)
     while (!works)
     {
 
-        separate_loop(top_box);
+        separate_loop(top_box, true);
 
         from = fromVertex.get_value();
         to = toVertex.get_value();

@@ -51,9 +51,13 @@ Graph::Graph (std::istream& file)
 
 void Graph::initialize_toolbox()
 {
-    m_toolbox.m_interface = make_shared<ToolboxInterface>(m_interface->m_tool_box.get_dimx()-2, m_interface->m_tool_box.get_dimy()-2);
+    //si la toolbox n'est pas encore initialisée
+    if (!m_toolbox.m_interface)
+    {
+        m_toolbox.m_interface = make_shared<ToolboxInterface>(m_interface->m_tool_box.get_dimx()-2, m_interface->m_tool_box.get_dimy()-2);
 
-    m_interface->m_tool_box.add_child(m_toolbox.m_interface->m_top_box);
+        m_interface->m_tool_box.add_child(m_toolbox.m_interface->m_top_box);
+    }
 }
 
 void Graph::send_stream(ostream& myStream)
@@ -278,6 +282,8 @@ void Graph::make_test1()
 {
     m_interface = std::make_shared<GraphInterface>(50, 0, 908, 720);
 
+    initialize_toolbox();
+
     add_interfaced_vertex( 0, 30.0, 0.5, 100, 600, "herbe", "clown1.jpg");
     add_interfaced_vertex( 1, 60.0, 1, 100, 400, "lapin");
     add_interfaced_vertex( 2, 10.0, 0.6, 100, 200, "renard");
@@ -347,6 +353,225 @@ void Graph::update()
     }
 }
 
+
+
+//enlève une arete (et l'enlève des sommets)
+void Graph::remove_edge(int id)
+{
+    map<int, Edge>::iterator it_remove = m_edges.find(id);
+
+    if (it_remove==m_edges.end())
+        return ;
+
+    Edge& toRemove = m_edges.at(id);
+
+    int sommet = toRemove.m_from;
+
+    vector<int>::iterator it = find(m_vertices.at(sommet).m_out.begin(), m_vertices.at(sommet).m_out.end(), id);
+
+    if (it == m_vertices.at(sommet).m_out.end())
+    {
+        throw "L'arete à suprimer n'est pas dans le sommet sommet de depart...";
+    }
+
+    m_vertices.at(sommet).m_out.erase(it);
+
+    //maintenant l'arete n'est plus dans m_from
+
+    sommet = toRemove.m_to;
+
+    it = find(m_vertices.at(sommet).m_in.begin(), m_vertices.at(sommet).m_in.end(), id);
+
+    if (it == m_vertices.at(sommet).m_in.end())
+    {
+        throw "L'arete à suprimer n'est pas dans le sommet d'arrivée...";
+    }
+
+    m_vertices.at(sommet).m_in.erase(it);
+
+    //maintenant l'arete n'est plus dans m_to
+
+    if (m_interface)
+        m_interface->m_main_box.remove_child(toRemove.m_interface->m_top_edge);
+
+    //pas besoin de delete m_interface de l'arete car c'est contenu dans un shared ptr
+
+    //maintenant l'arete id n'existe plus
+    m_edges.erase(it_remove);
+}
+
+
+void Graph::remove_vertex(int id)
+{
+    map<int, Vertex>::iterator it_remove = m_vertices.find(id);
+
+    if (it_remove==m_vertices.end())
+        return ;
+
+    Vertex& toRemove = m_vertices.at(id);
+
+    vector<int> edgesToRemove;
+
+    //on fait la liste des aretes à supprimer
+    for (unsigned i=0;i<toRemove.m_in.size();i++)
+    {
+        edgesToRemove.push_back(toRemove.m_in.at(i));
+    }
+
+    for (unsigned i=0;i<toRemove.m_out.size();i++)
+    {
+        edgesToRemove.push_back(toRemove.m_out.at(i));
+    }
+
+    //on les supprime une par une
+    for (unsigned i=0;i<edgesToRemove.size();i++)
+    {
+        remove_edge(edgesToRemove.at(i));
+    }
+
+    //maintenant toutes les aretes connéctées à notre sommet n'éxistent plus
+    if (m_interface && toRemove.m_interface)
+        m_interface->m_main_box.remove_child(toRemove.m_interface->m_top_box);
+
+    //pas besoin de delete m_interface du sommet car c'est contenu dans un shared ptr
+
+    m_vertices.erase(it_remove);
+}
+
+
+//une fonction qui agit en fonction du choix de l'utilisateur dans la toolbox
+void Graph::processInput(UserAction what)
+{
+    //all these can't be declared inside the switch
+    int k_value;
+    bool worked;
+
+    string name, filename;
+    ofstream outfile;
+    ifstream infile;
+    //vector<int> composante;   //pour kConnexe normal
+    vector<vector<int>> composante_heavy; // pour kConnexe heavy
+
+    //these can't be declared inside the switch
+    int integer1, integer2;
+
+    switch (what)
+    {
+        default:
+        case UserAction::Nothing:
+        //nothing
+    break;
+
+        case UserAction::Quit:
+        m_want_to_quit = true;
+    break;
+
+        case UserAction::NewGraph:
+        reset_graph();
+    break;
+
+        case UserAction::LoadGraph:
+        text_input(filename, "entrez le nom du fichier");
+
+        infile.open(filename, ios::in);
+
+        if (!infile)
+        {
+            cerr << "veuillez entrer un nom de fichier existant";
+        }
+        else
+        {
+            get_stream(infile); ///RESET LE GRAPHE DABORD
+
+            infile.close();
+        }
+    break;
+
+        case UserAction::SaveGraph:
+
+        text_input(filename, "entrez le nom du fichier");
+
+        outfile.open(filename, ios::out | ios::trunc);
+
+        if (!outfile)
+        {
+            cerr << "veuillez entrer un nom de fichier valable....";
+        }
+        else
+        {
+            send_stream(outfile);
+
+            outfile.close();
+        }
+    break;
+
+        case UserAction::AddVertex:
+        new_vertex_values(name, filename);
+
+        add_interfaced_vertex(getUnusedVertexId(), default_value, default_r, default_x, default_y, name, filename);
+
+    break;
+
+        case UserAction::AddEdge:
+        new_edge_tips(*this, integer1, integer2);
+
+        add_interfaced_edge(getUnusedEdgeId(), integer1, integer2);
+
+    break;
+
+        case UserAction::Delete:
+        //que s'il y a des trucs à supprimer
+        if (m_selected_edges.empty() && m_selected_vertices.empty())
+            break;
+
+        //delete the edges first so don't have to check if they were deleted with a vertex...
+        for (auto& elem : m_selected_edges)
+            remove_edge(elem);
+
+        for (auto& elem : m_selected_vertices)
+            remove_vertex(elem);
+    break;
+
+        case UserAction::HardConnex:
+        fortementConnexes();
+    break;
+
+        case UserAction::KConnex:
+
+//        composante.clear(); //should already be empty
+        composante_heavy.clear(); //should already be empty
+
+
+//        k_value = kConnexe(composante, max_k_connexe, worked);
+        k_value = kConnexe_heavy(composante_heavy, max_k_connexe, worked);
+
+        if (worked)
+        {
+            cout << endl << "le graphe a une k-connexité de " << k_value << endl;
+            for (auto& elem_external : composante_heavy)
+            {
+                cout << "une combinaison de sommets à enlever est : ";
+                for (auto& elem : elem_external) //composante)
+                    cout << elem << " ";
+                cout << endl;
+            }
+            cout << endl;
+        }
+        else
+        {
+            cout << endl << "le graphe est entièrement connexe ou a une k-connexité supèrieure à ";
+            cout << max_k_connexe << endl;
+        }
+
+    break;
+
+        case UserAction::Turn:
+
+    break;
+    }
+}
+
+
 void Graph::turn()
 {
     for (auto &elt : m_vertices)
@@ -354,6 +579,12 @@ void Graph::turn()
 
 //    for (auto &elt : m_edges)
 //        elt.second.turn();
+}
+
+
+void Graph::add_vertex(Vertex& source, int id)
+{
+    add_vertex(source.m_name, id, source.m_value, source.m_r);
 }
 
 ///Ajout de sommet non interfacé
@@ -368,8 +599,14 @@ void Graph::add_vertex(std::string name, int idx, double value, double r)
     m_vertices[idx] = Vertex(value, r, name);
 }
 
+
+void Graph::add_edge(Edge& source, int id)
+{
+    add_edge(id, source.m_from, source.m_to, source.m_weight, source.m_type);
+}
+
 ///Ajout d'arete non interfacé
-void Graph::add_edge(int idx, int id_vert1, int id_vert2, double weight, Edge_type type)
+void Graph::add_edge(int idx, int id_vertFrom, int id_vertTo, double weight, Edge_type type)
 {
     if ( m_edges.find(idx)!=m_edges.end() )
     {
@@ -377,13 +614,35 @@ void Graph::add_edge(int idx, int id_vert1, int id_vert2, double weight, Edge_ty
         throw "Error adding edge";
     }
 
-    if ( m_vertices.find(id_vert1)==m_vertices.end() || m_vertices.find(id_vert2)==m_vertices.end() )
+    if ( m_vertices.find(id_vertFrom)==m_vertices.end() || m_vertices.find(id_vertTo)==m_vertices.end() )
     {
-        std::cerr << "Error adding edge idx=" << idx << " between vertices " << id_vert1 << " and " << id_vert2 << " not in m_vertices" << std::endl;
+        std::cerr << "Error adding edge idx=" << idx << " between vertices " << id_vertFrom << " and " << id_vertTo << " not in m_vertices" << std::endl;
         throw "Error adding edge";
     }
 
     m_edges[idx] = Edge(weight, type);
+
+    //on ajoute les indices des sommets à l'arc
+    m_edges.at(idx).m_from = id_vertFrom;
+    m_edges.at(idx).m_to = id_vertTo;
+
+    //on donne l'indice de l'arc aux deux sommets
+    m_vertices.at(id_vertFrom).m_out.push_back(idx);
+    m_vertices.at(id_vertTo).m_in.push_back(idx);
+}
+
+
+/// Aide à l'ajout de sommets interfacés
+void Graph::add_interfaced_vertex(Vertex& source, int id)
+{
+    VertexInterface* interface = source.m_interface.get();
+
+    if (interface)
+        add_interfaced_vertex(id, source.m_value, source.m_r,
+            interface->m_top_box.get_posx(), interface->m_top_box.get_posy(), source.m_name,
+            interface->m_img.get_pic_name(), interface->m_img.get_pic_idx());
+    else
+        add_vertex(source.m_name, id, source.m_value, source.m_r);
 }
 
 
@@ -401,6 +660,17 @@ void Graph::add_interfaced_vertex( int idx, double value, double r, int x, int y
     m_interface->m_main_box.add_child(vi->m_top_box);
     // On peut ajouter directement des vertices dans la map avec la notation crochet :
     m_vertices[idx] = Vertex(value, r, vi, name);
+}
+
+
+void Graph::add_interfaced_edge(Edge& source, int id)
+{
+    EdgeInterface* interface = source.m_interface.get();
+
+    if (interface)
+        add_interfaced_edge(id, source.m_from, source.m_to, source.m_weight, source.m_type);
+    else
+        add_edge(id, source.m_from, source.m_to, source.m_weight, source.m_type);
 }
 
 /// Aide à l'ajout d'arcs interfacés
@@ -454,23 +724,80 @@ int Graph::getUnusedEdgeId()
     return i;
 }
 
+//copie un autre graph
+void Graph::operator=(Graph& source)
+{
+    reset_graph();
+
+    if (source.m_interface)
+    {
+        int w = source.m_interface->m_main_box.get_dimx();
+        int h = source.m_interface->m_main_box.get_dimy();
+
+        m_interface = make_shared<GraphInterface>(0, 0, w, h);
+
+        initialize_toolbox();
+
+        for (auto& elem : source.m_vertices)
+        {
+            //l'éxistence de l'interface est testée à l'interieur
+            add_interfaced_vertex(elem.second, elem.first);
+        }
+
+        for (auto& elem : source.m_edges)
+        {
+            //l'éxistence de l'interface est testée à l'interieur
+            add_interfaced_edge(elem.second, elem.first);
+        }
+    }
+    else
+    {
+        interfaceless(source);
+    }
+}
+
+//copie un autre graph sans l'interface
+void Graph::interfaceless(Graph& source)
+{
+    reset_graph();
+
+    m_interface = nullptr;
+
+    for (auto& elem : source.m_vertices)
+    {
+        add_vertex(elem.second, elem.first);
+    }
+
+    for (auto& elem : source.m_edges)
+    {
+        add_edge(elem.second, elem.first);
+    }
+}
 
 //reset le graphe
 void Graph::reset_graph()
 {
-    for (auto& elem : m_edges)
+    if (m_interface)
     {
-        m_interface->m_main_box.remove_child(elem.second.m_interface->m_top_edge);
+        for (auto& elem : m_edges)
+        {
+            if (elem.second.m_interface)
+            {
+                m_interface->m_main_box.remove_child(elem.second.m_interface->m_top_edge);
 
-        elem.second.m_interface = nullptr; //on sait jamais
-    }
+                elem.second.m_interface = nullptr; //on sait jamais
+            }
+        }
 
-    //on sait jamais
-    for (auto& elem : m_vertices)
-    {
-        m_interface->m_main_box.remove_child(elem.second.m_interface->m_top_box);
+        for (auto& elem : m_vertices)
+        {
+            if (elem.second.m_interface)
+            {
+                m_interface->m_main_box.remove_child(elem.second.m_interface->m_top_box);
 
-        elem.second.m_interface = nullptr; //on sait jamais
+                elem.second.m_interface = nullptr; //on sait jamais
+            }
+        }
     }
 
     m_edges.clear();
@@ -668,200 +995,244 @@ void Graph::flagRemaining(set<int>& receivedComps)
 }
 
 
-
-//enlève une arete (et l'enlève des sommets)
-void Graph::remove_edge(int id)
+bool Graph::simplementConnexe()
 {
-    if (m_edges.find(id)==m_edges.end())
-        return ;
+    unsigned flag_count = 0;
 
-    Edge& toRemove = m_edges.at(id);
+    int some_vertex = m_vertices.begin()->first;
 
-    int sommet = toRemove.m_from;
+    reset_flags();
 
-    vector<int>::iterator it = find(m_vertices.at(sommet).m_out.begin(), m_vertices.at(sommet).m_out.end(), id);
+    dfs_recurs(some_vertex, flag_count);
 
-    if (it == m_vertices.at(sommet).m_out.end())
+    if (flag_count!=m_vertices.size())
+        return false;
+    else
+        return true;
+}
+
+void Graph::dfs_recurs(int where, unsigned& flag_count)
+{
+    //pour economiser des lignes de code dans les boucles
+    if (m_vertices.at(where).m_flag)
+        return;
+    else
     {
-        throw "L'arete à suprimer n'est pas dans le sommet sommet de depart..."; /// METTRE UN MESSAGE
+        m_vertices.at(where).m_flag = true;
+        flag_count++;
     }
 
-    m_vertices.at(sommet).m_out.erase(it);
+    if (flag_count==m_vertices.size())
+        return;
 
-    //maintenant l'arete n'est plus dans m_from
-
-    sommet = toRemove.m_to;
-
-    it = find(m_vertices.at(sommet).m_in.begin(), m_vertices.at(sommet).m_in.end(), id);
-
-    if (it == m_vertices.at(sommet).m_in.end())
+    for (auto& elem : m_vertices.at(where).m_out)
     {
-        throw "L'arete à suprimer n'est pas dans le sommet d'arrivée..."; /// METTRE UN MESSAGE
+        dfs_recurs(m_edges.at(elem).m_to, flag_count);
     }
 
-    m_vertices.at(sommet).m_in.erase(it);
-
-    //maintenant l'arete n'est plus dans m_to
-
-    m_interface->m_main_box.remove_child(toRemove.m_interface->m_top_edge);
-
-    //pas besoin de delete m_interface de l'arete car c'est contenu dans un shared ptr
-
-    //maintenant l'arete id n'existe plus
-    m_edges.erase(m_edges.find(id));
+    for (auto& elem : m_vertices.at(where).m_in)
+    {
+        dfs_recurs(m_edges.at(elem).m_from, flag_count);
+    }
 }
 
 
-void Graph::remove_vertex(int id)
+//pas très optimisée...
+//pourrait être optimisée par exemple:
+//  en regardant d'abord des sommets avec une seule arete
+//
+//cette fonction ne regarde pas toutes les possibilités,
+//elle ne prend qu'une des combinaisons ayant le plus petit k
+//pour avoir toutes les combinaisons, utiliser kConnexe_heavy (encore moins optimisée)
+int Graph::kConnexe(vector<int>& rep, int max_k, bool& worked)
 {
-    if (m_vertices.find(id)==m_vertices.end())
-        return ;
+    vector<int> temporary;
 
-    Vertex& toRemove = m_vertices.at(id);
+    int current_max = max_k;
+    Graph inter;
 
-    vector<int> edgesToRemove;
+    inter.interfaceless(*this);
 
-    //on fait la liste des aretes à supprimer
-    for (unsigned i=0;i<toRemove.m_in.size();i++)
+    worked = false;
+
+    //si le graphe est entrièrement connexe
+    if (m_vertices.size()<=1)
     {
-        edgesToRemove.push_back(toRemove.m_in.at(i));
+        //on s'arrete là
+        return max_k;
     }
 
-    for (unsigned i=0;i<toRemove.m_out.size();i++)
+    for (auto& elem : m_vertices)
     {
-        edgesToRemove.push_back(toRemove.m_out.at(i));
-    }
+        Vertex& curr_vertex = elem.second;
+        int curr_id = elem.first;
 
-    //on les supprime une par une
-    for (unsigned i=0;i<edgesToRemove.size();i++)
-    {
-        remove_edge(edgesToRemove.at(i));
-    }
+        inter.remove_vertex(curr_id);
 
-    //maintenant toutes les aretes connéctées à notre sommet n'éxistent plus
-
-    m_interface->m_main_box.remove_child(toRemove.m_interface->m_top_box);
-
-    //pas besoin de delete m_interface du sommet car c'est contenu dans un shared ptr
-
-    m_vertices.erase(m_vertices.find(id));
-}
-
-
-///FAIRE UNE CLASSE/FONCTION QUI A SON PROPRE TOUR DE BOUCLE - pour nouveau sommet arete et pour les noms etc
-void Graph::processInput(UserAction what)
-{
-    //all these can't be declared inside the switch
-    string name, filename;
-    ofstream outfile;
-    ifstream infile;
-
-    //these can't be declared inside the switch
-    int integer1, integer2;
-
-    switch (what)
-    {
-        default:
-        case UserAction::Nothing:
-        //nothing
-    break;
-
-        case UserAction::Quit:
-        m_want_to_quit = true;
-    break;
-
-        case UserAction::NewGraph:
-        reset_graph();
-    break;
-
-        case UserAction::LoadGraph:
-        text_input(filename, "entrez le nom du fichier");
-
-        infile.open(filename, ios::in);
-
-        if (!infile)
+        //si ce sommet ne permet pas (à lui seul) la connexité
+        if (inter.simplementConnexe())
         {
-            cerr << "veuillez entrer un nom de fichier existant";
+            //pour enlever le non nécéssaire
+            if (current_max>2 || (!worked && current_max>1))
+            {
+                int new_k_value;
+                bool inter_worked;
+
+                temporary.clear();
+
+                //si on a pas encore trouvé, on veut trouver à la limite de current_max.
+                //si on a déjà trouvé, c'est que on a déjà qqc à current_max, donc on essaye current_max-2
+                new_k_value = inter.kConnexe(temporary, current_max - (worked?2:1), inter_worked);
+
+                if (inter_worked)
+                {
+                    current_max = new_k_value + 1;
+                    worked = true;
+                    rep.clear();
+                    rep.push_back(curr_id);
+                    rep.insert(rep.end(), temporary.begin(), temporary.end());
+                }
+            }
         }
         else
         {
-            get_stream(infile); ///RESET LE GRAPHE DABORD
+            current_max = 1;
+            rep.clear();
+            rep.push_back(curr_id);
 
-            infile.close();
-        }
-    break;
+            worked = true;
 
-        case UserAction::SaveGraph:
-
-        text_input(filename, "entrez le nom du fichier");
-
-        outfile.open(filename, ios::out | ios::trunc);
-
-        if (!outfile)
-        {
-            cerr << "veuillez entrer un nom de fichier valable....";
-        }
-        else
-        {
-            send_stream(outfile);
-
-            outfile.close();
-        }
-    break;
-
-        case UserAction::AddVertex:
-        new_vertex_values(name, filename);
-
-        add_interfaced_vertex(getUnusedVertexId(), default_value, default_r, default_x, default_y, name, filename);
-
-    break;
-
-        case UserAction::AddEdge:
-        new_edge_tips(*this, integer1, integer2);
-
-        add_interfaced_edge(getUnusedEdgeId(), integer1, integer2);
-
-    break;
-
-        case UserAction::Delete:
-        //que s'il y a des trucs à supprimer
-        if (m_selected_edges.empty() && m_selected_vertices.empty())
+            //plus besoin de continuer la boucle
             break;
+        }
 
-        //delete the edges first so don't have to check if they were deleted with a vertex...
-        for (auto& elem : m_selected_edges)
-            remove_edge(elem);
+        //on remet le sommet dans le graphe intermédiaire pour le prochain tour de boucle
+        inter.add_vertex(curr_vertex, curr_id);
 
-        for (auto& elem : m_selected_vertices)
-            remove_vertex(elem);
-    break;
+        for (auto& edgeElem : curr_vertex.m_in)
+            inter.add_edge(m_edges.at(edgeElem), edgeElem);
 
-        case UserAction::HardConnex:
-        fortementConnexes();
-    break;
-
-        case UserAction::Turn:
-
-    break;
+        for (auto& edgeElem : curr_vertex.m_out)
+            inter.add_edge(m_edges.at(edgeElem), edgeElem);
     }
+
+    return current_max;
 }
 
 
 
+//l'ajout de recevoir toutes les combinaisons de k (au lieu de la première)
+//a beaucoup allourdi cette fonction...
+int Graph::kConnexe_heavy(vector<vector<int>>& rep, int max_k, bool& worked)
+{
+    vector<vector<int>> temporary;
+    vector<int> inter_vect;
 
+    int current_max = max_k;
+    Graph inter;
 
+    inter.interfaceless(*this);
 
+    worked = false;
 
+    //si le graphe est entrièrement connexe
+    if (m_vertices.size()<=1)
+    {
+        //on s'arrete là
+        return max_k;
+    }
 
+    for (auto& elem : m_vertices)
+    {
+        Vertex& curr_vertex = elem.second;
+        int curr_id = elem.first;
 
+        inter.remove_vertex(curr_id);
 
+        //si ce sommet ne permet pas (à lui seul) la connexité
+        if (inter.simplementConnexe())
+        {
+            //pour enlever le non nécéssaire
+            if (current_max>1)
+            {
+                int new_k_value;
+                bool inter_worked;
 
+                temporary.clear();
 
+                //si on a pas encore trouvé, on veut trouver à la limite de current_max.
+                //si on a déjà trouvé, c'est que on a déjà qqc à current_max, donc on essaye current_max-2
+                new_k_value = inter.kConnexe_heavy(temporary, current_max - 1, inter_worked);
 
+                if (inter_worked)
+                {
+                    //si c'est pas la première k-connexité avec ce k trouvée
+                    if (current_max==(new_k_value+1) && worked)
+                    {
+                        //on veut éviter les doublons qui ont un ordre différent
+                        //l'operator== de vector compare chaque elément au même indice
+                        // les vectors dans rep sont normalement déjà ordonnés
 
+                        for (unsigned i=0;i<temporary.size();i++)
+                        {
+                            inter_vect.clear();
+                            inter_vect.push_back(curr_id);
+                            inter_vect.insert(inter_vect.end(), temporary.at(i).begin(), temporary.at(i).end());
+                            sort(inter_vect.begin(), inter_vect.end());
 
+                            //s'il n'y a pas déjà cette combinaison dans rep
+                            if (find(rep.begin(), rep.end(), inter_vect)==rep.end())
+                            {
+                                ///pas sûr que ça marche...
+                                rep.push_back(inter_vect);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        current_max = new_k_value + 1;
+                        worked = true;
+                        rep.clear();
 
+                        for (unsigned i=0;i<temporary.size();i++)
+                        {
+                            temporary.at(i).push_back(curr_id);
+                            //si la fonction sort est mal codée, ça pourrait pomper enormément de processeur.
+                            sort (temporary.at(i).begin(), temporary.at(i).end());
 
+                            ///pas sûr que ça marche...
+                            rep.push_back(temporary.at(i));
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (current_max>1)
+                rep.clear();
 
+            //pas besoin de tester si le sommet a déjà été ajouté (differents tours de boucle...)
+            inter_vect.clear();
+            inter_vect.push_back(curr_id);
+            rep.push_back(inter_vect);
+
+            current_max = 1;
+
+            worked = true;
+        }
+
+        //on remet le sommet dans le graphe intermédiaire pour le prochain tour de boucle
+        inter.add_vertex(curr_vertex, curr_id);
+
+        for (auto& edgeElem : curr_vertex.m_in)
+            inter.add_edge(m_edges.at(edgeElem), edgeElem);
+
+        for (auto& edgeElem : curr_vertex.m_out)
+            inter.add_edge(m_edges.at(edgeElem), edgeElem);
+    }
+
+    return current_max;
+}
 
 

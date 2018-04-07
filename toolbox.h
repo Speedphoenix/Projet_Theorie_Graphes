@@ -35,6 +35,7 @@ enum class UserAction
     AddEdge,
     Delete,
     HardConnex,
+    KConnex,
     Turn
 };
 
@@ -50,7 +51,7 @@ private :
 
 
     //les boutons
-    ///tous ces boutons pourraient être mis dans un tableau...
+    //tous ces boutons pourraient être mis dans un tableau, mais ils ont tous des valeurs differentes...
     grman::WidgetButtonText m_quit_btn;
 
     grman::WidgetButtonText m_new_graph_btn;
@@ -65,6 +66,9 @@ private :
 
     //bouton pour detecter les composantes fortement connexes
     grman::WidgetButtonText m_fortement_conn_btn;
+
+    //bouton pour detecter la k-connexité du graphe
+    grman::WidgetButtonText m_k_connexe_btn;
 
     //bouton pour faire un tour
     grman::WidgetButtonText m_turn_btn;

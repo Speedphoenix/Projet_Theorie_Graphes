@@ -258,6 +258,12 @@ void WidgetTextSaisie::interact_keybd()
     reframe_text_box();
 }
 
+void WidgetNumSaisie::interact_leave()
+{
+    m_value = 0;
+
+    WidgetTextSaisie::interact_leave();
+}
 
 void WidgetNumSaisie::interact_keybd()
 {
