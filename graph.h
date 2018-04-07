@@ -72,6 +72,7 @@
 ***********************************************************************************************/
 
 #include "toolbox.h"
+#include <algorithm> //pour la fonction sort()
 
 /**
     Ce fichier est un adaptation du code fourni par M. Robin Fercoq
@@ -88,7 +89,7 @@
                     GRAPH
 ****************************************************/
 
-const int max_k_connexe = 8;
+const int max_k_connexe = 5;
 
 class GraphInterface
 {
@@ -226,6 +227,9 @@ public:
 
     //renvoie k, le nombre minimum de sommets à enlever pour que le graphe ne soit plus (simplement)connexe
     int kConnexe(std::vector<int>& rep, int max_k, bool& worked);
+
+    //renvoie k, le nombre minimum de sommets à enlever pour que le graphe ne soit plus (simplement)connexe
+    int kConnexe_heavy(std::vector<std::vector<int>>& rep, int max_k, bool& worked);
 
 
     void send_stream(std::ostream& myStream);

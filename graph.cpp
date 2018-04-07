@@ -449,7 +449,8 @@ void Graph::processInput(UserAction what)
     string name, filename;
     ofstream outfile;
     ifstream infile;
-    vector<int> composante;
+    //vector<int> composante;   //pour kConnexe normal
+    vector<vector<int>> composante_heavy; // pour kConnexe heavy
 
     //these can't be declared inside the switch
     int integer1, integer2;
@@ -537,16 +538,23 @@ void Graph::processInput(UserAction what)
 
         case UserAction::KConnex:
 
-        composante.clear(); //should already be empty
+//        composante.clear(); //should already be empty
+        composante_heavy.clear(); //should already be empty
 
-        k_value = kConnexe(composante, max_k_connexe, worked);
+
+//        k_value = kConnexe(composante, max_k_connexe, worked);
+        k_value = kConnexe_heavy(composante_heavy, max_k_connexe, worked);
 
         if (worked)
         {
             cout << endl << "le graphe a une k-connexité de " << k_value << endl;
-            cout << "une combinaison de sommets à enlever est : ";
-            for (auto& elem : composante)
-                cout << elem << " ";
+            for (auto& elem_external : composante_heavy)
+            {
+                cout << "une combinaison de sommets à enlever est : ";
+                for (auto& elem : elem_external) //composante)
+                    cout << elem << " ";
+                cout << endl;
+            }
             cout << endl;
         }
         else
@@ -1028,7 +1036,14 @@ void Graph::dfs_recurs(int where, unsigned& flag_count)
     }
 }
 
+
 //pas très optimisée...
+//pourrait être optimisée par exemple:
+//  en regardant d'abord des sommets avec une seule arete
+//
+//cette fonction ne regarde pas toutes les possibilités,
+//elle ne prend qu'une des combinaisons ayant le plus petit k
+//pour avoir toutes les combinaisons, utiliser kConnexe_heavy (encore moins optimisée)
 int Graph::kConnexe(vector<int>& rep, int max_k, bool& worked)
 {
     vector<int> temporary;
@@ -1103,4 +1118,121 @@ int Graph::kConnexe(vector<int>& rep, int max_k, bool& worked)
 
     return current_max;
 }
+
+
+
+//l'ajout de recevoir toutes les combinaisons de k (au lieu de la première)
+//a beaucoup allourdi cette fonction...
+int Graph::kConnexe_heavy(vector<vector<int>>& rep, int max_k, bool& worked)
+{
+    vector<vector<int>> temporary;
+    vector<int> inter_vect;
+
+    int current_max = max_k;
+    Graph inter;
+
+    inter.interfaceless(*this);
+
+    worked = false;
+
+    //si le graphe est entrièrement connexe
+    if (m_vertices.size()<=1)
+    {
+        //on s'arrete là
+        return max_k;
+    }
+
+    for (auto& elem : m_vertices)
+    {
+        Vertex& curr_vertex = elem.second;
+        int curr_id = elem.first;
+
+        inter.remove_vertex(curr_id);
+
+        //si ce sommet ne permet pas (à lui seul) la connexité
+        if (inter.simplementConnexe())
+        {
+            //pour enlever le non nécéssaire
+            if (current_max>1)
+            {
+                int new_k_value;
+                bool inter_worked;
+
+                temporary.clear();
+
+                //si on a pas encore trouvé, on veut trouver à la limite de current_max.
+                //si on a déjà trouvé, c'est que on a déjà qqc à current_max, donc on essaye current_max-2
+                new_k_value = inter.kConnexe_heavy(temporary, current_max - 1, inter_worked);
+
+                if (inter_worked)
+                {
+                    //si c'est pas la première k-connexité avec ce k trouvée
+                    if (current_max==(new_k_value+1) && worked)
+                    {
+                        //on veut éviter les doublons qui ont un ordre différent
+                        //l'operator== de vector compare chaque elément au même indice
+                        // les vectors dans rep sont normalement déjà ordonnés
+
+                        for (unsigned i=0;i<temporary.size();i++)
+                        {
+                            inter_vect.clear();
+                            inter_vect.push_back(curr_id);
+                            inter_vect.insert(inter_vect.end(), temporary.at(i).begin(), temporary.at(i).end());
+                            sort(inter_vect.begin(), inter_vect.end());
+
+                            //s'il n'y a pas déjà cette combinaison dans rep
+                            if (find(rep.begin(), rep.end(), inter_vect)==rep.end())
+                            {
+                                ///pas sûr que ça marche...
+                                rep.push_back(inter_vect);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        current_max = new_k_value + 1;
+                        worked = true;
+                        rep.clear();
+
+                        for (unsigned i=0;i<temporary.size();i++)
+                        {
+                            temporary.at(i).push_back(curr_id);
+                            //si la fonction sort est mal codée, ça pourrait pomper enormément de processeur.
+                            sort (temporary.at(i).begin(), temporary.at(i).end());
+
+                            ///pas sûr que ça marche...
+                            rep.push_back(temporary.at(i));
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (current_max>1)
+                rep.clear();
+
+            //pas besoin de tester si le sommet a déjà été ajouté (differents tours de boucle...)
+            inter_vect.clear();
+            inter_vect.push_back(curr_id);
+            rep.push_back(inter_vect);
+
+            current_max = 1;
+
+            worked = true;
+        }
+
+        //on remet le sommet dans le graphe intermédiaire pour le prochain tour de boucle
+        inter.add_vertex(curr_vertex, curr_id);
+
+        for (auto& edgeElem : curr_vertex.m_in)
+            inter.add_edge(m_edges.at(edgeElem), edgeElem);
+
+        for (auto& edgeElem : curr_vertex.m_out)
+            inter.add_edge(m_edges.at(edgeElem), edgeElem);
+    }
+
+    return current_max;
+}
+
 
