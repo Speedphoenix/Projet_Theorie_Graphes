@@ -123,7 +123,7 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrman_1_1_widget_v_slider.html">WidgetVSlider</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrman_1_1_widget_v_slider_log.html">WidgetVSliderLog</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">un vslider au carré, pour avoir des valeurs qui augmentent plus vite dans les élevés  <a href="classgrman_1_1_widget_v_slider_log.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">un vslider au carré (pas logarithmique du tout), pour avoir des valeurs qui augmentent plus vite dans les élevés  <a href="classgrman_1_1_widget_v_slider_log.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
@@ -267,7 +267,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>g_pic_path</b>
 <p>Ce fichier est un adaptation du code fourni par M. Robin Fercoq Adapté par le groupe n°2 du TD09, ING2 PROMO 2021 à l'ECE Paris Benoit Coville Leonardo Jeanteur Louis Galibert</p>
 <p>Merci de citer vos sources Modifications apportées: set_dim(int w, int h) -&gt; un seul reframe (mais maintenant avec du code moche...)</p>
 <p>Ajout des fonction virtuelles interact_keybd() et interact_elsewhere() (si l'utilisateur clique autrepart)</p>
-<p>Les classes <a class="el" href="classgrman_1_1_widget_text_saisie.html" title="Comme widgetText mais permet à l&#39;utilisateur d&#39;entrer du texte. ">WidgetTextSaisie</a>, <a class="el" href="classgrman_1_1_widget_num_saisie.html" title="Comme widgetTextSaisie mais ne prend que des entiers. ">WidgetNumSaisie</a>, <a class="el" href="classgrman_1_1_widget_button_text.html" title="Un bouton qui contient déjà un WidgetText. ">WidgetButtonText</a></p>
+<p>Les classes <a class="el" href="classgrman_1_1_widget_text_saisie.html" title="Comme widgetText mais permet à l&#39;utilisateur d&#39;entrer du texte. ">WidgetTextSaisie</a>, <a class="el" href="classgrman_1_1_widget_num_saisie.html" title="Comme widgetTextSaisie mais ne prend que des entiers. ">WidgetNumSaisie</a>, <a class="el" href="classgrman_1_1_widget_button_text.html" title="Un bouton qui contient déjà un WidgetText. ">WidgetButtonText</a>, <a class="el" href="classgrman_1_1_widget_v_slider_log.html" title="un vslider au carré (pas logarithmique du tout), pour avoir des valeurs qui augmentent plus vite dans...">WidgetVSliderLog</a></p>
 <p>get_pic_name() et get_pic_idx dans <a class="el" href="classgrman_1_1_widget_image.html">WidgetImage</a>... set_color() et séparation de la fonction reframe_text_box() dans la classe <a class="el" href="classgrman_1_1_widget_text.html" title="Extrêmement rudimentaire : à compléter ! ">WidgetText</a> commentaires...</p>
 <p>Modifications à apporter: séparer la classe <a class="el" href="classgrman_1_1_widget.html">Widget</a> mettre tous les margin, padding etc dans une classe fille</p>
 <p><a class="el" href="classgrman_1_1_widget_text.html" title="Extrêmement rudimentaire : à compléter ! ">WidgetText</a></p>
@@ -397,7 +397,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>g_pic_path</b>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= {</div><div class="line">    <span class="stringliteral">&quot;graphe&quot;</span>,</div><div class="line">    <span class="stringliteral">&quot;graphe1.txt&quot;</span>,</div><div class="line">    <span class="stringliteral">&quot;graphe2.txt&quot;</span>,</div><div class="line">    <span class="stringliteral">&quot;graphe3.txt&quot;</span>,</div><div class="line">    <span class="stringliteral">&quot;graphe4.txt&quot;</span>,</div><div class="line">    <span class="stringliteral">&quot;&quot;</span>,             </div><div class="line">    <span class="stringliteral">&quot;&quot;</span>,</div><div class="line">    <span class="stringliteral">&quot;&quot;</span>,</div><div class="line">    <span class="stringliteral">&quot;&quot;</span>,</div><div class="line">    <span class="stringliteral">&quot;&quot;</span></div><div class="line">    }</div></div><!-- fragment -->
+<b>Initial value:</b><div class="fragment"><div class="line">= {</div><div class="line">    <span class="stringliteral">&quot;.txt&quot;</span>,</div><div class="line">    <span class="stringliteral">&quot;graphe1.txt&quot;</span>,</div><div class="line">    <span class="stringliteral">&quot;graphe2.txt&quot;</span>,</div><div class="line">    <span class="stringliteral">&quot;botw&quot;</span>,</div><div class="line">    <span class="stringliteral">&quot;arctique&quot;</span>,</div><div class="line">    <span class="stringliteral">&quot;&quot;</span>,             </div><div class="line">    <span class="stringliteral">&quot;&quot;</span>,</div><div class="line">    <span class="stringliteral">&quot;.bmp&quot;</span>,</div><div class="line">    <span class="stringliteral">&quot;.jpg&quot;</span>,</div><div class="line">    <span class="stringliteral">&quot;.png&quot;</span></div><div class="line">    }</div></div><!-- fragment -->
 <p>Constantes. </p>
 
 </div>
@@ -408,7 +408,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>g_pic_path</b>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacegrman.html">grman</a></li>
-    <li class="footer">Generated on Sun Apr 8 2018 19:51:44 for TrophicNetworks by
+    <li class="footer">Generated on Sun Apr 8 2018 23:24:03 for TrophicNetworks by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

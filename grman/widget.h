@@ -24,7 +24,7 @@
  *  interact_elsewhere() (si l'utilisateur clique autrepart)
  *
  *
- *  Les classes WidgetTextSaisie, WidgetNumSaisie, WidgetButtonText
+ *  Les classes WidgetTextSaisie, WidgetNumSaisie, WidgetButtonText, WidgetVSliderLog
  *
  *  get_pic_name() et get_pic_idx dans WidgetImage...
  *  set_color() et séparation de la fonction reframe_text_box() dans la classe WidgetText
@@ -440,7 +440,7 @@ class WidgetVSlider : public Widget
 
 /**
     \class WidgetVSliderLog
-    \brief un vslider au carré, pour avoir des valeurs qui augmentent plus vite dans les élevés
+    \brief un vslider au carré (pas logarithmique du tout), pour avoir des valeurs qui augmentent plus vite dans les élevés
 */
 class WidgetVSliderLog: public WidgetVSlider
 {

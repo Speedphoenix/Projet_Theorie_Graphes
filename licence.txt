@@ -1,12 +1,32 @@
-Toutes les images de clowns, et une très grande partie du code (en particulier dans le dossier grman/) on été fournis par M. Fercoq
-Les modifications dans le dossier grman/ sont indiquées en cmmentaire en haut des fichiers
+Ce projet est le fruit de la collaboration entre
+	Leonardo Jeanteur
+	Benoît Coville
+	Louis Galibert
 
-L'image de souris utilisée appartient à Artemii Lazovskii
+Et ne contient aucun élément pris de l'éxterieur autre que ceux mentionnés ci-dessous
+
+Le projet est visible sur:
+https://github.com/Speedphoenix/Trophic-Networks/
+cette repository était privée du vendredi 06/04/2018 au soir au lundi 09/04/2018 au matin
+
+
+Les équations utilisées dans l'évolution des graphes ont étéprises du sujet du projet ou de wikipedia.com
 
 Une fonction a été copiée de la réponse de hmjd:
     https://stackoverflow.com/a/16606128/7207370
+    
+
+Toutes les images de clowns, et une très grande partie du code (en particulier dans le dossier grman/) on été fournis par M. Fercoq
+Les modifications dans le dossier grman/ sont indiquées en commentaire en haut des fichiers
+
+L'image de souris utilisée appartient à Artemii Lazovskii
 
 
 Les images du graphe botw.txt appartiennent à Nintento, dans le jeu The Legend of Zelda: Breth Of The Wild,  et ont été prises depuis https://zelda.gamepedia.com/Hyrule_Compendium
 ces images ont été modifiées pour avoir la bonne taille (100*100px)
 
+Sources des autres images:
+http://atelierastro.com/soleil-theme-astral/
+https://www.estrepublicain.fr/actualite/2015/08/30/ours-brun-le-temoignage-de-vincent-munier-photographe-naturaliste-vosgien
+http://www.arbres-co-elagage.fr/
+http://www.arbres-co-elagage.fr/

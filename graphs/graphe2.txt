@@ -1,183 +1,77 @@
 1  908 670  ;
-15 ;
-0 51.6528 1 ;
+6 ;
+0 62.1338 0 ;
 1 3 ;
-Bokoblin
- 303 380  1 0 ;
-botw/Bokoblin.png
+ours polaire
+ 392 83  1 0 ;
+ours_polaire.jpg
 0 ;
-1 50 1 ;
+1 39.183 0 ;
 1 3 ;
-Chuchu
- 755 552  1 0 ;
-botw/Chuchu.png
+banquise
+ 63 321  1 0 ;
+banquise.jpg
 0 ;
-2 50 1 ;
+2 90.3521 0 ;
 1 3 ;
-Dinraal
- 629 22  1 0 ;
-botw/Dinraal.png
+bateau
+ 64 64  1 0 ;
+bateau.jpg
 0 ;
-3 50 1 ;
+3 21.4996 0 ;
 1 3 ;
-Hinox
- 301 -1  1 0 ;
-botw/Hinox.png
+poisson
+ 704 233  1 0 ;
+poisson.jpg
 0 ;
-4 50 1 ;
+4 28.4332 0 ;
 1 3 ;
-Hyrule_Bass
- 594 546  1 0 ;
-botw/Hyrule_Bass.png
+pingouin
+ 172 502  1 0 ;
+pingouin.jpg
 0 ;
-5 50 1 ;
+5 36.3343 0 ;
 1 3 ;
-Keese
- 733 393  1 0 ;
-botw/Keese.png
-0 ;
-6 50 1 ;
-1 3 ;
-Lizalfos
- 457 492  1 0 ;
-botw/Lizalfos.png
-0 ;
-7 50 1 ;
-1 3 ;
-Lynel
- 750 279  1 0 ;
-botw/Lynel.png
-0 ;
-8 10.5348 1 ;
-1 3 ;
-Moblin
- 551 301  1 0 ;
-botw/Moblin.png
-0 ;
-9 50 1 ;
-1 3 ;
-Molduga
- 146 384  1 0 ;
-botw/Molduga.png
-0 ;
-10 50 1 ;
-1 3 ;
-Ore_Deposit
- -1 283  1 0 ;
-botw/Ore_Deposit.png
-0 ;
-11 50 1 ;
-1 3 ;
-Sand Seal
- 42 517  1 0 ;
-botw/Sand_Seal.png
-0 ;
-12 50 1 ;
-1 3 ;
-Stone Pebblit
- -1 144  1 0 ;
-botw/Stone_Pebblit.png
-0 ;
-13 50 1 ;
-1 3 ;
-Talus
- -1 2  1 0 ;
-botw/Talus.png
-0 ;
-14 50 1 ;
-1 3 ;
-Woodland Boar
- 335 148  1 0 ;
-botw/Woodland_Boar.png
+phoque
+ 530 429  1 0 ;
+phoque.jpg
 0 ;
 
 
-22 ;
+9 ;
 0 
-12 13 0.625
+2 1 0.625
 1 ;
 1 ;
 1 
-12 3 0.25
+1 0 0.9375
 1 ;
 1 ;
 2 
-10 12 0.8125
+1 4 0.5625
 1 ;
 1 ;
 3 
-1 5 1
+1 5 0.5
 1 ;
 1 ;
 4 
-4 5 1
+4 0 0
 1 ;
 1 ;
 5 
-5 6 1
+5 0 1.625
 1 ;
 1 ;
 6 
-14 8 1
+3 0 1.0625
 1 ;
 1 ;
 7 
-14 0 1
+3 4 1.5
 1 ;
 1 ;
 8 
-11 9 1
-1 ;
-1 ;
-9 
-0 8 1.375
-1 ;
-1 ;
-10 
-8 0 0.625
-1 ;
-1 ;
-11 
-0 6 1
-1 ;
-1 ;
-12 
-6 8 1.375
-1 ;
-1 ;
-13 
-6 7 1
-1 ;
-1 ;
-14 
-8 7 1
-1 ;
-1 ;
-15 
-11 6 1
-1 ;
-1 ;
-16 
-3 7 1.25
-1 ;
-1 ;
-17 
-14 2 1
-1 ;
-1 ;
-18 
-7 2 1
-1 ;
-1 ;
-19 
-3 9 1
-1 ;
-1 ;
-20 
-8 2 1
-1 ;
-1 ;
-21 
-3 2 1
+3 5 1
 1 ;
 1 ;

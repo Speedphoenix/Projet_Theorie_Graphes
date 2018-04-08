@@ -30,7 +30,7 @@ var class_graph =
     [ "reset_graph", "class_graph.html#ac56dc08089c377df2e5079b548eefa6e", null ],
     [ "send_stream", "class_graph.html#ad2430a308293fbd34f50f7fd58dfcde7", null ],
     [ "simplementConnexe", "class_graph.html#adee2a9ded840ee91b853e7f7076cbf67", null ],
-    [ "turn", "class_graph.html#a47aca105603cab09d5b9900029bb2c81", null ],
+    [ "turn", "class_graph.html#a4e4af9c488b8dcc71532600b762e6401", null ],
     [ "update", "class_graph.html#a97b4fe3e0f119971649ed33e3c364cde", null ],
     [ "vertex_exists", "class_graph.html#a1fcf332cd83de97f166e296b15ace1d4", null ]
 ];

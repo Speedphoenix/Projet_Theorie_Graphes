@@ -199,9 +199,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a5e44a26d2b87d58675eacf26a486e0ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a5e44a26d2b87d58675eacf26a486e0ba">get_stream</a> (std::istream &amp;myStream)</td></tr>
 <tr class="memdesc:a5e44a26d2b87d58675eacf26a486e0ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Recoit toutes les données du graphe depuis un Stream ou fichier.  <a href="#a5e44a26d2b87d58675eacf26a486e0ba">More...</a><br /></td></tr>
 <tr class="separator:a5e44a26d2b87d58675eacf26a486e0ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47aca105603cab09d5b9900029bb2c81"><td class="memItemLeft" align="right" valign="top"><a id="a47aca105603cab09d5b9900029bb2c81"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>turn</b> ()</td></tr>
-<tr class="separator:a47aca105603cab09d5b9900029bb2c81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e4af9c488b8dcc71532600b762e6401"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a4e4af9c488b8dcc71532600b762e6401">turn</a> (double t=1)</td></tr>
+<tr class="memdesc:a4e4af9c488b8dcc71532600b762e6401"><td class="mdescLeft">&#160;</td><td class="mdescRight">effectue un 'tour' (une actualisation du graphe)  <a href="#a4e4af9c488b8dcc71532600b762e6401">More...</a><br /></td></tr>
+<tr class="separator:a4e4af9c488b8dcc71532600b762e6401"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf06a6e39406dfb10bfd4267fb5467ab"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#adf06a6e39406dfb10bfd4267fb5467ab">get_quit</a> ()</td></tr>
 <tr class="separator:adf06a6e39406dfb10bfd4267fb5467ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -440,6 +440,32 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>turn</b> ()</td></tr>
 
 </div>
 </div>
+<a id="a4e4af9c488b8dcc71532600b762e6401"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e4af9c488b8dcc71532600b762e6401">&#9670;&nbsp;</a></span>turn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Graph::turn </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>t</em> = <code>1</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>effectue un 'tour' (une actualisation du graphe) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">t</td><td>le facteur de changement (pour faire des fractions de changements) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a97b4fe3e0f119971649ed33e3c364cde"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a97b4fe3e0f119971649ed33e3c364cde">&#9670;&nbsp;</a></span>update()</h2>
 
@@ -457,7 +483,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>turn</b> ()</td></tr>
 
 <p>La mÃ©thode update Ã  appeler dans la boucle de jeu pour les graphes avec interface. </p>
 <p>La méthode update à appeler dans la boucle de jeu pour les graphes avec interface. </p>
-<p>FAIRE DES TOURS CONTINUS </p>
 
 </div>
 </div>
@@ -498,7 +523,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>turn</b> ()</td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_graph.html">Graph</a></li>
-    <li class="footer">Generated on Sun Apr 8 2018 19:51:44 for TrophicNetworks by
+    <li class="footer">Generated on Sun Apr 8 2018 23:24:03 for TrophicNetworks by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>
