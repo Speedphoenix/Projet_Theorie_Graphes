@@ -103,6 +103,7 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrman_1_1_widget_button.html">WidgetButton</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrman_1_1_widget_button_text.html">WidgetButtonText</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Un bouton qui contient déjà un <a class="el" href="classgrman_1_1_widget_text.html" title="Extrêmement rudimentaire : à compléter ! ">WidgetText</a>.  <a href="classgrman_1_1_widget_button_text.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrman_1_1_widget_check_box.html">WidgetCheckBox</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -120,6 +121,9 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comme widgetText mais permet à l'utilisateur d'entrer du texte.  <a href="classgrman_1_1_widget_text_saisie.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrman_1_1_widget_v_slider.html">WidgetVSlider</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classgrman_1_1_widget_v_slider_log.html">WidgetVSliderLog</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">un vslider au carré, pour avoir des valeurs qui augmentent plus vite dans les élevés  <a href="classgrman_1_1_widget_v_slider_log.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
@@ -144,6 +148,10 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:aa3a95af88a3952c7f406aa53d8de708c"><td class="memTemplParams" colspan="2"><a id="aa3a95af88a3952c7f406aa53d8de708c"></a>
+template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aa3a95af88a3952c7f406aa53d8de708c"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><b>to_string_prec</b> (const T a_value, const int n=2)</td></tr>
+<tr class="separator:aa3a95af88a3952c7f406aa53d8de708c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2139034e3a5eaee44ba4409a53bc5ae6"><td class="memItemLeft" align="right" valign="top"><a id="a2139034e3a5eaee44ba4409a53bc5ae6"></a>
 unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacegrman.html#a2139034e3a5eaee44ba4409a53bc5ae6">get_picture_nb</a> (std::string name)</td></tr>
 <tr class="memdesc:a2139034e3a5eaee44ba4409a53bc5ae6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gestion des ressources image (fichiers images et BITMAP charg�es) <br /></td></tr>
@@ -259,7 +267,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>g_pic_path</b>
 <p>Ce fichier est un adaptation du code fourni par M. Robin Fercoq Adapté par le groupe n°2 du TD09, ING2 PROMO 2021 à l'ECE Paris Benoit Coville Leonardo Jeanteur Louis Galibert</p>
 <p>Merci de citer vos sources Modifications apportées: set_dim(int w, int h) -&gt; un seul reframe (mais maintenant avec du code moche...)</p>
 <p>Ajout des fonction virtuelles interact_keybd() et interact_elsewhere() (si l'utilisateur clique autrepart)</p>
-<p>Les classes <a class="el" href="classgrman_1_1_widget_text_saisie.html" title="Comme widgetText mais permet à l&#39;utilisateur d&#39;entrer du texte. ">WidgetTextSaisie</a>, <a class="el" href="classgrman_1_1_widget_num_saisie.html" title="Comme widgetTextSaisie mais ne prend que des entiers. ">WidgetNumSaisie</a>, <a class="el" href="classgrman_1_1_widget_button_text.html">WidgetButtonText</a></p>
+<p>Les classes <a class="el" href="classgrman_1_1_widget_text_saisie.html" title="Comme widgetText mais permet à l&#39;utilisateur d&#39;entrer du texte. ">WidgetTextSaisie</a>, <a class="el" href="classgrman_1_1_widget_num_saisie.html" title="Comme widgetTextSaisie mais ne prend que des entiers. ">WidgetNumSaisie</a>, <a class="el" href="classgrman_1_1_widget_button_text.html" title="Un bouton qui contient déjà un WidgetText. ">WidgetButtonText</a></p>
 <p>get_pic_name() et get_pic_idx dans <a class="el" href="classgrman_1_1_widget_image.html">WidgetImage</a>... set_color() et séparation de la fonction reframe_text_box() dans la classe <a class="el" href="classgrman_1_1_widget_text.html" title="Extrêmement rudimentaire : à compléter ! ">WidgetText</a> commentaires...</p>
 <p>Modifications à apporter: séparer la classe <a class="el" href="classgrman_1_1_widget.html">Widget</a> mettre tous les margin, padding etc dans une classe fille</p>
 <p><a class="el" href="classgrman_1_1_widget_text.html" title="Extrêmement rudimentaire : à compléter ! ">WidgetText</a></p>
@@ -275,7 +283,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>g_pic_path</b>
 <p>Merci de citer vos sources Modifications:</p>
 <p>Affichage custom de la souris</p>
 <p>Ce fichier est un adaptation du code fourni par M. Robin Fercoq Adapté par le groupe n°2 du TD09, ING2 PROMO 2021 à l'ECE Paris Benoit Coville Leonardo Jeanteur Louis Galibert</p>
-<p>Merci de citer vos sources Modifications: Les classes <a class="el" href="classgrman_1_1_widget_text_saisie.html" title="Comme widgetText mais permet à l&#39;utilisateur d&#39;entrer du texte. ">WidgetTextSaisie</a>, <a class="el" href="classgrman_1_1_widget_num_saisie.html" title="Comme widgetTextSaisie mais ne prend que des entiers. ">WidgetNumSaisie</a>, <a class="el" href="classgrman_1_1_widget_button_text.html">WidgetButtonText</a> </p>
+<p>Merci de citer vos sources Modifications: Les classes <a class="el" href="classgrman_1_1_widget_text_saisie.html" title="Comme widgetText mais permet à l&#39;utilisateur d&#39;entrer du texte. ">WidgetTextSaisie</a>, <a class="el" href="classgrman_1_1_widget_num_saisie.html" title="Comme widgetTextSaisie mais ne prend que des entiers. ">WidgetNumSaisie</a>, <a class="el" href="classgrman_1_1_widget_button_text.html" title="Un bouton qui contient déjà un WidgetText. ">WidgetButtonText</a> </p>
 </div><h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="a6092293c9849bd8847921b542dee733c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6092293c9849bd8847921b542dee733c">&#9670;&nbsp;</a></span>ArrowItemType</h2>
@@ -400,7 +408,7 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>g_pic_path</b>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacegrman.html">grman</a></li>
-    <li class="footer">Generated on Sun Apr 8 2018 15:30:24 for TrophicNetworks by
+    <li class="footer">Generated on Sun Apr 8 2018 19:51:44 for TrophicNetworks by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

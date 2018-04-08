@@ -48,9 +48,6 @@ namespace grman
 // Couleur initiale :
 #define PAGE_COULEUR_INIT BLANC
 
-// Temporisation de la boucle de jeu en ms ( rest dans mettre_a_jour )
-#define TEMPO_MAJ 20
-
 int page_color=PAGE_COULEUR_INIT;
 
 BITMAP *page=NULL;

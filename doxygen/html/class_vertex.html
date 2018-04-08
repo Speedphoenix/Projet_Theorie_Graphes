@@ -95,20 +95,20 @@ $(document).ready(function(){initNavTree('class_vertex.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6189adbc7fb29fc50d72ca80513f93c3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a6189adbc7fb29fc50d72ca80513f93c3">Vertex</a> (double value=0, double r=1, <a class="el" href="class_vertex_interface.html">VertexInterface</a> *interface=nullptr, std::string name=&quot;&quot;)</td></tr>
-<tr class="memdesc:a6189adbc7fb29fc50d72ca80513f93c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Les constructeurs sont à compléter selon vos besoin...  <a href="#a6189adbc7fb29fc50d72ca80513f93c3">More...</a><br /></td></tr>
-<tr class="separator:a6189adbc7fb29fc50d72ca80513f93c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a763612df6642f4010f4660331ed636c9"><td class="memItemLeft" align="right" valign="top"><a id="a763612df6642f4010f4660331ed636c9"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Vertex</b> (double value, double r, std::string name=&quot;&quot;)</td></tr>
-<tr class="separator:a763612df6642f4010f4660331ed636c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1c690a3180984eb1fc737da352f4fa2"><td class="memItemLeft" align="right" valign="top"><a id="ab1c690a3180984eb1fc737da352f4fa2"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Vertex</b> (double value=0, double r=1, <a class="el" href="class_vertex_interface.html">VertexInterface</a> *interface=nullptr, std::string name=&quot;&quot;, Vertex_type type=Vertex_type::Logistic)</td></tr>
+<tr class="separator:ab1c690a3180984eb1fc737da352f4fa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44d3295ae3390d6b3d58ea56cba4aac1"><td class="memItemLeft" align="right" valign="top"><a id="a44d3295ae3390d6b3d58ea56cba4aac1"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Vertex</b> (double value, double r, std::string name=&quot;&quot;, Vertex_type type=Vertex_type::Logistic)</td></tr>
+<tr class="separator:a44d3295ae3390d6b3d58ea56cba4aac1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc6514220f5501e790a912f7d9c0d720"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#adc6514220f5501e790a912f7d9c0d720">pre_update</a> ()</td></tr>
 <tr class="memdesc:adc6514220f5501e790a912f7d9c0d720"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gestion du <a class="el" href="class_vertex.html" title="un sommet ">Vertex</a> avant l'appel à l'interface.  <a href="#adc6514220f5501e790a912f7d9c0d720">More...</a><br /></td></tr>
 <tr class="separator:adc6514220f5501e790a912f7d9c0d720"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68b740256d930792dccb31072e96f85f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a68b740256d930792dccb31072e96f85f">post_update</a> ()</td></tr>
 <tr class="memdesc:a68b740256d930792dccb31072e96f85f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gestion du <a class="el" href="class_vertex.html" title="un sommet ">Vertex</a> après l'appel à l'interface.  <a href="#a68b740256d930792dccb31072e96f85f">More...</a><br /></td></tr>
 <tr class="separator:a68b740256d930792dccb31072e96f85f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4097c58373a51467da181a5ad5777e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#ab4097c58373a51467da181a5ad5777e6">turn</a> (<a class="el" href="class_graph.html">Graph</a> &amp;g)</td></tr>
-<tr class="separator:ab4097c58373a51467da181a5ad5777e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa026c8efab84f8a2ccebf3257788c3a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#aa026c8efab84f8a2ccebf3257788c3a2">turn2</a> (<a class="el" href="class_graph.html">Graph</a> &amp;g, double t=1)</td></tr>
+<tr class="separator:aa026c8efab84f8a2ccebf3257788c3a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -127,59 +127,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>EdgeInterface</b></t
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>un sommet </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a6189adbc7fb29fc50d72ca80513f93c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6189adbc7fb29fc50d72ca80513f93c3">&#9670;&nbsp;</a></span>Vertex()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Vertex::Vertex </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>value</em> = <code>0</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>r</em> = <code>1</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_vertex_interface.html">VertexInterface</a> *&#160;</td>
-          <td class="paramname"><em>interface</em> = <code>nullptr</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>name</em> = <code>&quot;&quot;</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Les constructeurs sont à compléter selon vos besoin... </p>
-<p>Ici on ne donne qu'un seul constructeur qui peut utiliser une interface </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a68b740256d930792dccb31072e96f85f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a68b740256d930792dccb31072e96f85f">&#9670;&nbsp;</a></span>post_update()</h2>
 
@@ -216,30 +164,44 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>EdgeInterface</b></t
 </div><div class="memdoc">
 
 <p>Gestion du <a class="el" href="class_vertex.html" title="un sommet ">Vertex</a> avant l'appel à l'interface. </p>
-<p><a class="el" href="class_vertex.html" title="un sommet ">Vertex</a> étant géré par <a class="el" href="class_graph.html" title="Un graphe. contient toutes les aretes, tous les sommets, la toolbox s&#39;occupe de s&#39;actualiser, contient toutes les methodes importantes. ">Graph</a> ce sera la méthode update de graph qui appellera le pre_update et post_update de <a class="el" href="class_vertex.html" title="un sommet ">Vertex</a> (pas directement la boucle de jeu) Voir l'implémentation <a class="el" href="class_graph.html#a97b4fe3e0f119971649ed33e3c364cde" title="La méthode update à appeler dans la boucle de jeu pour les graphes avec interface. ">Graph::update</a> dans le .cpp </p>
+<p><a class="el" href="class_vertex.html" title="un sommet ">Vertex</a> étant géré par <a class="el" href="class_graph.html" title="Un graphe. contient toutes les aretes, tous les sommets, la toolbox s&#39;occupe de s&#39;actualiser, contient toutes les methodes importantes. ">Graph</a> ce sera la méthode update de graph qui appellera le pre_update et post_update de <a class="el" href="class_vertex.html" title="un sommet ">Vertex</a> (pas directement la boucle de jeu) Voir l'implémentation <a class="el" href="class_graph.html#a97b4fe3e0f119971649ed33e3c364cde" title="La mÃ©thode update Ã  appeler dans la boucle de jeu pour les graphes avec interface. ">Graph::update</a> dans le .cpp </p>
 <p>Copier la valeur locale de la donnée m_value vers le slider associé</p>
 <p>Copier la valeur locale de la donnée m_value vers le label sous le slider </p>
 
 </div>
 </div>
-<a id="ab4097c58373a51467da181a5ad5777e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4097c58373a51467da181a5ad5777e6">&#9670;&nbsp;</a></span>turn()</h2>
+<a id="aa026c8efab84f8a2ccebf3257788c3a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa026c8efab84f8a2ccebf3257788c3a2">&#9670;&nbsp;</a></span>turn2()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Vertex::turn </td>
+          <td class="memname">void Vertex::turn2 </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_graph.html">Graph</a> &amp;&#160;</td>
-          <td class="paramname"><em>g</em></td><td>)</td>
+          <td class="paramname"><em>g</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>t</em> = <code>1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>E(endl) E(m_value)</p>
-<p>Model 1 : on considere que si un sommet n'a aucune arete entrante, alors son N est constant</p>
-<p>DÉCOMMENTE POUR DEBUG </p>
+<p>Actualisation de m_value</p>
+<p>Ce que notre sommet mange</p>
+<p>si l'arete est de type trophique</p>
+<p>mettre des valeurs pour chacun ?</p>
+<p>Si notre vertex a des prédateurs</p>
+<p>Notre vertex est mangé par ses prédateurs</p>
+<p>si l'arête est de type trophique </p>
 
 </div>
 </div>
@@ -253,7 +215,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>EdgeInterface</b></t
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_vertex.html">Vertex</a></li>
-    <li class="footer">Generated on Sun Apr 8 2018 15:30:24 for TrophicNetworks by
+    <li class="footer">Generated on Sun Apr 8 2018 19:51:44 for TrophicNetworks by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

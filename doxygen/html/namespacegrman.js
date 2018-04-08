@@ -11,5 +11,6 @@ var namespacegrman =
     [ "WidgetNumSaisie", "classgrman_1_1_widget_num_saisie.html", "classgrman_1_1_widget_num_saisie" ],
     [ "WidgetText", "classgrman_1_1_widget_text.html", "classgrman_1_1_widget_text" ],
     [ "WidgetTextSaisie", "classgrman_1_1_widget_text_saisie.html", "classgrman_1_1_widget_text_saisie" ],
-    [ "WidgetVSlider", "classgrman_1_1_widget_v_slider.html", "classgrman_1_1_widget_v_slider" ]
+    [ "WidgetVSlider", "classgrman_1_1_widget_v_slider.html", "classgrman_1_1_widget_v_slider" ],
+    [ "WidgetVSliderLog", "classgrman_1_1_widget_v_slider_log.html", "classgrman_1_1_widget_v_slider_log" ]
 ];

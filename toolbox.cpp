@@ -419,23 +419,13 @@ void new_edge_tips(Graph& dest, int& from, int& to)
         from = fromVertex.get_value();
         to = toVertex.get_value();
 
-        if ( (from != to && dest.vertex_exists(from) && dest.edge_exists(to)) || grman::key_press[KEY_ESC])
+        if ( (from != to && dest.vertex_exists(from) && dest.vertex_exists(to)) || grman::key_press[KEY_ESC])
         {
             works = true;
         }
 
     }
 }
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -56,6 +56,10 @@
 ///cette macro sert à débug: affichera x sous la forme d'une string, puis la valeur de x.
 #define E(x) {std::cerr<<std::endl<<#x " : " << x << std::endl;}
 
+// Temporisation de la boucle de jeu en ms ( rest dans mettre_a_jour )
+#define TEMPO_MAJ 20
+
+
 namespace grman
 {
 

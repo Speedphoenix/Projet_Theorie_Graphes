@@ -321,7 +321,11 @@ public:
     */
     void get_stream(std::istream& myStream);
 
-    void turn();
+    /** \fn void turn(double t = 1)
+        \brief effectue un 'tour' (une actualisation du graphe)
+        \param[in] t le facteur de changement (pour faire des fractions de changements)
+    */
+    void turn(double t = 1);
 
     /** \fn bool get_quit()
         \return s'il faut fermer le programme ou non

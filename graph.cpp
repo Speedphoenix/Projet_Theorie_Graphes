@@ -72,12 +72,14 @@ void Graph::initialize_toolbox()
 
 void Graph::make_test1()
 {
+    reset_graph();
     m_interface = std::make_shared<GraphInterface>(50, 0, 908, 720);
+    initialize_toolbox();
 
-    add_interfaced_vertex( 0, 20.0,   3, 250, 600, "herbe", Vertex_type::Exp);
-    add_interfaced_vertex( 1, 20.0, 1.1, 100, 400, "lapin");
-    add_interfaced_vertex( 2, 30.0, 1.2, 400, 400, "souris");
-    add_interfaced_vertex( 3, 10.0, 0.3, 250, 200, "renard");
+    add_interfaced_vertex( 0, 20.0,   3, 250, 500, "herbe", Vertex_type::Exp);
+    add_interfaced_vertex( 1, 20.0, 1.1, 100, 300, "lapin");
+    add_interfaced_vertex( 2, 30.0, 1.2, 400, 300, "souris");
+    add_interfaced_vertex( 3, 10.0, 0.3, 250, 100, "renard");
     //add_interfaced_vertex( 4, 10.0,   0, 350, 400, "pollution");
 
     add_interfaced_edge(0, 0, 1, 1.0);
@@ -338,7 +340,7 @@ void Graph::update()
 
         if (m_toolbox.m_continuous_turn)
         {
-            ///FAIRE DES TOURS CONTINUS
+            turn((double)TEMPO_MAJ/1000); //tempo_maj est en gros le temps passé dans un tour de boucle (en vrai un peu plus...)
         }
     }
 }
@@ -475,7 +477,7 @@ void Graph::processInput(UserAction what)
         }
         else
         {
-            get_stream(infile); ///RESET LE GRAPHE DABORD
+            get_stream(infile);
 
             infile.close();
         }
@@ -581,17 +583,16 @@ void Graph::processInput(UserAction what)
     break;
 
         case UserAction::Turn:
-
+        turn();
     break;
     }
 }
 
 
-void Graph::turn()
+void Graph::turn(double t)
 {
-    std::cout << std::endl;
     for (auto &elt : m_vertices)
-        elt.second.turn2(*this);
+        elt.second.turn2(*this, t);
 
 //    for (auto &elt : m_edges)
 //        elt.second.turn();

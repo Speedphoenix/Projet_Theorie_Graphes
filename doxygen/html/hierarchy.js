@@ -24,6 +24,8 @@ var hierarchy =
           [ "grman::WidgetNumSaisie", "classgrman_1_1_widget_num_saisie.html", null ]
         ] ]
       ] ],
-      [ "grman::WidgetVSlider", "classgrman_1_1_widget_v_slider.html", null ]
+      [ "grman::WidgetVSlider", "classgrman_1_1_widget_v_slider.html", [
+        [ "grman::WidgetVSliderLog", "classgrman_1_1_widget_v_slider_log.html", null ]
+      ] ]
     ] ]
 ];

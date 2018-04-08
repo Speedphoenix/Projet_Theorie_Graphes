@@ -10,5 +10,6 @@ var searchData=
   ['widgetnumsaisie',['WidgetNumSaisie',['../classgrman_1_1_widget_num_saisie.html',1,'grman']]],
   ['widgettext',['WidgetText',['../classgrman_1_1_widget_text.html',1,'grman']]],
   ['widgettextsaisie',['WidgetTextSaisie',['../classgrman_1_1_widget_text_saisie.html',1,'grman']]],
-  ['widgetvslider',['WidgetVSlider',['../classgrman_1_1_widget_v_slider.html',1,'grman']]]
+  ['widgetvslider',['WidgetVSlider',['../classgrman_1_1_widget_v_slider.html',1,'grman']]],
+  ['widgetvsliderlog',['WidgetVSliderLog',['../classgrman_1_1_widget_v_slider_log.html',1,'grman']]]
 ];

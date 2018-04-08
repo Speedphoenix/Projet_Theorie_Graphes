@@ -28,7 +28,7 @@ class Graph;
 const int default_x = 20;
 const int default_y = 20;
 const int default_value = 0;
-const int default_r = 0.1;
+const int default_r = 1;
 
 const double max_value = 200.0;
 
