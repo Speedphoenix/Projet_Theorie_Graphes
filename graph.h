@@ -217,12 +217,12 @@ public:
 
     ///Ajout de fonctions pour graphs non interfacé
     void add_vertex(Vertex& source, int id);
-    void add_vertex(std::string name, int idx, double value, double r);
+    void add_vertex(std::string name, int idx, double value, double r); ///ajout du type (par defaut)
     void add_edge(Edge& source, int id);
     void add_edge(int idx, int id_vertFrom, int id_vertTo, double weight=0, Edge_type type=Edge_type::Trophic);
 
     void add_interfaced_vertex(Vertex& source, int id);
-    void add_interfaced_vertex(int idx, double value, double r, int x, int y, std::string name="", std::string pic_name="", int pic_idx=0 );
+    void add_interfaced_vertex(int idx, double val, double r, int x, int y, std::string name="", Vertex_type type=Vertex_type::Logistic, std::string pic_name="", int pic_idx=0 );
     void add_interfaced_edge(Edge& source, int id);
     void add_interfaced_edge(int idx, int id_vertFrom, int id_vertTo, double weight=0, Edge_type type=Edge_type::Trophic);
 

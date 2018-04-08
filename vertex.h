@@ -35,6 +35,18 @@ const int default_r = 0.1;
 /***************************************************
                     VERTEX
 ****************************************************/
+
+/**
+    \enum Vertex_type
+    \brief enum des differents types de sommets
+*/
+enum Vertex_type
+{
+    Exp, //vertex non prédateur, ne consommant pas de ressource (herbe)
+    Logistic, //vertex predateur et predaté
+    Fossil
+};
+
 /**
     \class VertexInterface
     \brief classe contenant l'interface (les Widgets) d'un sommet
@@ -115,14 +127,16 @@ private :
 
     /// un exemple de donnée associée au sommet, on peut en ajouter d'autres...
     double m_value; //nombre d'individu (pour des animaux) ou masse totale (pour des ressources)
+
     double m_r; //rythme de croissance
     std::string m_name;
+    Vertex_type m_type;
 
     ///un marquages pour les algos de passage
     bool m_flag;
     int m_compNum;
 
-    ///si ce sommet est séléctionné À FAIRE AVEC DES CHECKBOXES
+    ///si ce sommet est séléctionné
     bool m_selected = false;
 
 
@@ -136,15 +150,12 @@ private :
 
 public:
 
-    /// Les constructeurs sont à compléter selon vos besoin...
+    Vertex (double value=0, double r=1, VertexInterface *interface=nullptr, std::string name="", Vertex_type type=Vertex_type::Logistic) :
+        m_value(value), m_r(r), m_name(name), m_type(type), m_flag(false), m_compNum(-1), m_interface(interface) { }
 
-    /// Ici on ne donne qu'un seul constructeur qui peut utiliser une interface
-    //Problème d'ordre des paramètres (initialisation d'interface sans le nom...)
-    Vertex (double value=0, double r=1, VertexInterface *interface=nullptr, std::string name="") :
-        m_value(value), m_r(r), m_name(name), m_flag(false), m_compNum(-1), m_interface(interface) { }
+    Vertex (double value, double r, std::string name="", Vertex_type type=Vertex_type::Logistic) :
+        m_value(value), m_r(r), m_name(name), m_type(type), m_flag(false), m_compNum(-1), m_interface(nullptr) { }
 
-    Vertex (double value, double r, std::string name="") :
-        m_value(value), m_r(r), m_name(name), m_flag(false), m_compNum(-1), m_interface(nullptr) { }
 
     /// Vertex étant géré par Graph ce sera la méthode update de graph qui appellera
     /// le pre_update et post_update de Vertex (pas directement la boucle de jeu)
@@ -152,9 +163,17 @@ public:
     //On fait l'étude démographique dans pre_update
 
     void pre_update();
+
     void post_update();
 
     void turn(Graph& g);
+    void turn2(Graph& g, double t = 1);
+
+    void turn_dif(Graph& g);
+    void turn_exp(Graph& g);
+    void turn_logistic(Graph& g);
+
 };
 
 #endif
+

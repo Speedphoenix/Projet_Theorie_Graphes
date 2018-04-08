@@ -5,7 +5,7 @@
 
 /**
     Ce fichier est un adaptation du code fourni par M. Robin Fercoq
-    Adapté par le groupe n°2 du TD09, ING2 PROMO 2021 à l'ECE Paris
+    AdaptÃ© par le groupe nÂ°2 du TD09, ING2 PROMO 2021 Ã  l'ECE Paris
         Benoit Coville
         Leonardo Jeanteur
         Louis Galibert
@@ -21,7 +21,7 @@ using namespace std;
 
 int main()
 {
-    /// Le nom du répertoire où se trouvent les images à charger
+    /// Le nom du rÃ©pertoire oÃ¹ se trouvent les images Ã  charger
     grman::set_pictures_path("pics");
     //mis avant init pour utiliser la souris
 
@@ -29,8 +29,10 @@ int main()
     grman::init();
 
     /// Un exemple de graphe. pris depuis le fichier GRAPHEFILE1
-    Graph g(GRAPHFILE1);
+
+  Graph g(GRAPHFILE1);
     //g.make_test1();
+    //g.reset();
 
 
 //    //sauvegarde dans le nouveau fichier
@@ -41,22 +43,22 @@ int main()
 
 
     /// Vous gardez la main sur la "boucle de jeu"
-    /// ( contrairement à des frameworks plus avancés )
+    /// ( contrairement Ã  des frameworks plus avancÃ©s )
     while ( !key[KEY_ESC] && !g.get_quit())
     {
 
-        /// Il faut appeler les méthodes d'update des objets qui comportent des widgets
+        /// Il faut appeler les mÃ©thodes d'update des objets qui comportent des widgets
         g.update();
 
 
-        /// Mise à jour générale (clavier/souris/buffer etc...)
+        /// Mise Ã  jour gÃ©nÃ©rale (clavier/souris/buffer etc...)
         grman::mettre_a_jour();
 
         if( grman::key_press[KEY_SPACE] )
             g.turn();
     }
 
-    ///NE PAS ÉCRIRE DANS LE GRAPHEFILE1!! (on veut garder une instance de ce fichier propre)
+    ///NE PAS Ã‰CRIRE DANS LE GRAPHEFILE1!! (on veut garder une instance de ce fichier propre)
     //sauvegarde dans le nouveau fichier
     ofstream myFile2(GRAPHFILE2, ios::out | ios::trunc);
 
