@@ -1,6 +1,6 @@
 #include "widget.h"
 
-//ne pose pas de problème dans un .cpp
+//ne pose pas de problÃ¨me dans un .cpp
 #include "grman.h"
 
 
@@ -26,13 +26,13 @@ void Widget::update()
     update_draw();
 }
 
-/// Gestion des événements
+/// Gestion des Ã©vÃ©nements
 void Widget::update_interact()
 {
     create_frame_context();
 
     /// Propagation de l'update aux elements enfants
-    /// On interagit en 1er avec les éléments ajoutés en dernier
+    /// On interagit en 1er avec les Ã©lÃ©ments ajoutÃ©s en dernier
     for (auto it=m_children.rbegin(); it!=m_children.rend(); ++it)
         (*it)->update_interact();
 
@@ -54,11 +54,15 @@ void Widget::update_interact()
     if ( key_last!='\0' )
         interact_keybd();
 
+        //si la souris a cliquÃ© qqp mais pas ici
+    if ( !is_gui_over() && gui_focus)
+        interact_elsewhere();
+
     destroy_frame_context();
 }
 
-/// Gestion des affichages, 1ère passe pour fixer les cadres
-/// (Nécessaire pour les liens : affichés au fond donc en 1er mais s'appuyant sur les positions des autres qui sont affichés après)
+/// Gestion des affichages, 1Ã¨re passe pour fixer les cadres
+/// (NÃ©cessaire pour les liens : affichÃ©s au fond donc en 1er mais s'appuyant sur les positions des autres qui sont affichÃ©s aprÃ¨s)
 void Widget::update_pre_draw()
 {
     create_frame_context();
@@ -82,7 +86,7 @@ void Widget::update_draw()
     draw();
 
     /// Propagation de l'update aux elements enfants
-    /// On affiche en dernier (devant les autres) les éléments ajoutés en dernier
+    /// On affiche en dernier (devant les autres) les Ã©lÃ©ments ajoutÃ©s en dernier
     for (auto &e : m_children)
         e->update_draw();
 
@@ -95,7 +99,7 @@ void Widget::update_draw()
 
 void Widget::create_frame_context()
 {
-    /// Calculer absolute frame à partir de relative et absolute parent ( si parent, sinon page_frame )
+    /// Calculer absolute frame Ã  partir de relative et absolute parent ( si parent, sinon page_frame )
     const Frame &abspar = m_parent ? m_parent->m_abs_frame : page_frame;
 
     m_abs_frame.pos.x = abspar.pos.x + m_frame.pos.x;
@@ -103,7 +107,7 @@ void Widget::create_frame_context()
 
     m_abs_frame.dim = m_frame.dim;
 
-    // Petits soucis de plantages avec les sub_bitmaps hors écran...
+    // Petits soucis de plantages avec les sub_bitmaps hors Ã©cran...
     int x = std::max(m_abs_frame.pos.x, 0.);
     int y = std::max(m_abs_frame.pos.y, 0.);
     int w = m_abs_frame.dim.x+std::min(m_abs_frame.pos.x, 0.);
@@ -113,7 +117,7 @@ void Widget::create_frame_context()
     int inside = m_border + m_padding;
     m_view = create_sub_bitmap(m_view_wb, inside, inside, w-2*inside, h-2*inside);
 
-    // Malheureusement ceci ne marche pas ... (à creuser)
+    // Malheureusement ceci ne marche pas ... (Ã  creuser)
     //set_clip_rect(m_view, std::max(-x, 0), std::max(-y, 0), w-1, h-1);
 }
 
@@ -164,11 +168,11 @@ void Widget::draw_border()
                         TEXT
 ****************************************************/
 
-/// Extrêmement rudimentaire : à compléter !
+/// ExtrÃªmement rudimentaire : Ã  complÃ©ter !
 void WidgetText::draw()
 {
     if (!m_vertical)
-        textprintf_ex(m_view, font, 0, 0, m_color, -1, "%s", m_message.c_str()); //pour éviter le warning
+        textprintf_ex(m_view, font, 0, 0, m_color, -1, "%s", m_message.c_str()); //pour Ã©viter le warning
     else
         for (int i=0, y=0; i<(int)m_message.length(); ++i, y+=text_height(m_font))
             textprintf_ex(m_view, font, 0, y, m_color, -1, "%c", m_message[i]);
@@ -182,6 +186,96 @@ void WidgetText::set_message(std::string message)
     else
         set_dim( text_length(m_font, "M"), text_height(m_font)*m_message.length() );
     reframe();
+}
+
+
+
+void WidgetTextSaisie::interact_leave()
+{
+    m_isTyping = true;
+    m_virgule = false;
+
+    m_value = 0;
+
+    m_message = "";
+}
+
+void WidgetTextSaisie::interact_elsewhere()
+{
+    m_isTyping = false;
+
+}
+
+void WidgetTextSaisie::interact_keybd()
+{
+    if (key_last == '\0')
+        return ;
+
+    if (!m_isTyping)
+        return ;
+
+    //Si on entre une valeur entre 0 et 9
+    if (key_last >= '0' && key_last <= '9')
+    {
+        int val = key_last - '0';
+
+        if(!m_virgule)      //si la valeur n'a pas de virgule
+        {
+            m_value = (m_value)*10 + val;
+        }
+        else if(m_virgule)      //si c'est un nombre Ã  virgule
+        {
+            int puissDix = 1;
+
+            //la fonction pow utilise dess aproximations exponentielles...
+            for (int i=0;i<m_exposant;i++)
+            {
+                puissDix *= 10;
+            }
+
+            m_value += val/puissDix;
+            if((m_exposant>= 0) && (m_exposant<= m_max_exposant))
+                m_exposant++;
+        }
+        m_message = std::to_string(m_value);
+    }
+//    else if(key_last == '.' || key_last == ',')
+//    {
+//        m_virgule = true;
+//        m_exposant = 1;
+//        m_message += '.';
+//    }
+
+    if (key_press[KEY_BACKSPACE])           ///SI on choisit de supprimer la derniÃ¨re valeur saisie
+    {
+        // si il n'y a pas de virgule
+        if ( ((int) m_value) == m_value )
+        {
+            m_value = (int) (m_value/10);
+        }
+        // si il y a une virgule
+        else
+        {
+            int puissDix = 1;
+
+            //la fonction pow utilise dess aproximations exponentielles...
+            for (int i=0 ; i < m_exposant-1 ; i++)
+            {
+                puissDix *= 10;
+            }
+
+            m_value = ( (int) (m_value*puissDix) ) * puissDix;
+
+            m_exposant--;
+
+            if (m_exposant==0)
+            {
+                m_virgule = false;
+            }
+        }
+
+        m_message = std::to_string(m_value);
+    }
 }
 
 
@@ -303,7 +397,6 @@ void WidgetImage::draw()
 }
 
 
-
 /***************************************************
                     BOX
 ****************************************************/
@@ -357,26 +450,26 @@ void WidgetEdge::draw()
         m_attach[1]->get_center_abs_pos()
     };
 
-    // Vecteur de centre à centre
+    // Vecteur de centre Ã  centre
     Coords vec_dir = p[1] - p[0];
 
-    // Détermination des intersections avec les frames des 2 widgets liés
+    // DÃ©termination des intersections avec les frames des 2 widgets liÃ©s
     p[0] = m_attach[0]->get_abs_frame().intersect(vec_dir);
     p[1] = m_attach[1]->get_abs_frame().intersect(-vec_dir);
 
-    // Dessin du lien cadre à cadre
+    // Dessin du lien cadre Ã  cadre
     thick_line(page, p[0].x, p[0].y, p[1].x, p[1].y, m_thickness, m_color);
 
-    // Calcul du nouveau vecteur cadre à cadre
+    // Calcul du nouveau vecteur cadre Ã  cadre
     vec_dir = p[1] - p[0];
 
-    // Point d'ancrage pour les éventuels enfants ( Widgets attachés à l'arête )
+    // Point d'ancrage pour les Ã©ventuels enfants ( Widgets attachÃ©s Ã  l'arÃªte )
     Coords anchor = p[0] + vec_dir * m_children_position - vec_dir.normalize().rotate_90()*m_children_lateral;
     set_pos( anchor - get_parent_abs_frame().pos );
 
 
-    /// La suite concerne les éléments de décorations, flèches/extrémités
-    /// Pour chaque élément de décoration du lien...
+    /// La suite concerne les Ã©lÃ©ments de dÃ©corations, flÃ¨ches/extrÃ©mitÃ©s
+    /// Pour chaque Ã©lÃ©ment de dÃ©coration du lien...
     for (const auto& itm : m_items)
     {
         Coords head = p[0] + vec_dir * itm.m_position;
@@ -385,7 +478,7 @@ void WidgetEdge::draw()
         if (itm.m_type == ArrowItemType::Bullet)
             circlefill(page, head.x, head.y, itm.m_size/3, m_color);
 
-        /// Cas pointe de flèche ou triangle
+        /// Cas pointe de flÃ¨che ou triangle
         else
         {
             Coords U = vec_dir.normalize()*itm.m_size;
@@ -395,7 +488,7 @@ void WidgetEdge::draw()
             Coords ap1 = arrow_p - V;
             Coords ap2 = arrow_p + V;
 
-            /// Pointe de flèche
+            /// Pointe de flÃ¨che
             if (itm.m_type == ArrowItemType::Arrow)
             {
                 thick_line(page, head.x, head.y, ap1.x, ap1.y, m_thickness, m_color);

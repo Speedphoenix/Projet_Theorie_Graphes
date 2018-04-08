@@ -29,3 +29,16 @@ Coords Frame::intersect(Coords vec)
     return pos + mid + (res*mid);
 }
 
+
+std::ostream& operator<<(std::ostream& myStream, Coords& what)
+{
+    myStream << " " << what.x << " " << what.y << " ";
+    return myStream;
+}
+
+std::istream& operator>>(std::istream& myStream, Coords& what)
+{
+    myStream >> what.x >> what.y;
+    return myStream;
+}
+

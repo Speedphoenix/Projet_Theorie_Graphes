@@ -1,13 +1,19 @@
 #ifndef VERTEX_H_INCLUDED
 #define VERTEX_H_INCLUDED
 
+#include <iostream>
+#include <fstream>
 
 #include <vector>
 #include <map>
 #include <string>
 #include <memory>
+#include <set>
 
 #include "grman/grman.h"
+
+///cette macro sert à débug: affichera x sous la forme d'une string, puis la valeur de x.
+#define E(x) {std::cerr<<#x " : " << x << std::endl;}
 
 class Graph;
 
@@ -16,7 +22,7 @@ class Graph;
                     VERTEX
 ****************************************************/
 
-enum class Vertex_type
+enum Vertex_type
 {
     Exp,///vertex non prédateur, ne consommant pas de ressource (herbe)
     Logistic,///vertex predateur et predaté
@@ -50,7 +56,7 @@ private :
     grman::WidgetVSlider m_slider_value;
 
     // Un label de visualisation de la valeur du sommet
-    grman::WidgetText m_label_value;
+    grman::WidgetTextSaisie m_label_value;
 
     // Une image de "remplissage"
     grman::WidgetImage m_img;
@@ -60,6 +66,10 @@ private :
 
     // Une boite pour le label précédent
     grman::WidgetText m_box_label_idx;
+
+    // Un label indiquant le numero de sa composante (fortement) connexe
+    ///A DÉPLACER!! (en termes de position/methode d'affichage dans le widget principal)
+    grman::WidgetText m_label_comp;
 
 public :
 
@@ -87,9 +97,14 @@ private :
 
     /// un exemple de donnée associée au sommet, on peut en ajouter d'autres...
     double m_value; //nombre d'individu (pour des animaux) ou masse totale (pour des ressources)
+
     double m_r; //rythme de croissance
     std::string m_name;
     Vertex_type m_type;
+
+    ///un marquages pour les algos de passage
+    bool m_flag;
+    int m_compNum;
 
     /// le POINTEUR sur l'interface associée, nullptr -> pas d'interface
     std::shared_ptr<VertexInterface> m_interface = nullptr;
@@ -103,25 +118,31 @@ public:
 
     /// Les constructeurs sont à compléter selon vos besoin...
     /// Ici on ne donne qu'un seul constructeur qui peut utiliser une interface
-
+    //Problème d'ordre des paramètres (initialisation d'interface sans le nom...)
     Vertex (double value=0, double r=1, VertexInterface *interface=nullptr, std::string name="", Vertex_type type=Vertex_type::Logistic) :
-        m_value(value), m_r(r), m_name(name), m_type(type), m_interface(interface) { }
+        m_value(value), m_r(r), m_name(name), m_type(type), m_flag(false), m_interface(interface) { }
 
     Vertex (double value, double r, std::string name="") :
-        m_value(value), m_r(r), m_name(name), m_interface(nullptr) { }
+        m_value(value), m_r(r), m_name(name), m_flag(false), m_interface(nullptr) { }
+
 
     /// Vertex étant géré par Graph ce sera la méthode update de graph qui appellera
     /// le pre_update et post_update de Vertex (pas directement la boucle de jeu)
     /// Voir l'implémentation Graph::update dans le .cpp
     //On fait l'étude démographique dans pre_update
+
     void pre_update();
+
     void post_update();
 
     void turn(Graph& g);
-    void turn2(Graph& g);
+    void turn2(Graph& g, double t = 1);
+
+    void turn_dif(Graph& g);
     void turn_exp(Graph& g);
     void turn_logistic(Graph& g);
+
 };
 
-
 #endif
+
