@@ -30,7 +30,7 @@ int main()
 
     /// Un exemple de graphe. pris depuis le fichier GRAPHEFILE1
 
-  Graph g(GRAPHFILE1);
+    Graph g(GRAPHFILE1);
     //g.make_test1();
     //g.reset();
 

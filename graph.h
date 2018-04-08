@@ -217,7 +217,7 @@ public:
 
     ///Ajout de fonctions pour graphs non interfacé
     void add_vertex(Vertex& source, int id);
-    void add_vertex(std::string name, int idx, double value, double r); ///ajout du type (par defaut)
+    void add_vertex(std::string name, int idx, double value, double r, Vertex_type type=Vertex_type::Logistic);
     void add_edge(Edge& source, int id);
     void add_edge(int idx, int id_vertFrom, int id_vertTo, double weight=0, Edge_type type=Edge_type::Trophic);
 

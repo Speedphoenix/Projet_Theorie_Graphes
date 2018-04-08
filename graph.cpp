@@ -113,7 +113,9 @@ void Graph::send_stream(ostream& myStream)
         bool has_interface = elem.second.m_interface!=nullptr;
         myStream << elem.first << " "; // l'indice du sommet
 
-        myStream << elem.second.m_value << " " << elem.second.m_r << " " << (int)has_interface << " ;" << endl;
+        myStream << elem.second.m_value << " " << elem.second.m_r << " ;" << endl;
+
+        myStream << (int)has_interface << " " << vertex_to_int(elem.second.m_type) << " ;" << endl;
 
         //si le nom est vide, le getline prendra bien string vide
         myStream << elem.second.m_name << endl;
@@ -157,7 +159,7 @@ void Graph::send_stream(ostream& myStream)
 void Graph::get_stream(istream& myStream)
 {
     //val et val2 sont des entiers pour quand y'en a besoin
-    int val, val2, container_size = 0;
+    int val, val2, typeNum, container_size = 0;
     string dump;
     Coords someCoords;
 
@@ -200,8 +202,13 @@ void Graph::get_stream(istream& myStream)
         int pic_idx = 0;
 
         myStream >> idx;
-        myStream >> value >> r >> val;
+        myStream >> value >> r;// >> val; ///enlever val ici
         getline(myStream, dump);
+
+        ///décomenter ici
+        myStream >> val >> typeNum;
+        getline(myStream, dump);
+        Vertex_type type = int_to_vertex(typeNum);
 
         getline(myStream, vertex_name);
 
@@ -221,11 +228,11 @@ void Graph::get_stream(istream& myStream)
                 getline(myStream, dump);
             }
 
-            add_interfaced_vertex(idx, value, r, someCoords.x, someCoords.y, vertex_name, Vertex_type::Logistic, pic_name, pic_idx);
+            add_interfaced_vertex(idx, value, r, someCoords.x, someCoords.y, vertex_name, type, pic_name, pic_idx);
         }
         else
         {
-            add_vertex(vertex_name, idx, value, r);
+            add_vertex(vertex_name, idx, value, r, type);
         }
     } //fin de la boucle for (for chaque sommet)
 
@@ -247,9 +254,9 @@ void Graph::get_stream(istream& myStream)
 
         getline(myStream, dump);
 
-        myStream >> val2;
+        myStream >> typeNum;
 
-        Edge_type type = int_to_edge(val2);
+        Edge_type type = int_to_edge(typeNum);
 
         getline(myStream, dump);
 
@@ -496,7 +503,7 @@ void Graph::processInput(UserAction what)
         case UserAction::AddVertex:
         new_vertex_values(name, filename);
 
-        add_interfaced_vertex(getUnusedVertexId(), default_value, default_r, default_x, default_y, name, filename);
+        add_interfaced_vertex(getUnusedVertexId(), default_value, default_r, default_x, default_y, name, Vertex_type::Logistic, filename);
 
     break;
 
@@ -593,11 +600,11 @@ void Graph::turn()
 
 void Graph::add_vertex(Vertex& source, int id)
 {
-    add_vertex(source.m_name, id, source.m_value, source.m_r);
+    add_vertex(source.m_name, id, source.m_value, source.m_r, source.m_type);
 }
 
-///Ajout de sommet non interfacÃ©
-void Graph::add_vertex(std::string name, int idx, double value, double r)
+///Ajout de sommet sans interface
+void Graph::add_vertex(std::string name, int idx, double value, double r, Vertex_type type)
 {
     if ( m_vertices.find(idx) != m_vertices.end() )
     {
@@ -605,7 +612,7 @@ void Graph::add_vertex(std::string name, int idx, double value, double r)
         throw "Error adding vertex";
     }
     // On peut ajouter directement des vertices dans la map avec la notation crochet :
-    m_vertices[idx] = Vertex(value, r, name);
+    m_vertices[idx] = Vertex(value, r, name, type);
 }
 
 
@@ -649,10 +656,10 @@ void Graph::add_interfaced_vertex(Vertex& source, int id)
     if (interface)
         add_interfaced_vertex(id, source.m_value, source.m_r,
             interface->m_top_box.get_posx(), interface->m_top_box.get_posy(),
-            source.m_name, source.m_type, 
+            source.m_name, source.m_type,
             interface->m_img.get_pic_name(), interface->m_img.get_pic_idx());
     else
-        add_vertex(source.m_name, id, source.m_value, source.m_r);
+        add_vertex(source.m_name, id, source.m_value, source.m_r, source.m_type);
 }
 
 /// Aide à l'ajout de sommets interfacés
@@ -1076,7 +1083,7 @@ int Graph::kConnexe(vector<int>& rep, int max_k, bool& worked)
     //si le graphe est entriÃ¨rement connexe
     if (m_vertices.size()<=1)
     {
-        //on s'arrete lÃ 
+        //on s'arrete la
         return max_k;
     }
 
@@ -1124,7 +1131,7 @@ int Graph::kConnexe(vector<int>& rep, int max_k, bool& worked)
             break;
         }
 
-        //on remet le sommet dans le graphe intermÃ©diaire pour le prochain tour de boucle
+        //on remet le sommet dans le graphe intermediaire pour le prochain tour de boucle
         inter.add_vertex(curr_vertex, curr_id);
 
         for (auto& edgeElem : curr_vertex.m_in)
@@ -1240,7 +1247,7 @@ int Graph::kConnexe_heavy(vector<vector<int>>& rep, int max_k, bool& worked)
             worked = true;
         }
 
-        //on remet le sommet dans le graphe intermÃ©diaire pour le prochain tour de boucle
+        //on remet le sommet dans le graphe intermediaire pour le prochain tour de boucle
         inter.add_vertex(curr_vertex, curr_id);
 
         for (auto& edgeElem : curr_vertex.m_in)

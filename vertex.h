@@ -31,6 +31,8 @@ const int default_y = 20;
 const int default_value = 0;
 const int default_r = 0.1;
 
+const double max_value = 200.0;
+
 
 /***************************************************
                     VERTEX
@@ -40,12 +42,23 @@ const int default_r = 0.1;
     \enum Vertex_type
     \brief enum des differents types de sommets
 */
-enum Vertex_type
+enum class Vertex_type
 {
-    Exp, //vertex non prédateur, ne consommant pas de ressource (herbe)
-    Logistic, //vertex predateur et predaté
-    Fossil
+    Exp,        //vertex non prédateur, ne consommant pas de ressource (herbe)
+    Logistic,   //vertex predateur et predaté
+    Fossil      //
 };
+
+/** \fn Vertex_type int_to_vertex(int what)
+    \brief renvoie un element de l'enum Vertex_Type associé à l'entier en entree
+*/
+Vertex_type int_to_vertex(int what);
+
+/** \fn int vertex_to_int(Vertex_type what)
+    \brief renvoie un entier associé à l'element de l'enum Vertex_Type en entree
+*/
+int vertex_to_int(Vertex_type what);
+
 
 /**
     \class VertexInterface
@@ -166,13 +179,13 @@ public:
 
     void post_update();
 
-    void turn(Graph& g);
     void turn2(Graph& g, double t = 1);
 
-    void turn_dif(Graph& g);
-    void turn_exp(Graph& g);
-    void turn_logistic(Graph& g);
-
+//    void turn(Graph& g);
+//
+//    void turn_dif(Graph& g);
+//    void turn_exp(Graph& g);
+//    void turn_logistic(Graph& g);
 };
 
 #endif
