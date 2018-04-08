@@ -37,6 +37,7 @@ Pour les conflits, et les merge de différentes "grosses" branches, je conseille
 |`git push origin [une branche]`|Envoie les changements d'une certaine branche à la repo distante|
 |`git push --all origin`|Envoie tous les changements à la repo distante|
 |`git push -u origin [une branche]`|Push en créant la branche origin/[une branche] si elle n'existe pas déjà|
+|`git reset --hard`|Met la branche courante au niveau de la branche distante (perd tous les changements locaux)|
 
 ## Dans le code:
 ### En général:
