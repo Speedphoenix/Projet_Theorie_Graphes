@@ -18,6 +18,7 @@ using namespace std;
 
 /// Ici le constructeur se contente de préparer un cadre d'accueil des
 /// éléments qui seront ensuite ajoutés lors de la mise ne place du Graphe
+/// Les paramètres en entrée ne servent à rien
 GraphInterface::GraphInterface(int x, int y, int w, int h)
 {
     m_top_box.set_dim(1000,740);
@@ -29,9 +30,18 @@ GraphInterface::GraphInterface(int x, int y, int w, int h)
     m_tool_box.set_bg_color(BLANCBLEU);
 
     m_top_box.add_child(m_main_box);
-    m_main_box.set_dim(w, h);
+    m_main_box.set_dim(908, 670);
     m_main_box.set_gravity_xy(grman::GravityX::Right, grman::GravityY::Up);
     m_main_box.set_bg_color(BLANCJAUNE);
+
+    m_top_box.add_child(m_console_box);
+    m_console_box.set_dim(908, 50);
+    m_console_box.set_gravity_xy(grman::GravityX::Right, grman::GravityY::Down);
+    m_console_box.set_bg_color(BLANCROSE);
+    m_console_box.add_child(m_console_text_l1);
+    m_console_text_l1.set_posy(15);
+    m_console_box.add_child(m_console_text_l2);
+    m_console_text_l2.set_posy(30);
 }
 
 
@@ -280,7 +290,7 @@ istream& operator>>(istream& myStream, Graph& what)
 
 void Graph::make_test1()
 {
-    m_interface = std::make_shared<GraphInterface>(50, 0, 908, 720);
+    m_interface = std::make_shared<GraphInterface>(50, 0, 908, 670);
 
     initialize_toolbox();
 
@@ -442,6 +452,8 @@ void Graph::remove_vertex(int id)
 //une fonction qui agit en fonction du choix de l'utilisateur dans la toolbox
 void Graph::processInput(UserAction what)
 {
+    GraphInterface& interface = *m_interface;
+
     //all these can't be declared inside the switch
     int k_value;
     bool worked;
@@ -452,7 +464,8 @@ void Graph::processInput(UserAction what)
     //vector<int> composante;   //pour kConnexe normal
     vector<vector<int>> composante_heavy; // pour kConnexe heavy
 
-    //these can't be declared inside the switch
+    stringstream message_to_show;
+
     int integer1, integer2;
 
     switch (what)
@@ -477,7 +490,8 @@ void Graph::processInput(UserAction what)
 
         if (!infile)
         {
-            cerr << "veuillez entrer un nom de fichier existant";
+            //cerr << "veuillez entrer un nom de fichier existant";
+            interface.m_console_text_l1.set_message("veuillez entrer un nom de fichier existant");
         }
         else
         {
@@ -495,7 +509,8 @@ void Graph::processInput(UserAction what)
 
         if (!outfile)
         {
-            cerr << "veuillez entrer un nom de fichier valable....";
+            //cerr << "veuillez entrer un nom de fichier valable....";
+            interface.m_console_text_l1.set_message("veuillez entrer un nom de fichier valable....");
         }
         else
         {
@@ -533,7 +548,9 @@ void Graph::processInput(UserAction what)
     break;
 
         case UserAction::HardConnex:
-        fortementConnexes();
+        integer1 = fortementConnexes();
+        interface.m_console_text_l1.set_message("Nombre de composantes fortement connexes:");
+        interface.m_console_text_l2.set_message(std::to_string(integer1));
     break;
 
         case UserAction::KConnex:
@@ -547,20 +564,38 @@ void Graph::processInput(UserAction what)
 
         if (worked)
         {
+            //laissé l'affichage console pour quand y'en a trop
             cout << endl << "le graphe a une k-connexité de " << k_value << endl;
+
+            message_to_show.str(""); //pour le vider
+            message_to_show << "le graphe a une k-connexite de ";
+            message_to_show << k_value;
+            message_to_show << ". Les combinaisons de sommets a enlever sont : ";
+
+            interface.m_console_text_l1.set_message(message_to_show.str());
+
+            message_to_show.str("");
             for (auto& elem_external : composante_heavy)
             {
                 cout << "une combinaison de sommets à enlever est : ";
                 for (auto& elem : elem_external) //composante)
+                {    message_to_show << elem << " ";
                     cout << elem << " ";
+                }
+                message_to_show << " ; ";
                 cout << endl;
             }
             cout << endl;
+            interface.m_console_text_l2.set_message(message_to_show.str());
         }
         else
         {
-            cout << endl << "le graphe est entièrement connexe ou a une k-connexité supèrieure à ";
-            cout << max_k_connexe << endl;
+            message_to_show.str("");
+            message_to_show << "Le graphe est entierement connexe ou a une k-connexite supèrieure a ";
+            message_to_show << max_k_connexe;
+            interface.m_console_text_l1.set_message(message_to_show.str());
+//            cout << endl << "Le graphe est entièrement connexe ou a une k-connexité supèrieure à ";
+//            cout << max_k_connexe << endl;
         }
 
     break;
@@ -842,7 +877,7 @@ int Graph::getNewCompNum()
 }
 
 
-void Graph::fortementConnexes()
+int Graph::fortementConnexes()
 {
     vector<vector<int>> found;
 
@@ -896,7 +931,16 @@ void Graph::fortementConnexes()
         }
     }
 
+    vector<int> used_comps;
+    for (auto & elem : m_vertices)
+    {
+        if (find(used_comps.begin(), used_comps.end(), elem.second.m_compNum)==used_comps.end())
+            used_comps.push_back(elem.second.m_compNum);
+    }
+
     reset_flags();
+
+    return used_comps.size();
 }
 
 

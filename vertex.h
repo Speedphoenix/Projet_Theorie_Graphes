@@ -9,6 +9,7 @@
 #include <string>
 #include <memory>
 #include <set>
+#include <sstream>
 
 #include "grman/grman.h"
 

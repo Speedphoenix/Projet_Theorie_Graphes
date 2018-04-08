@@ -115,6 +115,10 @@ private :
     /// Dans cette boite seront ajoutés des boutons de contrôle etc...
     grman::WidgetBox m_tool_box;
 
+    /// Dans cette boite seront affichés les resultats d'algos....
+    grman::WidgetBox m_console_box;
+    grman::WidgetText m_console_text_l1;
+    grman::WidgetText m_console_text_l2;
 
     // A compléter éventuellement par des widgets de décoration ou
     // d'édition (boutons ajouter/enlever ...)
@@ -273,8 +277,9 @@ public:
 
     /** \fn void fortementConnexes()
         \brief trouve les composantes fortement connexes (accessibles dans m_compNum de chaque sommet)
+        \return le nombre de composantes fortement connexes
     */
-    void fortementConnexes();
+    int fortementConnexes();
 
     /** \fn bool simplementConnexe()
         \return si le graphe est connexe (simplement) ou non
