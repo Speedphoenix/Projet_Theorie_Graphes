@@ -91,6 +91,11 @@
 
 const int max_k_connexe = 5;
 
+
+/**
+    \class GraphInterface
+    \brief classe contenant l'interface (les widgets) d'un graphe
+*/
 class GraphInterface
 {
     friend class Graph;
@@ -122,6 +127,11 @@ public :
 };
 
 
+/**
+    \class Graph
+    \brief Un graphe. contient toutes les aretes, tous les sommets, la toolbox
+            s'occupe de s'actualiser, contient toutes les methodes importantes
+*/
 class Graph
 {
 private :
@@ -146,27 +156,37 @@ private :
     ///les aretes selectionnées
     std::vector<int> m_selected_edges;
 
-    ///Regarde what et agit en conséquence
+    /// \fn void processInput(UserAction what)
+    /// \brief Regarde la demande de l'utilisateur et agit en conséquence
+    /// \param[in] what l'action à effectuer
     void processInput(UserAction what);
 
     /// 'colorie' (change nompNum) tous les sommets ayant comme numero de comp 'old' et leur donne 'new'
     void unicompAllVert(int ancien, int nouveau);
 
-    ///la fonction récursive appelée dans fortementConnexes()
-    ///permet de trouver les composantes connexes des sommets suivant 'where' de manière récursive
-    ///previously called sgadablouch
+    /// \fn void reconnexite(std::vector<int>& origin, int where, std::set<int>& passedBy)
+    /// \brief la fonction récursive appelée dans fortementConnexes()
+    ///     permet de trouver les composantes connexes des sommets suivant 'where' de manière récursive
+    ///     previously called sgadablouch
     void reconnexite(std::vector<int>& origin, int where, std::set<int>& passedBy);
 
-    ///renvoie un numero de composante pas encore utilisé
+    ///renvoie un numero de composante fortement connexe pas encore utilisé
     int getNewCompNum();
 
+    /// \fn int getUnusedVertexId()
+    /// \return un indice de sommet pas encore utilisé
     int getUnusedVertexId();
+
+    /// \fn int getUnusedEdgeId()
+    /// \return un indice d'arete pas encore utilisé
     int getUnusedEdgeId();
 
-    ///va flag les sommets de receivedComps et assigner une composante à ceux sans.
+    /// \fn void flagRemaining(std::set<int>& receivedComps)
+    /// \brief va flag les sommets de receivedComps et assigner une composante à ceux sans.
     void flagRemaining(std::set<int>& receivedComps);
 
-    ///fonction style dsf pour voir si le graphe est connexe (simplement)
+    /// \fn void dfs_recurs(int where, unsigned& flag_count)
+    /// \brief fonction style dsf pour voir si le graphe est connexe (simplement)
     void dfs_recurs(int where, unsigned& flag_count);
 
 public:
@@ -180,6 +200,10 @@ public:
     Graph (std::string filename);
     Graph (std::istream& file);
 
+    /**
+        \fn void initialize_toolbox()
+        \brief crée et initialise la toolbox...
+    */
     void initialize_toolbox();
 
 
@@ -198,45 +222,105 @@ public:
     void add_interfaced_edge(Edge& source, int id);
     void add_interfaced_edge(int idx, int id_vertFrom, int id_vertTo, double weight=0, Edge_type type=Edge_type::Trophic);
 
+    /** \fn void remove_vertex(int id)
+        \brief enleve le sommet n°id et toutes les aretes connectées
+    */
     void remove_vertex(int id);
+
+    /** \fn void remove_edge(int id)
+        \brief enleve l'arete n°id
+    */
     void remove_edge(int id);
 
     /// Méthode spéciale qui construit un graphe arbitraire (démo)
     void make_test1();
 
+    /** \fn void reset_flags()
+        \brief remet à zero tous les marquages des sommets
+    */
     void reset_flags();
     void reset_comps();
+
+    /** \fn void reset_graph();
+        \brief enlève tous les sommets e les aretes
+    */
     void reset_graph();
 
-    //copie un autre graph
+    /** \fn void operator=(Graph& source)
+        \brief copie le graphe source (l'interface aussi)
+    */
     void operator=(Graph& source);
 
-    //copie un autre graph sans l'interface
+    /** \fn void interfaceless(Graph& source)
+        \brief copie le graphe source (sans l'interface)
+    */
     void interfaceless(Graph& source);
 
+    /** \fn bool vertex_exists(int id)
+        \return si le sommet n°id existe ou non
+    */
     bool vertex_exists(int id) { return m_vertices.find(id)!=m_vertices.end(); }
+
+    /** \fn bool edge_exists(int id)
+        \return si l'arete n°id existe ou non
+    */
     bool edge_exists(int id) { return m_edges.find(id)!=m_edges.end(); }
 
 
-    /// La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
+    /// \fn void update()
+    /// \brief La méthode update à appeler dans la boucle de jeu pour les graphes avec interface
     void update();
 
+    /** \fn void fortementConnexes()
+        \brief trouve les composantes fortement connexes (accessibles dans m_compNum de chaque sommet)
+    */
     void fortementConnexes();
 
+    /** \fn bool simplementConnexe()
+        \return si le graphe est connexe (simplement) ou non
+    */
     bool simplementConnexe();
 
+    /** \fn int kConnexe(std::vector<int>& rep, int max_k, bool& worked)
+        \brief calcule k, le nombre minimum de sommets à enlever pour que le graphe ne soit plus (simplement)connexe
+                cette fonction utilise beaucoup de ressources
+
+        \param[out] rep le vecteur qui va contenir un des ensembles de k vecteurs à enlever
+        \param[in] max_k la limite de k_connexité qu'on veut (on ne veut pas surcharger)
+        \param[out] worked si la recherche de k-connexité a abouti ou non
+        \return k, le nombre de sommets minimum à enlever pour que le graphe de soit plus connexe
+    */
     //renvoie k, le nombre minimum de sommets à enlever pour que le graphe ne soit plus (simplement)connexe
     int kConnexe(std::vector<int>& rep, int max_k, bool& worked);
 
-    //renvoie k, le nombre minimum de sommets à enlever pour que le graphe ne soit plus (simplement)connexe
+    /** \fn int kConnexe_heavy(std::vector<std::vector<int>>& rep, int max_k, bool& worked)
+        \brief calcule k, le nombre minimum de sommets à enlever pour que le graphe ne soit plus (simplement)connexe
+                Difference: elle permet d'avoir toutes les possibilités de k au lieu de juste une
+                cette fonction utilise encore plus de ressources. Elle n'est pas très optimisée...
+
+
+        \param[out] rep le vecteur qui va contenir les ensembles de k vecteurs à enlever
+        \param[in] max_k la limite de k_connexité qu'on veut (on ne veut pas surcharger)
+        \param[out] worked si la recherche de k-connexité a abouti ou non
+        \return k, le nombre de sommets minimum à enlever pour que le graphe de soit plus connexe
+    */
     int kConnexe_heavy(std::vector<std::vector<int>>& rep, int max_k, bool& worked);
 
-
+    /** \fn void send_stream(std::ostream& myStream)
+        \brief Envoie toutes les données du graphe dans un Stream ou fichier
+    */
     void send_stream(std::ostream& myStream);
+
+    /** \fn void get_stream(std::istream& myStream)
+        \brief Recoit toutes les données du graphe depuis un Stream ou fichier
+    */
     void get_stream(std::istream& myStream);
 
     void turn();
 
+    /** \fn bool get_quit()
+        \return s'il faut fermer le programme ou non
+    */
     bool get_quit() { return m_want_to_quit; }
 };
 

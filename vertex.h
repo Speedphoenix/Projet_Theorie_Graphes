@@ -34,7 +34,10 @@ const int default_r = 0.1;
 /***************************************************
                     VERTEX
 ****************************************************/
-
+/**
+    \class VertexInterface
+    \brief classe contenant l'interface (les Widgets) d'un sommet
+*/
 class VertexInterface
 {
     // Les (methodes des) classes amies pourront accéder
@@ -89,7 +92,10 @@ public :
     VertexInterface(int idx, int x, int y, std::string name="", std::string pic_name="", int pic_idx=0);
 };
 
-
+/**
+    \class Vertex
+    \brief un sommet
+*/
 class Vertex
 {
     // Les (methodes des) classes amies pourront accéder

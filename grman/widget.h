@@ -207,7 +207,15 @@ class Widget
         virtual void interact_over() {} //si la souris est dessus (peu importe si clic)
         virtual void interact_focus() {} //si la souris est en train de cliquer dessus
         virtual void interact_leave() {} //si la souris relache le clic dessus
+
+        /** \fn virtual void interact_keybd()
+         * \brief appelée pour l'interraction par le clavier
+         */
         virtual void interact_keybd() {}
+
+        /** \fn virtual void interact_elsewhere()
+         * \brief appelée quand la souris clique autrepart que sur ce Widget
+         */
         virtual void interact_elsewhere() {} //si on clique quelquepart d'autre
 
 
@@ -265,7 +273,11 @@ class WidgetText : public Widget
         virtual void reframe_text_box();
 };
 
+/**
+    \class WidgetTextSaisie
+    \brief Comme widgetText mais permet à l'utilisateur d'entrer du texte
 
+*/
 //aurait été plus judicieux un stringbuf au lieu de string mais bon
 class WidgetTextSaisie : public WidgetText
 {
@@ -286,7 +298,10 @@ class WidgetTextSaisie : public WidgetText
         virtual void reframe_text_box();
 };
 
-
+/**
+    \class WidgetNumSaisie
+    \brief Comme widgetTextSaisie mais ne prend que des entiers
+*/
 class WidgetNumSaisie : public WidgetTextSaisie
 {
     protected:

@@ -24,6 +24,10 @@ enum class Edge_type
     Non_Trophic
 };
 
+/**
+    \class EdgeInterface
+    \brief Classe contenant l'interface (les widgets) d'une arete
+*/
 class EdgeInterface
 {
     // Les (methodes des) classes amies pourront accéder
@@ -60,6 +64,10 @@ public :
 };
 
 
+/**
+    \class Edge
+    \brief une arete
+*/
 class Edge
 {
     // Les (methodes des) classes amies pourront accéder
