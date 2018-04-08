@@ -100,7 +100,7 @@ void Edge::pre_update()
     m_interface->m_slider_weight.set_value(m_weight);
 
     /// Copier la valeur locale de la donnée m_weight vers le label sous le slider
-    m_interface->m_label_weight.set_message( std::to_string( m_weight ) );
+    m_interface->m_label_weight.set_message( grman::to_string_prec( m_weight ) );
 }
 
 /// Gestion du Edge après l'appel à l'interface

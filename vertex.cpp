@@ -14,6 +14,9 @@
     Merci de citer vos sources
 */
 
+
+
+
 /***************************************************
                     VERTEX
 ****************************************************/
@@ -81,8 +84,9 @@ VertexInterface::VertexInterface(int idx, int x, int y, std::string name, std::s
     // Le slider de réglage de valeur
     m_top_box.add_child( m_slider_value );
     m_slider_value.set_range(0.0, max_value);  // Valeurs arbitraires, à adapter...
-    m_slider_value.set_dim(20,80);
-    m_slider_value.set_gravity_xy(grman::GravityX::Left, grman::GravityY::Up);
+    m_slider_value.set_dim(20,71);
+    m_slider_value.set_gravity_x(grman::GravityX::Left);
+    m_slider_value.set_posy(9);
 
     // Label de visualisation de valeur
     m_top_box.add_child( m_label_value );
@@ -104,7 +108,7 @@ VertexInterface::VertexInterface(int idx, int x, int y, std::string name, std::s
     m_box_label_idx.set_bg_color(BLANC);
 
     m_box_label_idx.add_child( m_label_idx );
-    m_label_idx.set_message( std::to_string(idx) );
+    m_label_idx.set_message( grman::to_string_prec(idx) );
 
     //Le nom
     m_name.set_message( name );
@@ -125,7 +129,7 @@ VertexInterface::VertexInterface(int idx, int x, int y, std::string name, std::s
     m_box_label_comp.set_bg_color(BLANC);
 
     m_box_label_comp.add_child( m_label_comp);
-    m_label_comp.set_message( std::to_string(-1) );
+    m_label_comp.set_message( grman::to_string_prec(-1) );
 
 
     m_top_box.add_child( m_selection );
@@ -144,10 +148,10 @@ void Vertex::pre_update()
         m_interface->m_slider_value.set_value(m_value);
 
         /// Copier la valeur locale de la donnée m_value vers le label sous le slider
-        m_interface->m_label_value.set_message( std::to_string( (int)m_value) );
+        m_interface->m_label_value.set_message( grman::to_string_prec( (int)m_value) );
         m_interface->m_label_value.set_value( m_value );
 
-        m_interface->m_label_comp.set_message( std::to_string(m_compNum));
+        m_interface->m_label_comp.set_message( grman::to_string_prec(m_compNum));
 
         //m_interface->m_selection.set_value(m_selected);
     }

@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <sstream>
+#include <iomanip>
 
 #include <allegro.h>
 

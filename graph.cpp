@@ -194,7 +194,7 @@ void Graph::get_stream(istream& myStream)
 
     for (int i=0;i<container_size;i++)
     {
-        //les variables Ã  passer en param des func de crÃ©ation de vertex
+        //les variables à passer en param des func de crÃ©ation de vertex
         int idx;
         double value, r;
         string pic_name = "";
@@ -216,7 +216,7 @@ void Graph::get_stream(istream& myStream)
 
         if (val)
         {
-            //les coordonnÃ©es
+            //les coordonnees
             myStream >> someCoords >> val2;
             //val2 est ici un booleen de si il y a une image ou non
             getline(myStream, dump);
@@ -530,7 +530,7 @@ void Graph::processInput(UserAction what)
         case UserAction::HardConnex:
         integer1 = fortementConnexes();
         interface.m_console_text_l1.set_message("Nombre de composantes fortement connexes:");
-        interface.m_console_text_l2.set_message(std::to_string(integer1));
+        interface.m_console_text_l2.set_message(grman::to_string_prec(integer1));
     break;
 
         case UserAction::KConnex:

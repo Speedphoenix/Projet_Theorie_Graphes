@@ -22,6 +22,21 @@
 namespace grman
 {
 
+/*
+    fonction prise de la réponse de hmjd
+    https://stackoverflow.com/a/16606128/7207370
+*/
+//to_string mais avec max 2 chiffres après la virgule
+//std::string to_string_prec(const double a_value)
+//{
+//    std::ostringstream out;
+//    out << std::setprecision(2) << a_value;
+//    return out.str();
+//}
+
+
+
+
 void rect_around(BITMAP *bmp, int color, int thickness=1, int receding=0)
 {
     for (int i=0+receding; i<thickness+receding; ++i)
@@ -304,7 +319,7 @@ void WidgetNumSaisie::interact_keybd()
             if((m_exposant>= 0) && (m_exposant<= m_max_exposant))
                 m_exposant++;
         }
-        m_message = std::to_string(m_value);
+        m_message = to_string_prec(m_value);
     }
 //    else if(key_last == '.' || key_last == ',')
 //    {
@@ -341,7 +356,7 @@ void WidgetNumSaisie::interact_keybd()
             }
         }
 
-        m_message = std::to_string(m_value);
+        m_message = to_string_prec(m_value);
     }
     reframe_text_box();
 }

@@ -40,8 +40,26 @@
 */
 
 
+
 namespace grman
 {
+
+/*
+    fonction prise de la réponse de hmjd
+    https://stackoverflow.com/a/16606128/7207370
+*/
+/**
+    \fn std::string to_string_prec(const double a_value)
+    \brief to_string mais avec max 2 chiffres après la virgule
+*/
+//std::string to_string_prec(const double a_value);
+template <typename T>
+std::string to_string_prec(const T a_value, const int n = 2)
+{
+    std::ostringstream out;
+    out << std::setprecision(n) << a_value;
+    return out.str();
+}
 
 /***************************************************
             WIDGET CHILDREN POSITIONS
@@ -312,13 +330,13 @@ class WidgetNumSaisie : public WidgetTextSaisie
 
     public:
         WidgetNumSaisie()
-            { m_message=std::to_string(m_value); reframe_text_box(); }
+            { m_message=to_string_prec(m_value); reframe_text_box(); }
         virtual void interact_keybd();   //fonction qui prend la saisie par l'utilisateur
 
         virtual void interact_leave();
 
         int get_value() { return m_value; }
-        void set_value(int val) { m_value = val; m_message = std::to_string(val); reframe_text_box(); }
+        void set_value(int val) { m_value = val; m_message = to_string_prec(val); reframe_text_box(); }
 };
 
 
