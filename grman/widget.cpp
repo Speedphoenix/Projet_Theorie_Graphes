@@ -241,8 +241,16 @@ void WidgetTextSaisie::interact_keybd()
     if (!m_isTyping)
         return ;
 
-    //les caractères acceptés
-    if ((key_last>='a' && key_last<='z')    ||
+
+    if (key_press[KEY_0_PAD] || key_press[KEY_1_PAD] ||
+        key_press[KEY_2_PAD] || key_press[KEY_3_PAD] ||
+        key_press[KEY_4_PAD] || key_press[KEY_5_PAD] ||
+        key_press[KEY_6_PAD] || key_press[KEY_7_PAD] ||
+        key_press[KEY_8_PAD] || key_press[KEY_9_PAD] )
+    {
+        m_message += shrct[key_last - '0'];
+    }
+    else if ((key_last>='a' && key_last<='z') || //les caractères acceptés
         (key_last>='A' && key_last<='Z')    ||
         (key_last>='0' && key_last<='9')    ||
         key_last=='_' || key_last=='-'      ||

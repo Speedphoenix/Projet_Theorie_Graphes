@@ -56,7 +56,22 @@
 
 namespace grman
 {
+
 /// Constantes
+
+//des reacourcis pour l'entrée de texte
+const std::string shrct[10] = {
+    "graphe",
+    "graphe1.txt",
+    "graphe2.txt",
+    "graphe3.txt",
+    "graphe4.txt",
+    "",             ///à utiliser pour des noms d'image, etc
+    "",
+    "",
+    "",
+    ""
+    };
 
 /// Variables globales : visibles partout où grman.h est inclus
 
