@@ -16,6 +16,42 @@
     Merci de citer vos sources
 */
 
+Edge_type int_to_edge(int what)
+{
+    switch (what)
+    {
+        case 1:
+        return Edge_type::Trophic;
+    break;
+
+        case 2:
+        return Edge_type::Non_Trophic;
+    break;
+
+        case 0:
+        default:
+        throw "tried taking an edge of unknown type.";
+    break;
+    }
+}
+
+int edge_to_int(Edge_type what)
+{
+    switch (what)
+    {
+        case Edge_type::Trophic:
+        return 1;
+    break;
+
+        case Edge_type::Non_Trophic:
+        return 2;
+    break;
+
+        default:
+        return 0;
+    break;
+    }
+}
 
 /// Le constructeur met en place les éléments de l'interface
 EdgeInterface::EdgeInterface(Vertex& from, Vertex& to, Edge_type type)

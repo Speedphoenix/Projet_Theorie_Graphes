@@ -129,23 +129,7 @@ void Graph::send_stream(ostream& myStream)
         myStream << elem.second.m_from << " " << elem.second.m_to << " " << elem.second.m_weight << endl;
         myStream << (int) has_interface << " ;" << endl;
 
-        int edgeType = 0;
-        switch (elem.second.m_type) //enum Edge_type
-        {
-            case Edge_type::Trophic:
-            edgeType = 1;
-        break;
-
-            case Edge_type::Non_Trophic:
-            edgeType = 2;
-        break;
-
-            default:
-            edgeType = 0;
-        break;
-        }
-
-        myStream << edgeType << " ;" << endl;
+        myStream << edge_to_int(elem.second.m_type) << " ;" << endl;
     }
 }
 
@@ -244,22 +228,7 @@ void Graph::get_stream(istream& myStream)
 
         myStream >> val2;
 
-        Edge_type type;
-        switch (val2) //enum Edge_type
-        {
-            case 1:
-            type = Edge_type::Trophic;
-        break;
-
-            case 2:
-            type = Edge_type::Non_Trophic;
-        break;
-
-            case 0:
-            default:
-            throw "tried taking an edge of unknown type. (in Graph::get_stream() func)";
-        break;
-        }
+        Edge_type type = int_to_edge(val2);
 
         getline(myStream, dump);
 

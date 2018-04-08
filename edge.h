@@ -24,6 +24,11 @@ enum class Edge_type
     Non_Trophic
 };
 
+Edge_type int_to_edge(int what);
+
+int edge_to_int(Edge_type what);
+
+
 /**
     \class EdgeInterface
     \brief Classe contenant l'interface (les widgets) d'une arete
