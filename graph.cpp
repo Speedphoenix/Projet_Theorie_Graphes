@@ -61,7 +61,7 @@ Graph::Graph (std::istream& file)
 
 void Graph::initialize_toolbox()
 {
-    //si la toolbox n'est pas encore initialisÃ©e
+    //si la toolbox n'est pas encore initialisée
     if (!m_toolbox.m_interface)
     {
         m_toolbox.m_interface = make_shared<ToolboxInterface>(m_interface->m_tool_box.get_dimx()-2, m_interface->m_tool_box.get_dimy()-2);
@@ -174,9 +174,13 @@ void Graph::get_stream(istream& myStream)
     {
         myStream >> someCoords;
 
-        m_interface = make_shared<GraphInterface>(0, 0, someCoords.x, someCoords.y);
+        if (!m_interface)
+        {
+            m_interface = make_shared<GraphInterface>(0, 0, someCoords.x, someCoords.y);
+        }
 
         initialize_toolbox();
+
     }
     else
     {
@@ -512,7 +516,7 @@ void Graph::processInput(UserAction what)
         case UserAction::AddEdge:
         new_edge_tips(*this, integer1, integer2);
 
-        add_interfaced_edge(getUnusedEdgeId(), integer1, integer2);
+        add_interfaced_edge(getUnusedEdgeId(), integer1, integer2, default_weight);
 
     break;
 
