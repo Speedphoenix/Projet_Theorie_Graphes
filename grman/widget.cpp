@@ -273,7 +273,7 @@ void WidgetTextSaisie::interact_keybd()
     {
         m_message += key_last;
     }
-    else if (key_press[KEY_BACKSPACE])
+    else if (key_press[KEY_BACKSPACE] && m_message.length()>0)
     {
         m_message.pop_back();
     }

@@ -32,7 +32,7 @@ int main()
     /// Un exemple de graphe. pris depuis le fichier GRAPHEFILE1
 
     cout << endl << "Chargement d'un graphe vide. changer dans main.cpp ligne 35 pour avoir un graphe déjà fait" << endl;
-    Graph g(GRAPHFILE1); //mettre GRAPHFILE1   (EMPTYFILE); //
+    Graph g(EMPTYFILE); //mettre GRAPHFILE1 pour avoir des clowns
     //g.make_test1();
     //g.reset_graph();
 
