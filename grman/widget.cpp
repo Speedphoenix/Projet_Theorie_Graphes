@@ -405,7 +405,7 @@ void WidgetVSlider::draw()
     thick_line(m_view, m_view->w/2, hhandle,   m_view->w/2, m_view->h-hhandle-1, m_rail_ratio*m_view->w, m_rail_color );
 
     double range_pix = m_view->h - 2*hhandle + 1;
-    double propor = (get_value()-m_min)/(m_max-m_min);
+    double propor = (typed(m_value)-m_min)/(m_max-m_min); // pour supporter sur VSliderLog
     int ys = m_view->h - hhandle - propor*range_pix ;
 
 

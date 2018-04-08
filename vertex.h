@@ -63,7 +63,7 @@ private :
     grman::WidgetText m_box_name;
 
     // Un slider de visualisation/modification de la valeur du sommet
-    grman::WidgetVSlider m_slider_value;
+    grman::WidgetVSliderLog m_slider_value;
 
     // Un label de visualisation de la valeur du sommet
     grman::WidgetNumSaisie m_label_value;

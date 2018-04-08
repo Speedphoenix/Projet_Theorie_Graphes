@@ -18,14 +18,24 @@
                     EDGE
 ****************************************************/
 
+/**
+    \enum Edge_type
+    \brief le type d'arete
+*/
 enum class Edge_type
 {
     Trophic,
     Non_Trophic
 };
 
+/** \fn Edge_type int_to_edge(int what)
+    \brief renvoie un element de l'enum Edge_Type associé à l'entier en entree
+*/
 Edge_type int_to_edge(int what);
 
+/** \fn int edge_to_int(Edge_type what)
+    \brief renvoie un entier associé à l'element de l'enum Edge_Type en entree
+*/
 int edge_to_int(Edge_type what);
 
 
