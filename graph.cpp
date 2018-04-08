@@ -16,8 +16,8 @@ using namespace std;
     Merci de citer vos sources
 */
 
-/// Ici le constructeur se contente de prÃ©parer un cadre d'accueil des
-/// Ã©lÃ©ments qui seront ensuite ajoutÃ©s lors de la mise ne place du Graphe
+/// Ici le constructeur se contente de préparer un cadre d'accueil des
+/// éléments qui seront ensuite ajoutés lors de la mise ne place du Graphe
 /// Les paramÃ¨tres en entrÃ©e ne servent Ã  rien
 GraphInterface::GraphInterface(int x, int y, int w, int h)
 {
