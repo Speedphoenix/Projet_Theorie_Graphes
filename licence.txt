@@ -6,3 +6,7 @@ L'image de souris utilisée appartient à Artemii Lazovskii
 Une fonction a été copiée de la réponse de hmjd:
     https://stackoverflow.com/a/16606128/7207370
 
+
+Les images du graphe botw.txt appartiennent à Nintento, dans le jeu The Legend of Zelda: Breth Of The Wild,  et ont été prises depuis https://zelda.gamepedia.com/Hyrule_Compendium
+ces images ont été modifiées pour avoir la bonne taille (100*100px)
+

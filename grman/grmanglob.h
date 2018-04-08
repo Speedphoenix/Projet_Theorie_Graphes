@@ -71,7 +71,7 @@ const std::string shrct[10] = {
     "graphe1.txt",
     "graphe2.txt",
     "botw",
-    "",
+    "arctique",
     "",             ///à utiliser pour des noms d'image, de grahes etc
     "",
     ".bmp",

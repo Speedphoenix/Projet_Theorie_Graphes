@@ -1,0 +1,4 @@
+Source: 
+https://zelda.gamepedia.com/Hyrule_Compendium
+les images ont été modifiées pour avoir la bonne taille (100*100px)
+

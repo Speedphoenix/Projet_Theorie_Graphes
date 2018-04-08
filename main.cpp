@@ -32,7 +32,7 @@ int main()
     /// Un exemple de graphe. pris depuis le fichier GRAPHEFILE1
 
     cout << endl << "Chargement d'un graphe vide. changer dans main.cpp ligne 35 pour avoir un graphe déjà fait" << endl;
-    Graph g(EMPTYFILE); //mettre GRAPHFILE1 pour avoir des clowns
+    Graph g(GRAPHFOLDER EMPTYFILE); //mettre GRAPHFILE1 pour avoir des clowns
     //g.make_test1();
     //g.reset_graph();
 
@@ -62,7 +62,7 @@ int main()
 
     ///NE PAS ÉCRIRE DANS LE GRAPHEFILE1!! (on veut garder une instance de ce fichier propre)
     //sauvegarde dans le nouveau fichier
-    ofstream myFile2(GRAPHFILE2, ios::out | ios::trunc);
+    ofstream myFile2(GRAPHFOLDER GRAPHFILE2, ios::out | ios::trunc);
 
     myFile2 << g;
     myFile2.close();

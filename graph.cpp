@@ -49,9 +49,25 @@ Graph::Graph (std::string filename)
 {
     ifstream myFile(filename, ios::in);
 
-    get_stream(myFile);
+    if (myFile)
+    {
+        get_stream(myFile);
+        myFile.close();
+    }
+    else
+    {
+        myFile.open(GRAPHFOLDER + filename, ios::in);
 
-    myFile.close();
+        if (myFile)
+        {
+            get_stream(myFile);
+            myFile.close();
+        }
+        else
+            cerr << endl << "couldn't find file" << endl;
+    }
+
+
 }
 
 Graph::Graph (std::istream& file)
@@ -96,6 +112,9 @@ void Graph::make_test1()
 void Graph::send_stream(ostream& myStream)
 {
     Coords someCoords;
+
+    if (!myStream)
+        throw "File couldn't open properly (send_stream())";
 
     if (m_interface==nullptr)
         myStream << 0 << " ";
@@ -165,6 +184,8 @@ void Graph::get_stream(istream& myStream)
     string dump;
     Coords someCoords;
 
+    if (!myStream)
+        throw "File couldn't open properly (get_stream())";
 
     reset_graph();
 
@@ -476,12 +497,24 @@ void Graph::processInput(UserAction what)
         case UserAction::LoadGraph:
         text_input(filename, "entrez le nom du fichier");
 
-        infile.open(filename, ios::in);
+        infile.open(GRAPHFOLDER + filename, ios::in);
 
         if (!infile)
         {
-            //cerr << "veuillez entrer un nom de fichier existant";
-            interface.m_console_text_l1.set_message("veuillez entrer un nom de fichier existant");
+            //ptet' que le fichier est à la racine au lieu de GRAPHFOLDER
+            infile.open(filename, ios::in);
+
+            if (!infile)
+            {
+                //cerr << "veuillez entrer un nom de fichier existant";
+                interface.m_console_text_l1.set_message("veuillez entrer un nom de fichier existant");
+            }
+            else
+            {
+                get_stream(infile);
+
+                infile.close();
+            }
         }
         else
         {
@@ -495,7 +528,7 @@ void Graph::processInput(UserAction what)
 
         text_input(filename, "entrez le nom du fichier");
 
-        outfile.open(filename, ios::out | ios::trunc);
+        outfile.open(GRAPHFOLDER + filename, ios::out | ios::trunc);
 
         if (!outfile)
         {

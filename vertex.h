@@ -24,6 +24,7 @@
 
 class Graph;
 
+#define GRAPHFOLDER "graphs/"
 
 const int default_x = 20;
 const int default_y = 20;
