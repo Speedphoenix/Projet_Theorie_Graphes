@@ -1,0 +1,4 @@
+graph.cpp dans processInput, if (what!=UserAction::Nothing)
+reset les consoles
+
+

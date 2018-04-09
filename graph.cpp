@@ -475,9 +475,11 @@ void Graph::processInput(UserAction what)
 
     int integer1, integer2;
 
-    interface.m_console_text_l1.set_message("");
-    interface.m_console_text_l2.set_message("");
-
+    if (what!=UserAction::Nothing)
+    {
+        interface.m_console_text_l1.set_message("");
+        interface.m_console_text_l2.set_message("");
+    }
 
     switch (what)
     {
