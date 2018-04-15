@@ -66,8 +66,6 @@ Graph::Graph (std::string filename)
         else
             cerr << endl << "couldn't find file" << endl;
     }
-
-
 }
 
 Graph::Graph (std::istream& file)
@@ -151,12 +149,17 @@ void Graph::send_stream(ostream& myStream)
             {
                 myStream << 1 << " " << interface.m_img.get_pic_idx() << " ;" << endl;
                 myStream << interface.m_img.get_pic_name() << endl; // faire un getline pour le prendre aprÃ¨s
-                myStream << interface.m_img.get_pic_idx() << " ;" << endl;
+                myStream << interface.m_img.get_pic_idx() << " ;";
             }
             else
             {
-                myStream << 0 << " ;" << endl;
+                myStream << 0 << " ;";
             }
+
+            //pour délimiter les sommets. sera ignorée par le getline
+            myStream << "-------------------------";
+
+            myStream << endl;
         }
     }
 

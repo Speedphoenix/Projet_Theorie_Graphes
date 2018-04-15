@@ -23,6 +23,7 @@ const int BUTTONHEIGHT = 35;
 const int BUTTONMARGIN = 4;
 const int BUTTONSPACE = BUTTONHEIGHT + 2*BUTTONMARGIN; //l'espace total utilisé par un bouton
 const int BUTTONPART = 20;
+
 /**
     \enum UserAction
     \brief enum des differentes actions prises par l'utilisateur
