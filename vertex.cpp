@@ -236,7 +236,7 @@ void Vertex::turn2(Graph& g, double t)
                     k += coef_proie * n_proie;
                 }
                 else
-                    throw "gros probleme dans Vertex::turn2() ligne 184. i = " + i;
+                    ;//throw "gros probleme dans Vertex::turn2() ligne 184. i = " + i;
             }
         }
 

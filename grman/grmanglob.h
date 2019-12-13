@@ -41,7 +41,7 @@
 ///pour eviter les problèmes de souris (en vain)
 #ifndef _WINDOWS
 
-    #include <xalleg.h>
+    //#include <xalleg.h>
 
     #ifdef None
         #undef None
